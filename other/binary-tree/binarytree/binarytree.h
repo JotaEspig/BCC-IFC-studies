@@ -29,6 +29,13 @@ bt_node_t *bt_new_node(int data);
  */
 bt_node_t *bt_insert(bt_node_t *root, int data);
 
+/**
+ * @brief Search for a node using binary search algorithm
+ * 
+ * @param root pointer to the root of the binary tree
+ * @param data data contained inside the node you want to get
+ * @return node
+ */
 bt_node_t *bt_search(bt_node_t *root, int data);
 
 void bt_print(bt_node_t *node);
