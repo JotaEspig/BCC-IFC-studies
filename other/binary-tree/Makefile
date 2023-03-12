@@ -1,7 +1,7 @@
 CC=gcc
 CC_FLAGS=
 
-SRC=$(wildcard ./btree/*.c)
+SRC=$(wildcard ./*/*.c)
 TARGET_NAME=binary-tree
 TARGET_FOLDER=./bin/
 
