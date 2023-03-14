@@ -1,0 +1,40 @@
+@strtmindmap
+
+caption João Vitor Espig - BCC
+
+skin rose
+
+* 4 tipos de\nconhecimentos
+
+left side
+**[#lightgreen] Empírico
+***[#lightblue] Valorativo
+***[#lightblue] Reflexivo
+***[#lightblue] Assistemático
+***[#lightblue] Verificável
+***[#lightblue] Falível e Inexato
+
+**[#lightgreen] Científico
+***[#lightblue] Factual (Real)
+***[#lightblue] Contingente
+***[#lightblue] Sistemático
+***[#lightblue] Verificável
+***[#lightblue] Falível e aproximadamente exato
+
+right side
+
+**[#lightgreen] Filosófico
+***[#lightblue] Valorativo
+***[#lightblue] Racional
+***[#lightblue] Sistemático
+***[#lightblue] Não verificável
+***[#lightblue] Infalível e Exato
+
+**[#lightgreen] Religioso
+***[#lightblue] Valorativo
+***[#lightblue] Inspiracional
+***[#lightblue] Sistemático
+***[#lightblue] Não verificável
+***[#lightblue] Infalível e Exato
+
+@endmindmap
