@@ -1,10 +1,26 @@
-@strtmindmap
+@startmindmap
 
 caption João Vitor Espig - BCC
 
 skin rose
+skinparam NodeFontSize 13
 
-* 4 tipos de\nconhecimentos
+<style>
+node {
+  FontSize 15
+}
+
+rootNode {
+  FontSize 20
+}
+
+leafNode {
+  FontSize 10
+}
+
+</style>
+
+* 4 Tipos de\nConhecimentos
 
 left side
 **[#lightgreen] Empírico
