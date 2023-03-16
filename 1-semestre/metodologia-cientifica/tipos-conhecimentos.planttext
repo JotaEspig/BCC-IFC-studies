@@ -7,14 +7,19 @@ skinparam NodeFontSize 13
 
 <style>
 node {
-  FontSize 15
+  FontSize 18
 }
 
 rootNode {
-  FontSize 20
+  FontSize 25
+  HorizontalAlignment center
 }
 
-leafNode {
+:depth(2) {
+  FontSize 12
+}
+
+:depth(3) {
   FontSize 10
 }
 
@@ -27,6 +32,7 @@ left side
 ***[#lightblue] Valorativo
 ***[#lightblue] Reflexivo
 ***[#lightblue] Assistemático
+****_ <b>Um exemplo:</b> \nUm agricultor que sabe \nquando colher e plantar certo \nvegetal
 ***[#lightblue] Verificável
 ***[#lightblue] Falível e Inexato
 
@@ -34,6 +40,7 @@ left side
 ***[#lightblue] Factual (Real)
 ***[#lightblue] Contingente
 ***[#lightblue] Sistemático
+****_ <b>Um exemplo:</b> \nDescoberta da existência \nde buracos negros através \nda observação e teorização
 ***[#lightblue] Verificável
 ***[#lightblue] Falível e aproximadamente exato
 
@@ -43,6 +50,7 @@ right side
 ***[#lightblue] Valorativo
 ***[#lightblue] Racional
 ***[#lightblue] Sistemático
+****_ <b>Um exemplo:</b> \nPensamento da existência de \nplanetas (Antes que se pudesse \ncomprovar com equipamentos)
 ***[#lightblue] Não verificável
 ***[#lightblue] Infalível e Exato
 
@@ -50,6 +58,7 @@ right side
 ***[#lightblue] Valorativo
 ***[#lightblue] Inspiracional
 ***[#lightblue] Sistemático
+****_ <b>Um exemplo:</b> \nO Mundo e os humanos \nforam criados por Deus
 ***[#lightblue] Não verificável
 ***[#lightblue] Infalível e Exato
 
