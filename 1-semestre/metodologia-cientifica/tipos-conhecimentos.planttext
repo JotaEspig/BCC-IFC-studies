@@ -1,0 +1,65 @@
+@startmindmap
+
+caption João Vitor Espig - BCC
+
+skin rose
+skinparam NodeFontSize 13
+
+<style>
+node {
+  FontSize 18
+}
+
+rootNode {
+  FontSize 25
+  HorizontalAlignment center
+}
+
+:depth(2) {
+  FontSize 12
+}
+
+:depth(3) {
+  FontSize 10
+}
+
+</style>
+
+* 4 Tipos de\nConhecimentos
+
+left side
+**[#lightgreen] Empírico
+***[#lightblue] Valorativo
+***[#lightblue] Reflexivo
+***[#lightblue] Assistemático
+****_ <b>Um exemplo:</b> \nUm agricultor que sabe \nquando colher e plantar certo \nvegetal
+***[#lightblue] Verificável
+***[#lightblue] Falível e Inexato
+
+**[#lightgreen] Científico
+***[#lightblue] Factual (Real)
+***[#lightblue] Contingente
+***[#lightblue] Sistemático
+****_ <b>Um exemplo:</b> \nDescoberta da existência \nde buracos negros através \nda observação e teorização
+***[#lightblue] Verificável
+***[#lightblue] Falível e aproximadamente exato
+
+right side
+
+**[#lightgreen] Filosófico
+***[#lightblue] Valorativo
+***[#lightblue] Racional
+***[#lightblue] Sistemático
+****_ <b>Um exemplo:</b> \nPensamento da existência de \nplanetas (Antes que se pudesse \ncomprovar com equipamentos)
+***[#lightblue] Não verificável
+***[#lightblue] Infalível e Exato
+
+**[#lightgreen] Religioso
+***[#lightblue] Valorativo
+***[#lightblue] Inspiracional
+***[#lightblue] Sistemático
+****_ <b>Um exemplo:</b> \nO Mundo e os humanos \nforam criados por Deus
+***[#lightblue] Não verificável
+***[#lightblue] Infalível e Exato
+
+@endmindmap

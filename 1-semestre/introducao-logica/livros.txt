@@ -1,0 +1,5 @@
+- SOUZA, João Nunes de. Lógica para ciência da computação: fundamentos de linguagem,
+semântica e sistemas de dedução. Rio de Janeiro: Campus, 2002. 308 p. ISBN 8535210938
+
+- TELLER, Paul. A Modern Formal Logic Primer. Prentice Hall. 1989.
+Disponível online em: https://tellerprimer.ucdavis.edu/
