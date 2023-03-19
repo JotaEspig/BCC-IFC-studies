@@ -14,21 +14,17 @@ char *read_input(int strlength) {
 }
 
 int main() {
-    printf("Quanto custou o prato principal?\n");
-    char *str_main_price = read_input(10);
-    printf("Quanto custou o suco?\n");
-    char *str_juice_price = read_input(10);
-    printf("Quanto custou a sobremesa?\n");
-    char *str_dessert_price = read_input(10);
-
+    printf("Quantos vasilhames de 1 litro ou menos?\n");
+    // le = less than , gt = greater than
+    char *str_vasilhame_le1 = read_input(10);
+    int vasilhame_le1 = atoi(str_vasilhame_le1);
+    printf("Quantos vasilhames de mais de 1 litro?\n");
+    char *str_vasilhame_gt1 = read_input(10);
+    int vasilhame_gt1 = atoi(str_vasilhame_gt1);
+    
     // It calculates in cents to avoid precision errors
     // when doing math with floats
-    int main_price_cents    = (int) (atof(str_main_price) * 100);
-    int juice_price_cents   = (int) (atof(str_juice_price) * 100);
-    int dessert_price_cents = (int) (atof(str_dessert_price) * 100);
-    float result_cents = (float) (main_price_cents  +
-                                  juice_price_cents +
-                                  dessert_price_cents) * 1.1;
-    float result_reais = result_cents / 100;
-    printf("O preço total foi: %.2f\n", result_reais);
+    int result_in_cents = vasilhame_le1 * 10 + vasilhame_gt1 * 25;
+    float result_in_reais = (float) result_in_cents / 100;
+    printf("Valor total: R$%.2f\n", result_in_reais);
 }
