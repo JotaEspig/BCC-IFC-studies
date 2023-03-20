@@ -18,6 +18,10 @@ mkdir $dir
 
 for i in $(seq 1 $exercises_amount)
 do
-    filename="$dir/$dir-Ex-$i$extension"
+    if [ ${#i} -eq 1 ]; then
+	filename="$dir/$dir-Ex-0$i$extension"
+    else
+        filename="$dir/$dir-Ex-$i$extension"
+    fi
     touch $filename
 done
