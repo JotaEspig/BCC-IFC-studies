@@ -1,0 +1,3 @@
+- TANENBAUM, Andrew S. Organização estruturada de computadores. 5. ed.
+São Paulo: Pearson Prentice Hall, 2007. xii, 449 p. ISBN 9788576050674.
+Disponível online em: https://github.com/free-educa/books/blob/main/books/Organiza%C3%A7%C3%A3o%20estruturada%20de%20computadores%20-%20Tanenbaum.pdf
