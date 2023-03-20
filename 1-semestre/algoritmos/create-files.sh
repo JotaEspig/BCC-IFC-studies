@@ -12,7 +12,11 @@ if [ ! -z $3 ]; then
     extension=$3
 fi
 
-dir="$initials-$subject-$list_number"
+if [ ${#list_number} -eq 1 ]; then
+    dir="$initials-$subject-0$list_number"
+else
+    dir="$initials-$subject-$list_number"
+fi
 
 mkdir $dir
 
