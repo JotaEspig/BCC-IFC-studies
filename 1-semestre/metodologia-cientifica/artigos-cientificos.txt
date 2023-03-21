@@ -3,3 +3,6 @@ Livro disponível em: https://cloudflare-ipfs.com/ipfs/bafykbzaced5zrf5ha3ww4hbf
 
 - Analysis and Programming of Kernel for Embedded Systems
 Disponível em: https://www.scirp.org/pdf/JSEA_2014010611270592.pdf
+
+- Design of Embedded OS Micro-Kernel Experiment Series on ARM
+Disponível em: https://sci-hub.ru/10.1109/CSSS.2012.525
