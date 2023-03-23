@@ -1,0 +1,8 @@
+-  Chapter 14 - Running Without an Operating System
+Livro disponível em: https://cloudflare-ipfs.com/ipfs/bafykbzaced5zrf5ha3ww4hbfbsqd5y5egyhydyrewmlhsbsuuyukww376oq5q?filename=Larry%20D.%20Pyeatt%20-%20Modern%20Assembly%20Language%20Programming%20with%20the%20ARM%20Processor-Newnes%20%282016%29.pdf
+
+- Analysis and Programming of Kernel for Embedded Systems
+Disponível em: https://www.scirp.org/pdf/JSEA_2014010611270592.pdf
+
+- Design of Embedded OS Micro-Kernel Experiment Series on ARM
+Disponível em: https://sci-hub.ru/10.1109/CSSS.2012.525
