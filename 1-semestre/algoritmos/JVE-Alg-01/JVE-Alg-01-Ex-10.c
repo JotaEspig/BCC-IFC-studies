@@ -10,11 +10,11 @@ programa deve computar e exibir o seguinte:
 • O resultado de a^b
 */
 
+// Compile with: gcc JVE-Alg-1-Ex-10.c -o main -lm
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-
-// Compile with: gcc JVE-Alg-1-Ex-10.c -o main -lm
 
 int main(int argc, char *argv[]) {
     if (argc != 3) {
