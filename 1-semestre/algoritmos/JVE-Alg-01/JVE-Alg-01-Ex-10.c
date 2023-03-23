@@ -33,4 +33,5 @@ int main(int argc, char *argv[]) {
     printf("a %% b = %ld\n", a % b);
     printf("log10a = %.2f\n", log10((double) a));
     printf("a^b = %.2lf\n", pow((double) a, (double) b));
+    return 0;
 }

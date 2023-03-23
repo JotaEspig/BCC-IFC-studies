@@ -33,4 +33,5 @@ int main() {
            "Primeiro ano: %.2lf\n"
            "Segundo ano: %.2lf\n"
            "Terceiro ano: %.2lf\n", initial, first, second, third);
+    return 0;
 }

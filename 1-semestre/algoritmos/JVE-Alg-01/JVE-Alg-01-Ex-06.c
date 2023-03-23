@@ -40,4 +40,5 @@ int main() {
                                   dessert_price_cents) * 1.1;
     float result_reais = result_cents / 100;
     printf("O preço total foi: %.2f\n", result_reais);
+    return 0;
 }

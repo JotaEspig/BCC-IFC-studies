@@ -19,4 +19,5 @@ int main(int argc, char *argv[]) {
     int n = atoi(argv[1]);
     long unsigned int total = (n * (n + 1)) / 2;
     printf("%d -> %lu\n", n, total);
+    return 0;
 }

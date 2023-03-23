@@ -37,4 +37,5 @@ int main() {
     int result_in_cents = vasilhame_le1 * 10 + vasilhame_gt1 * 25;
     float result_in_reais = (float) result_in_cents / 100;
     printf("Valor total: R$%.2f\n", result_in_reais);
+    return 0;
 }

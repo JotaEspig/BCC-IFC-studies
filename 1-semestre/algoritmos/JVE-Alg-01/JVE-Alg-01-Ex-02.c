@@ -25,4 +25,5 @@ int main() {
         exit(1);
     
     printf("Ola, %s\n", str);
+    return 0;
 }

@@ -28,4 +28,5 @@ int main() {
     float area_meters = width * length;
     float area_hectares = area_meters / 10000;
     printf("O terreno tem: %.2f hectares\n", area_hectares);
+    return 0;
 }

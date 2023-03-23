@@ -33,4 +33,5 @@ int main() {
     float total_kg = (float) total_grams / 1000;
 
     printf("Total grams: %d\nTotal kg: %.3f\n", total_grams, total_kg);
+    return 0;
 }

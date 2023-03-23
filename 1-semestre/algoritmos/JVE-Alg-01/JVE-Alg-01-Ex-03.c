@@ -29,4 +29,5 @@ int main() {
     float length = atof(str_length);
     float area = width * length;
     printf("A sala tem: %.2f metros quadrados\n", area);
+    return 0;
 }
