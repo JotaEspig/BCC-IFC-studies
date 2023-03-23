@@ -1,4 +1,4 @@
-if [ ! $# -eq 2 ]; then
+if [ ! $# -eq 2 ] && [ ! $# -eq 3 ]; then
     echo "invalid amount of arguments"
     exit
 fi
