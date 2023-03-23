@@ -35,13 +35,13 @@ char *read_input(int strlength) {
 
 int main() {
     printf("Latitude ponto 1: ");
-    double latitude_point1  = atof(read_input(20)) * (PI / 180);
+    double latitude_point1  = atof(read_input(40)) * (PI / 180);
     printf("Longitude ponto 1: ");
-    double longitude_point1 = atof(read_input(20)) * (PI / 180);
+    double longitude_point1 = atof(read_input(40)) * (PI / 180);
     printf("Latitude ponto 2: ");
-    double latitude_point2  = atof(read_input(20)) * (PI / 180);
+    double latitude_point2  = atof(read_input(40)) * (PI / 180);
     printf("Longitude ponto 2: ");
-    double longitude_point2 = atof(read_input(20)) * (PI / 180);
+    double longitude_point2 = atof(read_input(40)) * (PI / 180);
 
     double distancia =
         EARTH_RADIUS * acos(sin(latitude_point1) * sin(latitude_point2) +
