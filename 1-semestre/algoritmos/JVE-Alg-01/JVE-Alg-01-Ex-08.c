@@ -1,3 +1,11 @@
+/*
+Bugigangas e quinquilharias. Uma loja online oferece aos seus clientes dois tipos de
+produto: bugigangas e quinquilharias. Cada bugiganga pesa 75 gramas e cada quinquilharia
+pesa 112 gramas. Faça um programa Python que leia a quantidade de bugigangas e a
+quantidade de quinquilharias de um pedido do usuário. A seguir, seu programa deve calcular e
+exibir o peso total do pedido.
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

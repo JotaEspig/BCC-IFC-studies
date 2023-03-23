@@ -1,3 +1,8 @@
+/*
+Área de um terreno. Crie um programa Python que leia as dimensões de um terreno em
+metros (largura e profundidade), e exiba o resultado em hectares.
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
