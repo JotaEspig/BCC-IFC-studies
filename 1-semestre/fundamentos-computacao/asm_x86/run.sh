@@ -1,5 +1,5 @@
 if [ ! $# -eq 1 ]; then
-    echo "Invalid amount of arguments\nUse: ./run.sh <filename>"
+    echo -e "Invalid amount of arguments\nUse: ./run.sh <filename>"
     exit
 fi
 
