@@ -1,14 +1,17 @@
 CC = g++
-CC_FLAGS = 
-SRC = $(find ./src -name "*.cpp")
+CC_FLAGS = -Wall
+SRC := $(shell find ./src -name "*.cpp")
 TARGET = chess
 
 build: dir
-	$(CC) $(CC_FLAGS) $(SRC) -o $(TARGET)
+	$(CC) $(CC_FLAGS) $(SRC) -o ./bin/$(TARGET)
 
 run: build
 	./bin/$(TARGET)
 	$(MAKE) clean
+
+debug: dir
+	$(CC) $(CC_FLAGS) -g $(SRC) -o ./bin/$(TARGET)
 
 .PHONY: dir
 dir:
