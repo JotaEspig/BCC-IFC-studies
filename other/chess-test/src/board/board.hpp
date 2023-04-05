@@ -10,7 +10,7 @@ namespace chess
         Position pos;
 
     public:
-        Board(/* args */);
+        Board();
         ~Board();
     };
 } // namespace chess
