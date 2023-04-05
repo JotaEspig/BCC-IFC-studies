@@ -17,7 +17,6 @@ namespace chess
         WhiteBishop,
         WhiteKnight,
         WhitePawn
-
     };
     typedef enum Pieces Position[8][8];
 } // namespace chess
