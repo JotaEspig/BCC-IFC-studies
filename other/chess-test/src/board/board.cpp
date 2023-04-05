@@ -1,16 +1,11 @@
-#include "board.hpp"
 #include <algorithm>
+
+#include "board.hpp"
+#include "../pieces/pieces.hpp"
 
 using namespace chess;
 
-Board::Board(){
-    copy(pos, initialPosition)}
-
-Board::~Board()
-{
-}
-
-Positions initialPosition = {
+Position initialPosition = {
     // 8 rank
     {Pieces::BlackRook, Pieces::BlackKnight, Pieces::BlackBishop, Pieces::BlackQueen,
      Pieces::BlackKing, Pieces::BlackBishop, Pieces::BlackKnight, Pieces::BlackRook},
@@ -35,3 +30,12 @@ Positions initialPosition = {
     // 1 rank
     {Pieces::WhiteRook, Pieces::WhiteKnight, Pieces::WhiteBishop, Pieces::WhiteQueen,
      Pieces::WhiteKing, Pieces::WhiteBishop, Pieces::WhiteKnight, Pieces::WhiteRook}};
+
+Board::Board()
+{
+    std::copy(&initialPosition[0][0], &initialPosition[0][0] + 8 * 8, &pos[0][0]);
+}
+
+Board::~Board()
+{
+}
