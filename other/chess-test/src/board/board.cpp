@@ -34,8 +34,19 @@ Position initialPosition = {
 Board::Board()
 {
     std::copy(&initialPosition[0][0], &initialPosition[0][0] + 8 * 8, &pos[0][0]);
+    moves = new std::vector<Move>();
 }
 
 Board::~Board()
 {
+    moves->clear();
+    delete moves;
+}
+
+bool Board::doMove(Move move)
+{
+    moves->push_back(move);
+    std::swap(pos[move.rank][move.file],
+              pos[move.rankTarget][move.fileTarget]);
+    return true;
 }

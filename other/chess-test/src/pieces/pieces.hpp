@@ -1,8 +1,10 @@
 #pragma once
 
+#include <cstdint>
+
 namespace chess
 {
-    enum class Pieces : u_int8_t
+    enum class Pieces : uint8_t
     {
         Blank,
         BlackKing,
