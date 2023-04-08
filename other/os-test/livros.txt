@@ -1,0 +1,3 @@
+ - TANENBAUM, Andrew S. Sistemas operacionais modernos. 3.
+ed. São Paulo: Pearson Prentice Hall, 2010. xvi, 653 p. ISBN.
+9788576052371.
