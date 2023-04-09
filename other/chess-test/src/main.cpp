@@ -7,7 +7,7 @@
 int main()
 {
     auto b = new chess::Board();
-    auto move = chess::Move(chess::Pieces::WhitePawn, 1, 4, 4, 4);
+    auto move = chess::Move(chess::Pieces::WhitePawn, 2, 4, 4, 4);
     b->doMove(move);
     std::cout << b << "\n";
 

@@ -1,35 +1,37 @@
+#include "board.hpp"
+
 #include <algorithm>
 
-#include "board.hpp"
 #include "../pieces/pieces.hpp"
+#include "../pieces/pawn/pawn.hpp"
 
 using namespace chess;
 
 Position initialPosition = {
-    // 8 rank
-    {Pieces::BlackRook, Pieces::BlackKnight, Pieces::BlackBishop, Pieces::BlackQueen,
-     Pieces::BlackKing, Pieces::BlackBishop, Pieces::BlackKnight, Pieces::BlackRook},
-    // 7 rank
-    {Pieces::BlackPawn, Pieces::BlackPawn, Pieces::BlackPawn, Pieces::BlackPawn,
-     Pieces::BlackPawn, Pieces::BlackPawn, Pieces::BlackPawn, Pieces::BlackPawn},
-    // 6 rank
-    {Pieces::Blank, Pieces::Blank, Pieces::Blank, Pieces::Blank, Pieces::Blank,
-     Pieces::Blank, Pieces::Blank, Pieces::Blank},
-    // 5 rank
-    {Pieces::Blank, Pieces::Blank, Pieces::Blank, Pieces::Blank, Pieces::Blank,
-     Pieces::Blank, Pieces::Blank, Pieces::Blank},
-    // 4 rank
-    {Pieces::Blank, Pieces::Blank, Pieces::Blank, Pieces::Blank, Pieces::Blank,
-     Pieces::Blank, Pieces::Blank, Pieces::Blank},
-    // 3 rank
-    {Pieces::Blank, Pieces::Blank, Pieces::Blank, Pieces::Blank, Pieces::Blank,
-     Pieces::Blank, Pieces::Blank, Pieces::Blank},
-    // 2 rank
+    // 1st rank
+    {Pieces::WhiteRook, Pieces::WhiteKnight, Pieces::WhiteBishop, Pieces::WhiteQueen,
+     Pieces::WhiteKing, Pieces::WhiteBishop, Pieces::WhiteKnight, Pieces::WhiteRook},
+    // 2nd rank
     {Pieces::WhitePawn, Pieces::WhitePawn, Pieces::WhitePawn, Pieces::WhitePawn,
      Pieces::WhitePawn, Pieces::WhitePawn, Pieces::WhitePawn, Pieces::WhitePawn},
-    // 1 rank
-    {Pieces::WhiteRook, Pieces::WhiteKnight, Pieces::WhiteBishop, Pieces::WhiteQueen,
-     Pieces::WhiteKing, Pieces::WhiteBishop, Pieces::WhiteKnight, Pieces::WhiteRook}};
+    // 3th rank
+    {Pieces::Blank, Pieces::Blank, Pieces::Blank, Pieces::Blank, Pieces::Blank,
+     Pieces::Blank, Pieces::Blank, Pieces::Blank},
+    // 4th rank
+    {Pieces::Blank, Pieces::Blank, Pieces::Blank, Pieces::Blank, Pieces::Blank,
+     Pieces::Blank, Pieces::Blank, Pieces::Blank},
+    // 5th rank
+    {Pieces::Blank, Pieces::Blank, Pieces::Blank, Pieces::Blank, Pieces::Blank,
+     Pieces::Blank, Pieces::Blank, Pieces::Blank},
+    // 6th rank
+    {Pieces::Blank, Pieces::Blank, Pieces::Blank, Pieces::Blank, Pieces::Blank,
+     Pieces::Blank, Pieces::Blank, Pieces::Blank},
+    // 7th rank
+    {Pieces::BlackPawn, Pieces::BlackPawn, Pieces::BlackPawn, Pieces::BlackPawn,
+     Pieces::BlackPawn, Pieces::BlackPawn, Pieces::BlackPawn, Pieces::BlackPawn},
+    // 8th rank
+    {Pieces::BlackRook, Pieces::BlackKnight, Pieces::BlackBishop, Pieces::BlackQueen,
+     Pieces::BlackKing, Pieces::BlackBishop, Pieces::BlackKnight, Pieces::BlackRook}};
 
 Board::Board()
 {
@@ -45,8 +47,26 @@ Board::~Board()
 
 bool Board::doMove(Move move)
 {
+    uint8_t rank = move.rank;
+    uint8_t file = move.file;
+    uint8_t rankT = move.rankTarget;
+    uint8_t fileT = move.fileTarget;
+
+    // TODO make a hashmap that maps the enum Pieces to some kind of piece class
+    auto piece = Pawn(true);
+    if (!piece.isMovePossible(rank, file, rankT, fileT))
+        return false;
+
+    // It must decrement to be compatible with the array.
+    // since the array go from 0 to 7 and a real board
+    // go from 1 to 8 in both rank and file (rows and columns at array [r][c])
+    rank--;
+    file--;
+    rankT--;
+    fileT--;
+    std::swap(pos[rank][file],
+              pos[rankT][fileT]);
     moves->push_back(move);
-    std::swap(pos[move.rank][move.file],
-              pos[move.rankTarget][move.fileTarget]);
+
     return true;
 }
