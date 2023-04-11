@@ -3,40 +3,39 @@ Turma: BCC 1ª fase
 
 Título: Como a ética deve ser
 
-	O Mito da Caverna de Platão[1] apresenta a ideia de que prisioneiros veem imagens projetadas
-na parede, onde eles acreditam que sejam a verdade. Porém, essas imagens projetadas na caverna
-são apenas sombras de "algo muito maior". Levando isso para o mundo real, podemos interpretar
-que o que vemos no mundo real não se passa de uma "distorção da verdade", uma simples representação
-de algo do mundo das ideias. Essa representação está no mundo dos sentidos, que é o mesmo local
-onde vivemos. E de acordo com Platão, o mundo das ideias contêm as verdades do mundo, que só são
-apresentadas como distorções em nossa visão. Assim chegamos ao aspecto principal de debate:
-"O que é a verdade?"
-	Sabendo da nossa incapacidade humana de conhecer a verdade absoluta (mundo das ideias), a
+	O Mito da Caverna de Platão[1] apresenta a ideia de que prisioneiros veem imagens projetadas na
+parede, onde eles acreditam que sejam a verdade. Porém, essas imagens projetadas na caverna são
+apenas sombras de "algo muito maior". Levando isso para o mundo real, podemos interpretar que o que
+vemos no mundo real não se passa de uma "distorção da verdade", uma simples representação de algo
+do mundo das ideias. Essa representação está no mundo dos sentidos, que é o mesmo local onde vivemos.
+E de acordo com Platão, o mundo das ideias contêm as verdades do mundo, que só são apresentadas como
+distorções em nossa visão. Assim chegamos ao aspecto principal de debate: "O que é a verdade?"
+    Sabendo da nossa incapacidade humana de conhecer a verdade absoluta (mundo das ideias), a
 humanidade é obrigada a se contentar com simples interpretações das mesmas (mundo dos sentidos).
-Partindo disso, podemos também nos perguntar: "O que fazemos é o certo?", assim questionamos a
-nossa própria moral. Trazendo essa indagação a um mundo mais palpável: "A maconha deveria ser
-legalizada?", "A homossexualidade deveria ser crime?"[2], etc. Como podemos ter certeza a validade
-das leis que fazemos?
-	Com isso, apresentasse uma metaética (aquilo que se refere a ética em si) como forma de
+Partindo disso, podemos também nos perguntar: "O que fazemos é o certo?", assim questionamos a nossa
+própria moral. Trazendo essa indagação a um mundo mais palpável: "A maconha deveria ser legalizada?",
+"A homossexualidade deveria ser crime?"[2], etc. Como podemos ter certeza da validade das leis que
+fazemos?
+    Com isso, apresentasse uma metaética (aquilo que se refere a ética em si) como forma de
 universalização das leis e da ética. A Ética Argumentativa Hoppeana[3], também chamada de Ética
 Discursiva Hoppeana, é uma metaética criada por Hans-Hermann Hoppe que tem como "objetivo" a não
-possibilidade de sua refutação sem que se caia em uma contradição performativa[4]. Em sua tese,
-Hoppe aborda que a origem dos conflitos entre pessoas se deve a escassez de meios, i.e. escassez
-de recursos (e.g. 2 pessoas querendo utilizar do mesmo objeto (meio) para dois fins diferentes).
-Sabendo desse problema intríseco a humanidade, pode se deduzir a necessidade de uma norma (lei)
-para resolver esse conflito, sendo essa norma capaz de determinar quem tem o direito de controle
-e posse de cada meio, sendo esse direito chamado de direito de propriedade.
-	Vale se ressaltar que para que uma norma seja valida, ela precisa ser justificada envolvendo
-mais de uma entidade (argumentações) e não apenas uma entidade (monológica), isso se deve por
-causa da contradição performativa (resolver um conflito, algo interpessoal, usando justificativas
-monológicas). Nessas argumentações existem 2 pressuposições: "todo sujeito capaz de falar e agir
-pode participar a argumentação" e "ninguém pode impedir alguém de participar por meio da coerção".
-Além disso, em uma argumentação sobre normas, ao se fazer as duas pressuposições, também pressupõe
-que todas as normas devem ser universais a todos os sujeitos que são capazes de agir e falar.
-	Com isso chegamos na ética em si e seus 2 conceitos: a autopropriedade (para participar de uma
-argumentação é necessário controle exclusivo do próprio corpo) e o homesteading[5] (pessoas não
-podem ser proibidas do uso de meios, pois isso violaria o direito da autopropriedade).
-	Portanto, qualquer norma que negue aos indivíduos o direito de controle e uso exclusivo dos
+possibilidade de sua refutação sem que se caia em uma contradição performativa[4]. Em sua tese, Hoppe
+aborda que a origem dos conflitos entre pessoas se deve a escassez de meios, i.e. escassez de recursos
+(e.g. 2 pessoas querendo utilizar do mesmo objeto (meio) para dois fins diferentes). Sabendo desse
+problema intrínseco a humanidade, pode se deduzir a necessidade de uma norma (lei) para resolver esse
+conflito, sendo essa norma capaz de determinar quem tem o direito de controle e posse de cada meio,
+sendo esse direito chamado de direito de propriedade.
+    Vale se ressaltar que para que uma norma seja valida, ela precisa ser justificada envolvendo mais
+de uma entidade (argumentações) e não apenas uma entidade (monológica), isso se deve por causa da
+contradição performativa (resolver um conflito, algo interpessoal, usando justificativas monológicas).
+Nessas argumentações existem 2 pressuposições: "todo sujeito capaz de falar e agir pode participar da
+argumentação" e "ninguém pode impedir alguém de participar por meio da coerção". Além disso, em uma
+argumentação sobre normas, ao se fazer as duas pressuposições, também pressupõe que todas as normas
+devem ser universais a todos os sujeitos que são capazes de agir e falar.
+    Com isso chegamos na ética em si e seus 2 conceitos: a autopropriedade (para participar de uma
+argumentação é necessário controle exclusivo do próprio corpo) e o homesteading[5] (pessoas não podem
+ser proibidas do uso de meios, pois isso violaria o direito da autopropriedade).
+    Portanto, qualquer norma que negue aos indivíduos o direito de controle e uso exclusivo dos
 próprios corpos, assim como o direito da apropriação de outros meios, será logicamente indefensável,
 pois qualquer um que defenda entrará em uma contradição performativa. Desta forma é possível
 universalizar as leis e normas.
