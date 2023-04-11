@@ -6,7 +6,7 @@ Título: Como a ética deve ser
 	O Mito da Caverna de Platão[1] apresenta a ideia de que prisioneiros veem imagens projetadas
 na parede, onde eles acreditam que sejam a verdade. Porém, essas imagens projetadas na caverna
 são apenas sombras de "algo muito maior". Levando isso para o mundo real, podemos interpretar
-que o que vemos no mundo real não se passa de uma distorção da verdade, uma simples representação
+que o que vemos no mundo real não se passa de uma "distorção da verdade", uma simples representação
 de algo do mundo das ideias. Essa representação está no mundo dos sentidos, que é o mesmo local
 onde vivemos. E de acordo com Platão, o mundo das ideias contêm as verdades do mundo, que só são
 apresentadas como distorções em nossa visão. Assim chegamos ao aspecto principal de debate:
@@ -22,7 +22,7 @@ universalização das leis e da ética. A Ética Argumentativa Hoppeana[3], tamb
 Discursiva Hoppeana, é uma metaética criada por Hans-Hermann Hoppe que tem como "objetivo" a não
 possibilidade de sua refutação sem que se caia em uma contradição performativa[4]. Em sua tese,
 Hoppe aborda que a origem dos conflitos entre pessoas se deve a escassez de meios, i.e. escassez
-da matéria (e.g. 2 pessoas querendo utilizar do mesmo objeto (meio) para dois fins diferentes).
+de recursos (e.g. 2 pessoas querendo utilizar do mesmo objeto (meio) para dois fins diferentes).
 Sabendo desse problema intríseco a humanidade, pode se deduzir a necessidade de uma norma (lei)
 para resolver esse conflito, sendo essa norma capaz de determinar quem tem o direito de controle
 e posse de cada meio, sendo esse direito chamado de direito de propriedade.
