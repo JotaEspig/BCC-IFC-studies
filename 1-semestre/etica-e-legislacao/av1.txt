@@ -1,9 +1,9 @@
 Alunos: João Vitor Espig e Mickael Reichert
 Turma: BCC 1ª fase
 
-Título: 
+Título: Como a ética deve ser
 
-	O Mito da Caverna de Platão(1) apresenta a ideia de que prisioneiros veêm imagens projetadas
+	O Mito da Caverna de Platão[1] apresenta a ideia de que prisioneiros veêm imagens projetadas
 na parede, onde eles acreditam que sejam a verdade. Porém essas imagens projetadas na caverna
 são apenas sombras de "algo muito maior". Levando isso para o mundo real, podemos interpretar
 que o que vemos no mundo real não se passa de uma distorção da verdade, uma simples representação
@@ -15,10 +15,31 @@ apresentadas como distorções em nossa visão. Assim chegamos ao aspecto princi
 humanidade é obrigada a se contentar com simples interpretações das mesmas (mundo dos sentidos).
 Partindo disso, podemos também nos perguntar: "O que fazemos é o certo?", assim questionamos a
 nossa própria moral. Trazendo essa indagação a um mundo mais palpável: "A maconha deveria ser
-legalizada?", "A homossexualidade deveria ser crime?"(2), etc. Como podemos ter certeza a validade
+legalizada?", "A homossexualidade deveria ser crime?"[2], etc. Como podemos ter certeza a validade
 das leis que fazemos?
-	Com isso, apresentasse uma metaética (aquilo que se refere a ética em si), como forma de
-universialização das leis e da ética..... CONTINUAR
+	Com isso, apresentasse uma metaética (aquilo que se refere a ética em si) como forma de
+universialização das leis e da ética. A Ética Argumentativa Hoppeana[3], também chamada de Ética
+Discursiva Hoppeana, é uma metaética criada por Hans-Hermann Hoppe que tem como "objetivo" a não
+possibilidade de sua refutação sem que se caia em uma contradição performativa[4]. Em sua tese,
+Hoppe aborda que a origem dos conflitos entre pessoas se deve a escassez de meios, i.e. escassez
+da matéria (e.g. 2 pessoas querendo utilizar do mesmo objeto (meio) para dois fins diferentes).
+Sabendo desse problema intrísico a humanidade, pode se deduzir a necessidade de uma norma (lei)
+para resolver esse conflito, sendo essa norma capaz de determinar quem tem o direito de controle
+e posse de cada meio, sendo esse direito chamado de direito de propriedade.
+	Vale se ressaltar que para que uma norma seja valida, ela precisa ser justificada envolvendo
+mais de uma entidade (argumentações) e não apenas uma entidade (monológica), isso se deve por
+causa da contradição performativa (resolver um conflito, algo interpessoal, usando justificativas
+monológicas). Nessas argumentações existem 2 pressuposições: "todo sujeito capaz de falar e agir
+pode participar a argumentação" e "ninguém pode impedir alguém de participar por meio da coerção".
+Além disso, em uma argumentação sobre normas, ao se fazer as duas pressuposições, também pressupõe
+que todas as normas devem ser universais a todos os sujeitos que são capazes de agir e falar.
+	Com isso chegamos ná ética em si e seus 2 conceitos: a autopropriedade (para participar de uma
+argumentação é necessário controle exclusivo do próprio corpo) e o homesteading[5] (pessoas não
+podem ser proibidas do uso de meios, pois isso violaria o o direito da autopropriedade).
+	Portanto, qualquer norma que negue aos indivíduos o direito de controle e uso exclusivo dos
+próprios corpos, assim como o direito da apropriação de outros meios será logicamente indefensável,
+pois qualquer um que defenda entrará em uma contradição performativa. Desta forma é possível
+universializar as leis e normas.
 
 
 
@@ -30,3 +51,8 @@ IDEIA CENTRAL:
 REFERÊNCIAS:
 	(1) - PLATÃO, A República
 	(2) - https://www.cnnbrasil.com.br/internacional/parlamento-da-uganda-aprova-projeto-de-lei-que-criminaliza-a-identificacao-como-lgbtq/
+	(3) - https://universidadelibertaria.com.br/etica-argumentativa-hoppeana/
+	(4) - "Uma contradição performativa ocorre quando o ato de se fazer um enunciado torna o próprio
+	enunciado falso. Por exemplo: "Eu não estou dizendo nada agora". Tal tipo de contradição também
+	pode ocorrer em casos de enunciados normativos"
+	(5) - https://pt.wikipedia.org/wiki/Apropria%C3%A7%C3%A3o_original
