@@ -26,7 +26,20 @@
 ;		- Accessed  = 0
 ;	- Other flags = 1100
 
-GDT_Start:
+
+CODE_SEG equ code_descriptor - GDT_Start ; offset to code seg
+DATA_SEG equ data_descriptor - GDT_Start ; offset to data seg
+
+cli
+lgdt [GDT_Descriptor]
+mov eax, cr0
+or eax, 1
+mov cr0, eax ; enters 32 bit mode
+jmp CODE_SEG:start_protected_mode
+
+jmp $
+
+GDT_Start: ; must be at the end of Real mode (16 bits)
 	null_descriptor:
 		dd 0
 		dd 0
@@ -48,17 +61,7 @@ GDT_End:
 
 GDT_Descriptor:
 	dw GDT_End - GDT_Start - 1 ; size
-	dw GDT_Start			   ; start
-
-CODE_SEG equ code_descriptor - GDT_Start ; offset to code seg
-DATA_SEG equ data_descriptor - GDT_Start ; offset to data seg
-
-cli
-lgdt [GDT_Descriptor]
-mov eax, cr0
-or eax, 1
-mov cr0, eax ; enters 32 bit mode
-jmp CODE_SEG:start_protected_mode
+	dd GDT_Start			   ; start
 
 [bits 32]
 start_protected_mode:
