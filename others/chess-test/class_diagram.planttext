@@ -1,0 +1,34 @@
+@startuml
+
+skin rose
+
+title Chess - Class Diagram
+
+class Board {
+  +Position pos;
+  +std::vector<Move> *moves;
+  +bool doMove(Move move)
+}
+
+class Move {
+  +Pieces Piece
+  +uint8_t rank
+  +uint8_t file
+  +uint8_t rankTarget
+  +uint8_t fileTarget
+}
+
+class Piece {
+  +bool isWhite
+  +bool isMovePossible(uint8_t rank, uint8_t file,
+                       uint8_t rankTarget, uint8_t fileTarget)
+}
+
+class Pawn {
+}
+
+Board o-- Move
+Move *-- Piece
+Piece <|-- Pawn
+
+@enduml
