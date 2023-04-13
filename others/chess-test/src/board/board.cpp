@@ -52,9 +52,27 @@ bool Board::doMove(Move move)
     uint8_t rankT = move.rankTarget;
     uint8_t fileT = move.fileTarget;
 
-    // TODO make a hashmap that maps the enum Pieces to some kind of piece class
-    auto piece = Pawn(true);
-    if (!piece.isMovePossible(rank, file, rankT, fileT))
+    Piece *piece;
+    // TODO Resolve bug where switch case calls destructor of pawn
+    switch (move.piece)
+    {
+    case Pieces::BlackPawn:
+    {
+        auto pawn = Pawn(false);
+        piece = &pawn;
+        break;
+    }
+    case Pieces::WhitePawn:
+    {
+        auto pawn = Pawn(true);
+        piece = &pawn;
+        break;
+    }
+    default:
+        break;
+    }
+
+    if (!piece->isMovePossible(rank, file, rankT, fileT))
         return false;
 
     // It must decrement to be compatible with the array.

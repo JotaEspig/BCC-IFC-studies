@@ -12,7 +12,7 @@ namespace chess
     public:
         Pawn(bool isWhite);
         ~Pawn();
-        bool isMovePossible(uint8_t rank, uint8_t file,
+        uint8_t isMovePossible(uint8_t rank, uint8_t file,
                             uint8_t rankTarget, uint8_t fileTarget);
     };
 } // namespace chess
