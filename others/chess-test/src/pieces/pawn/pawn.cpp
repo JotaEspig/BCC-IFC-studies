@@ -14,8 +14,8 @@ Pawn::~Pawn()
 {
 }
 
-uint8_t Pawn::isMovePossible(uint8_t rank, uint8_t file,
-                          uint8_t rankTarget, uint8_t fileTarget)
+uint8_t Pawn::isMovePossible(uint8_t file, uint8_t rank,
+                             uint8_t fileTarget, uint8_t rankTarget)
 {
     if (!Piece::isMovePossible(rank, file, rankTarget, fileTarget))
         return false;
