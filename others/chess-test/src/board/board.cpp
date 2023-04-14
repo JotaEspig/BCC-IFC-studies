@@ -53,19 +53,18 @@ bool Board::doMove(Move move)
     uint8_t rankT = move.rankTarget;
 
     Piece *piece;
-    // TODO Resolve bug where switch case calls destructor of pawn
     switch (move.piece)
     {
     case Pieces::BlackPawn:
     {
-        auto pawn = Pawn(false);
-        piece = &pawn;
+        auto pawn = new Pawn(false);
+        piece = pawn;
         break;
     }
     case Pieces::WhitePawn:
     {
-        auto pawn = Pawn(true);
-        piece = &pawn;
+        auto pawn = new Pawn(true);
+        piece = pawn;
         break;
     }
     default:
@@ -85,6 +84,7 @@ bool Board::doMove(Move move)
     std::swap(pos[rank][file],
               pos[rankT][fileT]);
     moves->push_back(move);
+    delete piece;
 
     return true;
 }
