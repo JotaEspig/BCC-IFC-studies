@@ -47,10 +47,10 @@ Board::~Board()
 
 bool Board::doMove(Move move)
 {
-    uint8_t rank = move.rank;
     uint8_t file = move.file;
-    uint8_t rankT = move.rankTarget;
+    uint8_t rank = move.rank;
     uint8_t fileT = move.fileTarget;
+    uint8_t rankT = move.rankTarget;
 
     Piece *piece;
     // TODO Resolve bug where switch case calls destructor of pawn
@@ -78,10 +78,10 @@ bool Board::doMove(Move move)
     // It must decrement to be compatible with the array.
     // since the array go from 0 to 7 and a real board
     // go from 1 to 8 in both rank and file (rows and columns at array [r][c])
-    rank--;
     file--;
-    rankT--;
+    rank--;
     fileT--;
+    rankT--;
     std::swap(pos[rank][file],
               pos[rankT][fileT]);
     moves->push_back(move);
