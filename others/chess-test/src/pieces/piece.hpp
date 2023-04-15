@@ -15,7 +15,8 @@ namespace chess
         virtual ~Piece();
         /**
          * @brief
-            Checks if move is possible, but doesn't take the other pieces into consideration.
+            Checks if move is possible, but doesn't take the other pieces into
+            consideration.
             e.g. it does not check if capture is really possible
          *
          * @param rank
