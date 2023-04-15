@@ -1,0 +1,14 @@
+5.1
+Conditional Elimination
+Natural Deduction
+X -> Y
+X
+--
+Y
+A:= (X->Y)&(X)
+B:= Y
+
+Considerating for every I[A->B]=T, A belongs to {F,T}.
+if I[A]=F, then I[A->B]=T.
+if I[A]=T, then I[(X->Y)]=T and I[X]=T, so I[Y]=T.
+And if I[Y]=T, then I[B]=T. Proving the argument.
