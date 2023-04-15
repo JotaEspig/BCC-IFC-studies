@@ -2,6 +2,7 @@
 
 #include <algorithm>
 
+#include "../pieces/piece.hpp"
 #include "../pieces/pieces.hpp"
 #include "../pieces/pawn/pawn.hpp"
 
@@ -52,26 +53,12 @@ bool Board::doMove(Move move)
     uint8_t fileT = move.fileTarget;
     uint8_t rankT = move.rankTarget;
 
-    Piece *piece;
-    switch (move.piece)
-    {
-    case Pieces::BlackPawn:
-    {
-        auto pawn = new Pawn(false);
-        piece = pawn;
-        break;
-    }
-    case Pieces::WhitePawn:
-    {
-        auto pawn = new Pawn(true);
-        piece = pawn;
-        break;
-    }
-    default:
-        break;
-    }
+    Piece *piece = getPieceByEnum(move.piece);
+    if (piece == nullptr)
+        return false;
 
-    if (!piece->isMovePossible(rank, file, rankT, fileT))
+    ResultCode resultCode = piece->isMovePossible(file, rank, fileT, rankT);
+    if (resultCode == ResultCode::Invalid)
         return false;
 
     // It must decrement to be compatible with the array.
@@ -84,7 +71,20 @@ bool Board::doMove(Move move)
     std::swap(pos[rank][file],
               pos[rankT][fileT]);
     moves->push_back(move);
-    delete piece;
 
+    delete piece;
     return true;
+}
+
+Piece *Board::getPieceByEnum(Pieces pieceEnum)
+{
+    switch (pieceEnum)
+    {
+    case Pieces::BlackPawn:
+        return new Pawn(false);
+    case Pieces::WhitePawn:
+        return new Pawn(true);
+    }
+
+    return nullptr;
 }
