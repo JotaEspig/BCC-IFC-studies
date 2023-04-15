@@ -60,6 +60,11 @@ bool Board::doMove(Move move)
     ResultCode resultCode = piece->isMovePossible(file, rank, fileT, rankT);
     if (resultCode == ResultCode::Invalid)
         return false;
+    if (resultCode == ResultCode::PawnCapture)
+    {
+        if (pos[rankT - 1][fileT - 1] == Pieces::Blank)
+            return false;
+    }
 
     // It must decrement to be compatible with the array.
     // since the array go from 0 to 7 and a real board

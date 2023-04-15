@@ -42,7 +42,7 @@ ResultCode Pawn::isMovePossible(uint8_t file, uint8_t rank,
         return ResultCode::Invalid;
 
     if (fileDiff == 1)
-        return ResultCode::Capture;
+        return ResultCode::PawnCapture;
 
     return ResultCode::Normal;
 }

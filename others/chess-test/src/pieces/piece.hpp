@@ -8,7 +8,7 @@ namespace chess
     {
         Invalid,
         Normal,
-        Capture,
+        PawnCapture,
         SpecialMove
     };
 
