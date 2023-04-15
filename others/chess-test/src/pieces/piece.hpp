@@ -30,7 +30,7 @@ namespace chess
          * @param file
          * @param rankTarget
          * @param fileTarget
-         * @return uint8_t 1: (normal move) 2 (capture) 3 (especial move)
+         * @return ResultCode
          */
         virtual ResultCode isMovePossible(uint8_t file, uint8_t rank,
                                           uint8_t fileTarget, uint8_t rankTarget);
