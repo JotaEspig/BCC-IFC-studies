@@ -4,6 +4,14 @@
 
 namespace chess
 {
+    enum class ResultCode : uint8_t
+    {
+        Invalid,
+        Normal,
+        Capture,
+        SpecialMove
+    };
+
     class Piece
     {
     protected:
@@ -26,13 +34,5 @@ namespace chess
          */
         virtual ResultCode isMovePossible(uint8_t file, uint8_t rank,
                                           uint8_t fileTarget, uint8_t rankTarget);
-    };
-
-    enum class ResultCode : uint8_t
-    {
-        Invalid,
-        Normal,
-        Capture,
-        SpecialMove
     };
 } // namespace chess
