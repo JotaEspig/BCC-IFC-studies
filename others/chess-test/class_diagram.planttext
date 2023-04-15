@@ -3,6 +3,8 @@
 skin rose
 
 title Chess - Class Diagram
+hide enum methods
+
 
 class Board {
   +Position pos;
@@ -10,25 +12,52 @@ class Board {
   +bool doMove(Move move)
 }
 
-class Move {
+stereotype Position {
+  Pieces[8][8]
+}
+hide Position methods
+
+struct Move {
   +Pieces Piece
   +uint8_t rank
   +uint8_t file
   +uint8_t rankTarget
   +uint8_t fileTarget
 }
+hide Move methods
+
+enum Pieces {
+  Blank
+  BlackKing
+  BlackQueen
+  BlackRook
+  BlackBishop
+  BlackKnight
+  BlackPawn
+  WhiteKing
+  WhiteQueen
+  WhiteRook
+  WhiteBishop
+  WhiteKight
+  WhitePawn
+}
 
 class Piece {
   +bool isWhite
-  +bool isMovePossible(uint8_t rank, uint8_t file,
-                       uint8_t rankTarget, uint8_t fileTarget)
+  {abstract}+uint8_t isMovePossible(uint8_t file, uint8_t rank,
+    uint8_t fileTarget, uint8_t rankTarget)
 }
 
 class Pawn {
+  +uint8_t isMovePossible(uint8_t file, uint8_t rank,
+      uint8_t fileTarget, uint8_t rankTarget)
 }
+hide Pawn fields
 
 Board o-- Move
-Move *-- Piece
+Board *-l- Position
+Pieces <-- Position
+Move *-- Pieces
 Piece <|-- Pawn
 
 @enduml
