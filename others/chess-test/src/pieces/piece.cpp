@@ -2,10 +2,6 @@
 
 using namespace chess;
 
-Piece::Piece()
-{
-}
-
 Piece::Piece(bool isWhite)
 {
     this->isWhite = isWhite;

@@ -10,7 +10,6 @@ namespace chess
         bool isWhite;
 
     public:
-        Piece();
         Piece(bool isWhite);
         virtual ~Piece();
         /**
