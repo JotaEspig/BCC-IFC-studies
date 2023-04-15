@@ -7,9 +7,10 @@ hide enum methods
 
 
 class Board {
-  +Position pos;
-  +std::vector<Move> *moves;
+  +Position pos
+  +std::vector<Move> *moves
   +bool doMove(Move move)
+  -Piece *getPieceByEnum(Pieces pieceEnum)
 }
 
 stereotype Position {
