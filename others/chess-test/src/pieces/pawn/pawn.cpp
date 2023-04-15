@@ -15,11 +15,13 @@ Pawn::~Pawn()
 {
 }
 
-uint8_t Pawn::isMovePossible(uint8_t file, uint8_t rank,
-                             uint8_t fileTarget, uint8_t rankTarget)
+ResultCode Pawn::isMovePossible(uint8_t file, uint8_t rank,
+                                uint8_t fileTarget, uint8_t rankTarget)
 {
-    if (!Piece::isMovePossible(file, rank, fileTarget, rankTarget))
-        return 0;
+    ResultCode resultCode =
+        Piece::isMovePossible(file, rank, fileTarget, rankTarget);
+    if (resultCode == ResultCode::Invalid)
+        return resultCode;
 
     uint8_t fileDiff = abs(fileTarget - file);
     uint8_t rankDiff = abs(rankTarget - rank);
@@ -29,16 +31,18 @@ uint8_t Pawn::isMovePossible(uint8_t file, uint8_t rank,
     // if calculation is < 0, something is off
     int8_t decider = isWhite ? 1 : -1;
     if ((rankTarget - rank) * decider < 0)
-        return 0;
+        return ResultCode::Invalid;
 
     if (rankDiff == 2)
-        return (rank == 2 || rank == 7) && fileDiff == 0;
+        return (rank == 2 || rank == 7) && fileDiff == 0
+                   ? ResultCode::Normal
+                   : ResultCode::Invalid;
 
     if (rankDiff != 1)
-        return 0;
+        return ResultCode::Invalid;
 
     if (fileDiff == 1)
-        return 2;
+        return ResultCode::Capture;
 
-    return 1;
+    return ResultCode::Normal;
 }

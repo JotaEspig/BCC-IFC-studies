@@ -24,7 +24,15 @@ namespace chess
          * @param fileTarget
          * @return uint8_t 1: (normal move) 2 (capture) 3 (especial move)
          */
-        virtual uint8_t isMovePossible(uint8_t file, uint8_t rank,
-                                       uint8_t fileTarget, uint8_t rankTarget);
+        virtual ResultCode isMovePossible(uint8_t file, uint8_t rank,
+                                          uint8_t fileTarget, uint8_t rankTarget);
+    };
+
+    enum class ResultCode : uint8_t
+    {
+        Invalid,
+        Normal,
+        Capture,
+        SpecialMove
     };
 } // namespace chess
