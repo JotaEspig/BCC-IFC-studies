@@ -9,23 +9,18 @@
 int main()
 {
     auto b = new chess::Board();
-    auto move = chess::Move(chess::Pieces::WhitePawn, 4, 7, 4, 5);
-    auto result = b->doMove(move); // 0
+    // setup for test en passant
+    auto move = chess::Move(chess::Pieces::WhitePawn, 5, 2, 5, 4);
+    auto result = b->doMove(move); // true
+    move = chess::Move(chess::Pieces::BlackPawn, 5, 7, 5, 6);
+    result = b->doMove(move);
+    move = chess::Move(chess::Pieces::WhitePawn, 5, 4, 5, 5);
+    result = b->doMove(move);
+    move = chess::Move(chess::Pieces::BlackPawn, 4, 7, 4, 5);
+    result = b->doMove(move);
 
-    move = chess::Move(chess::Pieces::WhitePawn, 4, 2, 4, 5);
-    result = b->doMove(move); // 0
-
-    move = chess::Move(chess::Pieces::WhitePawn, 4, 2, 3, 4);
-    result = b->doMove(move); // 0
-
-    move = chess::Move(chess::Pieces::WhitePawn, 4, 2, 5, 4);
-    result = b->doMove(move); // 0
-
-    move = chess::Move(chess::Pieces::WhitePawn, 4, 2, 4, 4);
-    result = b->doMove(move); // 1
-
-    move = chess::Move(chess::Pieces::WhitePawn, 4, 2, 5, 3);
-    result = b->doMove(move); // 2
+    move = chess::Move(chess::Pieces::WhitePawn, 5, 5, 4, 6);
+    result = b->doMove(move);
 
     std::cout << b << "\n";
     // chess::Piece *piece;
