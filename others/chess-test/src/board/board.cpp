@@ -1,5 +1,6 @@
 #include "board.hpp"
 
+#include <cstdlib>
 #include <algorithm>
 
 #include "../pieces/piece.hpp"
@@ -58,12 +59,27 @@ bool Board::doMove(Move move)
         return false;
 
     ResultCode resultCode = piece->isMovePossible(file, rank, fileT, rankT);
-    if (resultCode == ResultCode::Invalid)
-        return false;
-    if (resultCode == ResultCode::PawnCapture)
+    switch (resultCode)
     {
-        if (pos[rankT - 1][fileT - 1] == Pieces::Blank)
-            return false;
+    case ResultCode::Invalid:
+        return false;
+    case ResultCode::PawnCapture:
+    {
+        bool isEnPassant = checkEnPassant(move, piece);
+        if (isEnPassant)
+        {
+            Move lastMove = moves->back();
+            // removes pawn from the board
+            pos[lastMove.rankTarget - 1][lastMove.fileTarget - 1] = Pieces::Blank;
+        }
+        else
+        {
+            if (pos[rankT - 1][fileT - 1] == Pieces::Blank)
+                return false;
+        }
+        break;
+    }
+        // TODO Implement promotion
     }
 
     // It must decrement to be compatible with the array.
@@ -73,8 +89,7 @@ bool Board::doMove(Move move)
     rank--;
     fileT--;
     rankT--;
-    std::swap(pos[rank][file],
-              pos[rankT][fileT]);
+    std::swap(pos[rank][file], pos[rankT][fileT]);
     moves->push_back(move);
 
     delete piece;
@@ -92,4 +107,30 @@ Piece *Board::getPieceByEnum(Pieces pieceEnum)
     }
 
     return nullptr;
+}
+
+bool Board::checkEnPassant(Move move, Piece *piece)
+{
+    // 4 for black and 5 for white
+    uint8_t enPassantPosition = 4 + piece->getIsWhite();
+    if (move.rank != enPassantPosition)
+        return false;
+
+    // checks if the opponent's piece is a pawn
+    Move lastMove = moves->back();
+    if (lastMove.piece != Pieces::BlackPawn &&
+        lastMove.piece != Pieces::WhitePawn)
+        return false;
+
+    // check if the opponent's pawn is beside
+    if (abs(lastMove.fileTarget - move.file) != 1)
+        return false;
+    if (lastMove.rankTarget != enPassantPosition)
+        return false;
+
+    // check if the opponent's pawn has moved two squares
+    if (abs(lastMove.rankTarget - lastMove.rank) != 2)
+        return false;
+
+    return true;
 }

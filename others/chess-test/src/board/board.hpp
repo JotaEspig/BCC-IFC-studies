@@ -12,14 +12,15 @@ namespace chess
     {
     private:
         Position pos;
-        std::vector<chess::Move> *moves;
+        std::vector<Move> *moves;
 
         Piece *getPieceByEnum(Pieces pieceEnum);
+        bool checkEnPassant(Move, Piece *piece);
 
     public:
         Board();
         ~Board();
 
-        bool doMove(chess::Move move);
+        bool doMove(Move move);
     };
 } // namespace chess
