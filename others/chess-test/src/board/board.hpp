@@ -19,6 +19,7 @@ namespace chess
     public:
         Board();
         ~Board();
+
         bool doMove(chess::Move move);
     };
 } // namespace chess
