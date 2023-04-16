@@ -20,6 +20,8 @@ namespace chess
     public:
         Piece(bool isWhite);
         virtual ~Piece();
+
+        bool getIsWhite();
         /**
          * @brief
             Checks if move is possible, but doesn't take the other pieces into

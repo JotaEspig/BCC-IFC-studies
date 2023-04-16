@@ -11,6 +11,11 @@ Piece::~Piece()
 {
 }
 
+bool Piece::getIsWhite()
+{
+    return this->isWhite;
+}
+
 ResultCode Piece::isMovePossible(uint8_t rank, uint8_t file,
                                  uint8_t rankTarget, uint8_t fileTarget)
 {
