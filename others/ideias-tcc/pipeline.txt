@@ -1,0 +1,1 @@
+Fazer implementação de uma pipeline em C
