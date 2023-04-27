@@ -1,31 +1,31 @@
 CC=i386-elf-gcc
 LD=i386-elf-ld
 ASM=nasm
-OBJ_DIR=obj
-TARGET_DIR=bin
-SRC_DIR=src
 
-run: %.bin
+# TODO Improve a lot Makefile
+
+run: build
 	qemu-system-x86_64 -drive \
-		format=raw,file="$(TARGET_DIR)/OS.bin",index=0,if=floppy, -m 128M
-	$(MAKE) clean
+		format=raw,file="bin/OS.bin",index=0,if=floppy, -m 128M
 
-%.o:
-	$(CC) -c $(SRC_DIR)/kernel.c -o $(OBJ_DIR)/kernel.o -ffreestanding -m32 -g
-	$(ASM) $(SRC_DIR)/kernel_entry.asm -f elf -o $(OBJ_DIR)/kernel_entry.o
+objects:
+	$(CC) -c src/boot/main.c src/functions/print.c -ffreestanding -m32 -g
+	mv *.o obj/
+	$(ASM) src/boot/kernel_entry.asm -f elf -o obj/kernel_entry.o
 
-%.bin: %.o
-	$(LD) -o $(TARGET_DIR)/full_kernel.bin -Ttext 0x1000 \
-		$(OBJ_DIR)/kernel_entry.o $(OBJ_DIR)/kernel.o --oformat binary
-	$(ASM) $(SRC_DIR)/boot.asm -f bin -o $(TARGET_DIR)/boot.bin
-	$(ASM) $(SRC_DIR)/zereos.asm -f bin -o $(TARGET_DIR)/zereos.bin
-	cat $(TARGET_DIR)/boot.bin $(TARGET_DIR)/full_kernel.bin \
-		$(TARGET_DIR)/zereos.bin > $(TARGET_DIR)/OS.bin
-.PHONY:clean
+build: objects
+	$(LD) -o bin/full_kernel.bin -Ttext 0x1000 \
+		obj/kernel_entry.o obj/main.o obj/print.o --oformat binary
+	$(ASM) src/boot/boot.asm -f bin -o bin/boot.bin
+	$(ASM) src/boot/zereos.asm -f bin -o bin/zereos.bin
+	cat bin/boot.bin bin/full_kernel.bin bin/zereos.bin > bin/OS.bin
+
+.PHONY:dir
 dir:
 	if [ ! -d obj ]; then mkdir obj; fi
 	if [ ! -d bin ]; then mkdir bin; fi
+
 .PHONY:clean
 clean:
-	rm $(TARGET_DIR)/*.bin
-	rm $(OBJ_DIR)/*.o
+	rm bin/*.bin
+	rm obj/*.o
