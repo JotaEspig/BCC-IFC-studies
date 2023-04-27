@@ -17,18 +17,16 @@ não sendo necessário verificar eventuais erros de input.
 int main()
 {
     int rank, file;
-    puts("Digite o coluna: ");
+    puts("Digite o coluna (número): ");
     scanf("%d", &rank);
     puts("Digite a fileira: ");
     scanf("%d", &file);
 
-    int rank_remaining = rank % 2;
-    int file_remaining = file % 2;
-    if (rank_remaining == 1 && file_remaining == 1)
+    if (abs(rank - file) % 2 == 0)
     {
         puts("Casa preta");
     }
-    if (abs(rank_remaining - file_remaining) != 0)
+    if (abs(rank - file) % 2 != 0)
     {   
         puts("Casa branca");
     }
