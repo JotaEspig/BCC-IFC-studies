@@ -13,7 +13,7 @@ objects:
 	mv *.o obj/
 	$(ASM) src/boot/kernel_entry.asm -f elf -o obj/kernel_entry.o
 
-build: objects
+build: dir objects
 	$(LD) -o bin/full_kernel.bin -Ttext 0x1000 \
 		obj/kernel_entry.o obj/main.o obj/print.o --oformat binary
 	$(ASM) src/boot/boot.asm -f bin -o bin/boot.bin
