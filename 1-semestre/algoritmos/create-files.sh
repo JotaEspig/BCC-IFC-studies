@@ -25,12 +25,17 @@ echo "Creating exercises..."
 for i in $(seq 1 $exercises_amount)
 do
     if [ ${#i} -eq 1 ]; then
-	filename="$dir/$dir-Ex-0$i$extension"
+        filename="$dir/$dir-Ex-0$i$extension"
     else
         filename="$dir/$dir-Ex-$i$extension"
     fi
     echo -ne "\r$filename"
     touch $filename
 done
+
+if [ "$extension" = ".c" ]; then
+    echo -e "*\n!*.c\n!*.h\n!.gitignore" > $dir/.gitignore
+fi
+
 echo -e "\033[2K"
 echo "done"
