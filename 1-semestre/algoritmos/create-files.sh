@@ -18,8 +18,10 @@ else
     dir="$initials-$subject-$list_number"
 fi
 
+echo "Creating dir: $dir"
 mkdir $dir
 
+echo "Creating exercises..."
 for i in $(seq 1 $exercises_amount)
 do
     if [ ${#i} -eq 1 ]; then
@@ -27,5 +29,8 @@ do
     else
         filename="$dir/$dir-Ex-$i$extension"
     fi
+    echo -ne "\r$filename"
     touch $filename
 done
+echo -e "\033[2K"
+echo "done"
