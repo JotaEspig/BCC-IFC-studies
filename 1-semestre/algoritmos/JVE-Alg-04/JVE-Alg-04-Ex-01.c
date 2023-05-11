@@ -5,6 +5,8 @@ que não serão mais fornecidos novos valores. Seu programa deve exibir uma mens
 erro se o primeiro valor fornecido pelo usuário for 0.
 */
 
+// compile with "list.c"
+
 #include <stdio.h>
 #include <stdlib.h>
 
