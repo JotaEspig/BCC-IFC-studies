@@ -1,5 +1,5 @@
 CC = gcc
-CC_FLAGS = -Wall
+CC_FLAGS = -lm -Wall
 TARGET = base64
 DIR_TARGET = bin
 SRC = $(shell find ./src -name "*.c")
