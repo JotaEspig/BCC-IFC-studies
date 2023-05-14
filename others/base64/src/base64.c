@@ -6,28 +6,6 @@
 #include <string.h>
 #include <math.h>
 
-char *generate_plain(char *input, size_t *_plain_len)
-{
-    char *plain;
-    size_t plain_len;
-    size_t input_len = strlen(input);
-    if (input_len % 3 == 0)
-    {
-        plain_len = input_len;
-        plain = (char *)calloc(plain_len + 1, sizeof(char));
-    }
-    else
-    {
-        plain_len = input_len + (3 - input_len % 3);
-        plain = (char *)calloc(plain_len + 1, sizeof(char));
-    }
-
-    strncpy(plain, input, input_len);
-
-    *_plain_len = plain_len;
-    return plain;
-}
-
 char char_by_bits(uint8_t bits)
 {
     if (bits < 26)
@@ -43,23 +21,18 @@ char char_by_bits(uint8_t bits)
 char *base64_encode(char *input)
 {
     size_t input_len = strlen(input);
-    size_t plain_len;
-    char *plain = generate_plain(input, &plain_len);
 
-    int encoded_len = ceil((double)plain_len * 1.333);
+    int encoded_len = 4 * ceil((double)input_len / 3);
     char *encoded = (char *)calloc(encoded_len + 1, sizeof(char));
-    if (input_len % 3 != 0)
-        for (int i = 1; i <= (3 - input_len % 3); i++)
-            encoded[encoded_len - i] = '=';
 
-    int plain_idx = 0;
+    int input_idx = 0;
     int encoded_idx = 0;
     char encoded_char, current_char;
     uint8_t bits, bits_remaining;
     int right_shift = 2;
-    while (plain_idx < plain_len)
+    while (input_idx < input_len)
     {
-        current_char = plain[plain_idx];
+        current_char = input[input_idx];
         if (right_shift == 2)
             bits = current_char >> right_shift;
         else
@@ -69,10 +42,6 @@ char *base64_encode(char *input)
 
         encoded_char = char_by_bits(bits);
         encoded[encoded_idx] = encoded_char;
-
-        if (input_len % 3 != 0)
-            if (encoded_idx + 1 == encoded_len - (3 - input_len % 3))
-                break;
 
         right_shift += 2;
         if (right_shift == 8)
@@ -85,10 +54,21 @@ char *base64_encode(char *input)
             right_shift = 2;
         }
 
-        plain_idx++;
+        input_idx++;
         encoded_idx++;
     }
 
-    free(plain);
+    // check if there is left bits to use
+    if (encoded_idx < encoded_len)
+    {
+        bits = bits_remaining >> 2;
+        encoded_char = char_by_bits(bits);
+        encoded[encoded_idx++] = encoded_char;
+    }
+
+    // add padding
+    while (encoded_idx < encoded_len)
+        encoded[encoded_idx++] = '=';
+
     return encoded;
 }
