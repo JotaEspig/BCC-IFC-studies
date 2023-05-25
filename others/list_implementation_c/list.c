@@ -14,7 +14,10 @@ num_list_t *new_num_list()
     nl->capacity = INITIAL_CAPACITY;
     nl->values = (double *)calloc(nl->capacity, sizeof(double));
     if (nl->values == NULL)
+    {
+        free(nl);
         return NULL;
+    }
 
     return nl;
 }
