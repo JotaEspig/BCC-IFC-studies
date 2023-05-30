@@ -22,7 +22,7 @@ int main(void)
     srand(time(NULL));
 
     num_list_t *nl = new_num_list();
-    int size = rand() % 50;
+    int size = rand() % 15 + 1;
     for (int i = 0; i < size; i++)
         num_list_append(nl, my_pow(-1, rand() % 2) * rand() % 50);
 
