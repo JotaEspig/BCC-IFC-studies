@@ -101,67 +101,60 @@ void Application::draw_O(int idx)
     int final_y = (height / 3) * (idx / 3 + 1);
     int center_x = initial_x + (final_x - initial_x) / 2;
     int center_y = initial_y + (final_y - initial_y) / 2;
-    int radio;
-    center_x >= center_y ? radio = center_y - initial_y : center_x - initial_x;
+    int radius;
+    center_x >= center_y ? radius = center_y - initial_y : center_x - initial_x;
 
-    int amount = 300;
-    SDL_Point points[amount];
-    SDL_Point points2[amount];
-    int x, y;
-    // there are 2 loops instead of just one because there is some kind of
-    // miscalculation when just doing one side i.e. using x to take y (knowing
-    // the formula h^2 = x^2 + y^2)
-    // Maybe it can work with just one loop, but it will be needed to fix the
-    // precision when taking the y from x. Try: change round()
-    // taking y from x
-    for (int i = -amount / 2; i < amount / 2; i++)
+    int32_t diameter = radius * 2;
+    int32_t x = (radius - 1);
+    int32_t y = 0;
+    int32_t tx = 1;
+    int32_t ty = 1;
+    int32_t error = (tx - diameter);
+
+    while (x >= y)
     {
-        x = i * radio / (amount / 2 - 1);
-        y = round(sqrt(pow(radio, 2) - pow(x, 2)));
-        points[i + amount / 2].x = center_x + x;
-        points[i + amount / 2].y = center_y + y;
+       //  Each of the following renders an octant of the circle
+       SDL_RenderDrawPoint(renderer, center_x + x, center_y - y);
+       SDL_RenderDrawPoint(renderer, center_x + x, center_y + y);
+       SDL_RenderDrawPoint(renderer, center_x - x, center_y - y);
+       SDL_RenderDrawPoint(renderer, center_x - x, center_y + y);
+       SDL_RenderDrawPoint(renderer, center_x + y, center_y - x);
+       SDL_RenderDrawPoint(renderer, center_x + y, center_y + x);
+       SDL_RenderDrawPoint(renderer, center_x - y, center_y - x);
+       SDL_RenderDrawPoint(renderer, center_x - y, center_y + x);
 
-        y = round(-sqrt(pow(radio, 2) - pow(x, 2)));
-        points2[i + amount / 2].x = center_x + x;
-        points2[i + amount / 2].y = center_y + y;
+       if (error <= 0)
+       {
+          ++y;
+          error += ty;
+          ty += 2;
+       }
+
+       if (error > 0)
+       {
+          --x;
+          tx += 2;
+          error += (tx - diameter);
+       }
     }
-
-    SDL_RenderDrawPoints(renderer, points, amount);
-    SDL_RenderDrawPoints(renderer, points2, amount);
-
-    // taking x from y
-    for (int i = -amount / 2; i < amount / 2; i++)
-    {
-        y = i * radio / (amount / 2 - 1);
-        x = round(sqrt(pow(radio, 2) - pow(y, 2)));
-        points[i + amount / 2].x = center_x + x;
-        points[i + amount / 2].y = center_y + y;
-
-        x = round(-sqrt(pow(radio, 2) - pow(y, 2)));
-        points2[i + amount / 2].x = center_x + x;
-        points2[i + amount / 2].y = center_y + y;
-    }
-
-    SDL_RenderDrawPoints(renderer, points, amount);
-    SDL_RenderDrawPoints(renderer, points2, amount);
 }
 
 Moves Application::check_win()
 {
     // check horizontals
     for (int i = 0; i < 7; i += 3)
-        if (board[i] == board[i + 1] && board[i] == board[i + 2])
+        if (board[i] != Moves::None && board[i] == board[i + 1] && board[i] == board[i + 2])
             return board[i];
 
     // check verticals
     for (int i = 0; i < 3; i++)
-        if (board[i] == board[i + 3] && board[i] == board[i + 6])
+        if (board[i] != Moves::None && board[i] == board[i + 3] && board[i] == board[i + 6])
             return board[i];
 
     // check diagonals
-    if (board[0] == board[4] && board[0] == board[8])
+    if (board[0] != Moves::None && board[0] == board[4] && board[0] == board[8])
         return board[0];
-    else if (board[2] == board[4] && board[2] == board[6])
+    else if (board[2] != Moves::None && board[2] == board[4] && board[2] == board[6])
         return board[2];
 
     return Moves::None;
@@ -188,11 +181,14 @@ void Application::run()
             default:
                 break;
             }
+
+            draw();
+
+            if (check_win() != Moves::None)
+            {
+                quit = true;
+                break;
+            }
         }
-
-        draw();
-
-        if (check_win() != Moves::None)
-            break;
     }
 }
