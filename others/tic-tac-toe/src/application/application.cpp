@@ -2,7 +2,7 @@
 
 #include <iostream>
 #include <string>
-#include <stdexcept>
+#include <cmath>
 
 #include <SDL2/SDL.h>
 
@@ -95,6 +95,55 @@ void Application::draw_X(int idx)
 
 void Application::draw_O(int idx)
 {
+    int initial_x = (width / 3) * (idx % 3);
+    int initial_y = (height / 3) * (idx / 3);
+    int final_x = (width / 3) * (idx % 3 + 1);
+    int final_y = (height / 3) * (idx / 3 + 1);
+    int center_x = initial_x + (final_x - initial_x) / 2;
+    int center_y = initial_y + (final_y - initial_y) / 2;
+    int radio;
+    center_x >= center_y ? radio = center_y - initial_y : center_x - initial_x;
+
+    int amount = 300;
+    SDL_Point points[amount];
+    SDL_Point points2[amount];
+    int x, y;
+    // there are 2 loops instead of just one because there is some kind of
+    // miscalculation when just doing one side i.e. using x to take y (knowing
+    // the formula h^2 = x^2 + y^2)
+    // Maybe it can work with just one loop, but it will be needed to fix the
+    // precision when taking the y from x. Try: change round()
+    // taking y from x
+    for (int i = -amount / 2; i < amount / 2; i++)
+    {
+        x = i * radio / (amount / 2 - 1);
+        y = round(sqrt(pow(radio, 2) - pow(x, 2)));
+        points[i + amount / 2].x = center_x + x;
+        points[i + amount / 2].y = center_y + y;
+
+        y = round(-sqrt(pow(radio, 2) - pow(x, 2)));
+        points2[i + amount / 2].x = center_x + x;
+        points2[i + amount / 2].y = center_y + y;
+    }
+
+    SDL_RenderDrawPoints(renderer, points, amount);
+    SDL_RenderDrawPoints(renderer, points2, amount);
+
+    // taking x from y
+    for (int i = -amount / 2; i < amount / 2; i++)
+    {
+        y = i * radio / (amount / 2 - 1);
+        x = round(sqrt(pow(radio, 2) - pow(y, 2)));
+        points[i + amount / 2].x = center_x + x;
+        points[i + amount / 2].y = center_y + y;
+
+        x = round(-sqrt(pow(radio, 2) - pow(y, 2)));
+        points2[i + amount / 2].x = center_x + x;
+        points2[i + amount / 2].y = center_y + y;
+    }
+
+    SDL_RenderDrawPoints(renderer, points, amount);
+    SDL_RenderDrawPoints(renderer, points2, amount);
 }
 
 Moves Application::check_win()
