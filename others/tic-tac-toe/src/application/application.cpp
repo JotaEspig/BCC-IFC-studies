@@ -99,13 +99,17 @@ void Application::draw_O(int idx)
 
 Moves Application::check_win()
 {
+    // check horizontals
     for (int i = 0; i < 7; i += 3)
         if (board[i] == board[i + 1] && board[i] == board[i + 2])
             return board[i];
+
+    // check verticals
     for (int i = 0; i < 3; i++)
         if (board[i] == board[i + 3] && board[i] == board[i + 6])
             return board[i];
 
+    // check diagonals
     if (board[0] == board[4] && board[0] == board[8])
         return board[0];
     else if (board[2] == board[4] && board[2] == board[6])
