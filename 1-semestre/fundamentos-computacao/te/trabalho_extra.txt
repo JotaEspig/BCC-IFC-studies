@@ -45,6 +45,18 @@ STA 131
 HLT
 
 # Multiplicação
+#
+LDA 129
+STA <variavel contador>
+JZ  :fim (:inicio)
+LDA 131
+ADD 128
+STA 131
+LDA <variavel contador>
+ADD <valor -1>
+STA <variavel contador>
+JMP :inicio
+HLT (:fim)
 
 # <throw erro 1>
 # 5 bytes
@@ -53,6 +65,9 @@ STA 132
 HLT
 
 
+# variáveis auxiliares utilizadas:
+end - "nome"
+200 - contador
 
 # Valores hardcoded
 end - val
