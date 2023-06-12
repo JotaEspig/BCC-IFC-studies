@@ -1,0 +1,52 @@
+# Tamanho usado atual: 49 bytes de 128 bytes possiveis
+
+# seta valores de retorno para 0
+# 6 bytes
+LDA <valor 0>
+STA 131
+STA 132
+
+# Checa operandos 
+# 8 bytes
+LDA 128
+JN <throw erro 1> (110 no código, temporario)
+LDA 129
+JN <throw erro 1> (110)
+
+# MENU DE ESCOLHA
+# 23 bytes (TODO tentar diminuir)
+LDA 130
+ADD <valor -1>
+JZ  <adição> (37)
+ADD <valor -1>
+JZ  <subtração> (??)
+ADD <valor -1>
+JZ  <multiplicação> (??)
+ADD <valor -1>
+JZ  <divisão> (??)
+LDA <valor 2> # erro caso chegue aqui
+STA 132
+HLT
+
+# Adição
+# 7 bytes
+LDA 128
+ADD 129
+STA 131
+HLT
+
+# <throw erro 1>
+# 5 bytes
+LDA <valor 1>
+STA 132
+HLT
+
+
+
+# Valores hardcoded
+end - val
+255 = 0
+254 = 1
+253 = 2
+252 = 3
+251 = -1
