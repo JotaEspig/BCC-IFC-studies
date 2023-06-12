@@ -19,7 +19,7 @@ LDA 130
 ADD <valor -1>
 JZ  <adição> (37)
 ADD <valor -1>
-JZ  <subtração> (??)
+JZ  <subtração> (44)
 ADD <valor -1>
 JZ  <multiplicação> (??)
 ADD <valor -1>
@@ -34,6 +34,17 @@ LDA 128
 ADD 129
 STA 131
 HLT
+
+# Subtração
+# 10 bytes
+LDA 129
+NOT
+ADD <valor 1>
+ADD 128
+STA 131
+HLT
+
+# Multiplicação
 
 # <throw erro 1>
 # 5 bytes
