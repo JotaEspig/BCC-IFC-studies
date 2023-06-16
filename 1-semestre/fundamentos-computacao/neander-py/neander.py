@@ -70,7 +70,10 @@ class Neander:
 
             self.pc += 1
             instruction = self._get_instruction(elem)
-            is_value = instruction(self.tape[self.pc])
+            if elem == 96:
+                is_value = instruction()
+            else:
+                is_value = instruction(self.tape[self.pc])
 
     def NOP(self):
         return False
