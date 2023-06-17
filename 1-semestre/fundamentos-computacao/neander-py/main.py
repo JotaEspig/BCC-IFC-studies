@@ -1,4 +1,5 @@
 #!/bin/python3.8
+# Copyright (c) 2023 João Vitor Espig. All Rights Reserved.
 import sys
 from random import randint
 
@@ -24,12 +25,16 @@ def test(n, i, i2, i3):
 
         if (i3 == 1):
             assert (i + i2) & 255 == n.tape[131]
+            assert n.tape[132] == 0
         elif (i3 == 2):
             assert (i - i2) & 255 == n.tape[131]
+            assert n.tape[132] == 0
         elif (i3 == 3):
             assert (i * i2) & 255 == n.tape[131]
+            assert n.tape[132] == 0
         elif (i3 == 4):
             assert (i // i2) & 255 == n.tape[131]
+            assert n.tape[132] == 0
 
         return False
 

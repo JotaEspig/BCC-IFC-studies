@@ -1,8 +1,8 @@
+# Copyright (c) 2023 João Vitor Espig. All Rights Reserved.
 from __future__ import annotations
 
 
 class Neander:
-
     def __init__(self) -> None:
         self.tape: list[int] = [0] * 256
         self.pc: int = 0
@@ -19,7 +19,6 @@ class Neander:
                 144: self.JN,
                 160: self.JZ
                 }
-
 
     def read_hex_code(self, hex_code: str) -> None:
         hex_code = hex_code.replace("\n", "")
