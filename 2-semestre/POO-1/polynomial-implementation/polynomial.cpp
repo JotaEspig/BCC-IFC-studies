@@ -44,10 +44,21 @@ void jota::Polynomial::print()
 
 jota::Polynomial jota::Polynomial::operator+(const Polynomial &other)
 {
-    Polynomial new_p(std::max(n, other.n));
+    size_t max_n = std::max(n, other.n);
     size_t min_n = std::min(n, other.n);
-    for (size_t i = 0; i < min_n; ++i)
+    Polynomial new_p(max_n);
+    size_t i;
+    for (i = 0; i < min_n; ++i)
         new_p.set_coefficient(i, values[i] + other.values[i]);
+    
+    double *values_greater_p;
+    if (min_n == other.n)
+        values_greater_p = values;
+    else
+        values_greater_p = other.values;
+
+    for (size_t j = i; j < max_n; ++j)
+        new_p.set_coefficient(j, values_greater_p[j]);
 
     return new_p;
 }
