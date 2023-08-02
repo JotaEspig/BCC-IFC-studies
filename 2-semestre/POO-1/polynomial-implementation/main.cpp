@@ -11,16 +11,34 @@ int main()
     p.set_coefficient(1, 6);
     p.set_coefficient(2, 1);
 
-    Polynomial p2(2);
+    Polynomial p2(3);
     p2.set_coefficient(0, -5);
     p2.set_coefficient(1, -2);
+    p2.set_coefficient(2, 1);
 
-    Polynomial new_p = p + p2;
-    // x² + 6x + 9
+    Polynomial new_p = p - p2;
+    // x² + 8x + 14
+    std::cout << (p == p2) << std::endl;
 
-    new_p.print();
+    new_p.print(0);
 
-    std::cout << new_p.eval(-2) << std::endl;
+    for (int i = -10; i < 11; ++i)
+        std::cout << "p(" << i << ") = " << new_p.eval(i) << std::endl;
+
+    
+    std::cout << std::endl;
+    Polynomial p3(2);
+    p3.set_coefficient(0, -3);
+    p3.set_coefficient(1, 1);
+    Polynomial p4(2);
+    p4.set_coefficient(0, 3);
+    p4.set_coefficient(1, 1);
+    p3.print();
+    std::cout << "*" << std::endl;
+    p4.print();
+    std::cout << "=" << std::endl;
+    (p3 * p4).print();
+
 
     return 0;
 }
