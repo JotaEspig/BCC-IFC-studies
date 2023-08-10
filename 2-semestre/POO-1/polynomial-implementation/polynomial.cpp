@@ -9,6 +9,8 @@ jota::Polynomial::Polynomial(size_t _n)
 {
     n = _n;
     values = new double[n];
+    for (size_t i = 0; i < n; ++i)
+        values[i] = 0;
 }
 
 jota::Polynomial::~Polynomial()

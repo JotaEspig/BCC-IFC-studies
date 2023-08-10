@@ -37,7 +37,8 @@ int main()
     std::cout << "*" << std::endl;
     p4.print();
     std::cout << "=" << std::endl;
-    (p3 * p4).print();
+    Polynomial p5 = p3 * p4;
+    (p5).print();
 
 
     return 0;
