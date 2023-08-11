@@ -1,0 +1,5 @@
+Após realizar testes com as estratégias: PEACEMAKER, GENGHIS GHAN e TIT FOR TAT
+se notou que em vários casos de testes (variando qtde população e a qtde de
+rodadas) que o TIT FOR TAT teve vantagem junto com o PEACEMAKER, porém ao
+colocar a população com 1000 e o número de rodadas como 1000 também, notou-se
+um domínio por parte da estratégia GENGHIS GHAN
