@@ -61,14 +61,15 @@ func (s *Shell) printUserPwd() {
 	fmt.Print(")# ")
 }
 
-func (s *Shell) printCommand(cmd *exec.Cmd) {
+func (s *Shell) runCommand(cmd *exec.Cmd) {
+	//stdin, _ := cmd.StdinPipe()
 	stdout, _ := cmd.StdoutPipe()
 	stderr, _ := cmd.StderrPipe()
 	cmd.Start()
-	defer cmd.Wait()
 
 	stdoutScanner := bufio.NewScanner(stdout)
 	stderrScanner := bufio.NewScanner(stderr)
+
 	for stdoutScanner.Scan() {
 		m := stdoutScanner.Text()
 		fmt.Println(m)
@@ -79,6 +80,8 @@ func (s *Shell) printCommand(cmd *exec.Cmd) {
 			fmt.Fprintln(os.Stderr, m)
 		}
 	}
+
+	cmd.Wait()
 }
 
 func (s *Shell) shouldExit() bool {
@@ -113,6 +116,6 @@ func (s *Shell) Run() {
 		}
 
 		cmd := exec.Command(cmdStr, cmdArgs...)
-		s.printCommand(cmd)
+		s.runCommand(cmd)
 	}
 }
