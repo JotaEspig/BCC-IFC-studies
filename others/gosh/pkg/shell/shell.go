@@ -11,7 +11,7 @@ import (
 type Shell struct {
 	pwd             string
 	lastEntryCmdStr string
-	last_err        error
+	lastErr         error
 }
 
 func NewShell() *Shell {
@@ -25,22 +25,22 @@ func NewShell() *Shell {
 }
 
 func (s *Shell) shouldExit() bool {
-	return s.lastEntryCmdStr == "exit" || s.last_err == io.EOF
+	return s.lastEntryCmdStr == "exit" || s.lastErr == io.EOF
 }
 
 func (s *Shell) Run() {
 	for {
 		fmt.Print("> ")
-		_, s.last_err = fmt.Scanln(&s.lastEntryCmdStr)
+		_, s.lastErr = fmt.Scanln(&s.lastEntryCmdStr)
 		if s.shouldExit() {
 			break
 		}
 
-		stdOutErr, err := exec.Command(s.lastEntryCmdStr).CombinedOutput()
+		combinedOutput, err := exec.Command(s.lastEntryCmdStr).CombinedOutput()
 		if err != nil {
 			fmt.Println(err)
 		} else {
-			fmt.Print(string(stdOutErr))
+			fmt.Print(string(combinedOutput))
 		}
 	}
 }
