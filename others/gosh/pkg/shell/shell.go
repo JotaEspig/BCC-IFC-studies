@@ -33,7 +33,6 @@ func NewShell() *Shell {
 	}
 
 	scanner := bufio.NewScanner(os.Stdin)
-
 	return &Shell{pwd, scanner, "", nil}
 }
 
@@ -66,6 +65,7 @@ func (s *Shell) printCommand(cmd *exec.Cmd) {
 	stdout, _ := cmd.StdoutPipe()
 	stderr, _ := cmd.StderrPipe()
 	cmd.Start()
+	defer cmd.Wait()
 
 	stdoutScanner := bufio.NewScanner(stdout)
 	stderrScanner := bufio.NewScanner(stderr)
@@ -76,11 +76,9 @@ func (s *Shell) printCommand(cmd *exec.Cmd) {
 		stderrScanner.Scan()
 		m = stderrScanner.Text()
 		if m != "" {
-			fmt.Println(m)
+			fmt.Fprintln(os.Stderr, m)
 		}
 	}
-
-	cmd.Wait()
 }
 
 func (s *Shell) shouldExit() bool {
@@ -101,6 +99,17 @@ func (s *Shell) Run() {
 		var cmdArgs []string
 		if len(cmdSplited) > 1 {
 			cmdArgs = cmdSplited[1:]
+		}
+
+		// checks for default commands (like "cd")
+		cmdCallback, ok := commands[cmdStr]
+		if ok {
+			err := cmdCallback(s, cmdArgs...)
+			if err != nil {
+				fmt.Fprintln(os.Stderr, err)
+			}
+
+			continue
 		}
 
 		cmd := exec.Command(cmdStr, cmdArgs...)
