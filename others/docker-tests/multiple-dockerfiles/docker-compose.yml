@@ -1,0 +1,10 @@
+services:
+  bye:
+    build: ./bye
+    ports:
+      - "8081:8081"
+
+  hello:
+    build: ./hello
+    ports:
+      - "8080:8080"
