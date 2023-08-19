@@ -2,9 +2,17 @@ services:
   bye:
     build: ./bye
     ports:
-      - "8081:8081"
+      - "8082:8082"
+    networks:
+      - all
 
-  hello:
-    build: ./hello
+  myhtml:
+    build: ./myhtml
     ports:
-      - "8080:8080"
+      - "8081:8081"
+    networks:
+      - all
+
+networks:
+  all:
+    driver: bridge
