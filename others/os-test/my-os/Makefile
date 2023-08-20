@@ -34,7 +34,7 @@ $(OBJ_DIR)/%.o: src/%.c
 $(OBJ_DIR)/kernel_entry.o: src/kernel_entry.asm
 	$(ASM) $< -f elf -o $@
 
-run: $(all)
+run: all
 	qemu-system-x86_64 -drive format=raw,file="$(TARGET)",index=0,if=floppy, -m 128M
 
 .PHONY: clean
