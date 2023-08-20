@@ -44,6 +44,7 @@ or eax, 1
 mov cr0, eax ; enables protected mode
 jmp CODE_SEG:start_protected_mode
 
+; Read about GDT (Global Descriptor Table)
 GDT_start:
     GDT_null:
         dd 0x0
