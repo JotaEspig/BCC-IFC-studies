@@ -1,0 +1,32 @@
+[
+    {
+        "arguments": [
+            "i386-elf-gcc",
+            "-c",
+            "-ffreestanding",
+            "-m32",
+            "-g",
+            "-I./include/",
+            "-o",
+            "obj/main.o",
+            "src/main.c"
+        ],
+        "directory": "/home/jotaespig/projects/BCC-IFC-studies/others/os-test/my-os",
+        "file": "src/main.c"
+    },
+    {
+        "arguments": [
+            "i386-elf-gcc",
+            "-c",
+            "-ffreestanding",
+            "-m32",
+            "-g",
+            "-I./include/",
+            "-o",
+            "obj/print.o",
+            "src/print.c"
+        ],
+        "directory": "/home/jotaespig/projects/BCC-IFC-studies/others/os-test/my-os",
+        "file": "src/print.c"
+    }
+]
