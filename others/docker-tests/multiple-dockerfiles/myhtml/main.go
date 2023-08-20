@@ -12,6 +12,7 @@ func main() {
 
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
+	e.Use(middleware.CORS())
 
 	e.Static("/", "./html")
 	e.Start(":" + os.Getenv("PORT"))

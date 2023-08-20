@@ -6,6 +6,15 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
     <body>
-        <h1>Bye</h1>
+        <h1><span id="byeVal"></span></h1>
+        <script>
+            fetch("http://localhost:8081/api/bye")
+                .then(function(body) {
+                    const obj = document.getElementById("byeVal");
+                    body.text().then(function(text) {
+                        obj.innerHTML = text;
+                    })
+                });
+        </script>
     </body>
 </html>

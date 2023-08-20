@@ -18,6 +18,7 @@ func main() {
 	e := echo.New()
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
+	e.Use(middleware.CORS())
 
 	e.GET("/bye", bye)
 	e.Start(":" + os.Getenv("PORT"))
