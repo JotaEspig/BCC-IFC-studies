@@ -1,4 +1,4 @@
-#include "print.h"
+#include <print.h>
 
 void print(char *str)
 {
@@ -9,5 +9,4 @@ void print(char *str)
         screen_ptr += 2;
         str++;
     }
-    return;
 }
