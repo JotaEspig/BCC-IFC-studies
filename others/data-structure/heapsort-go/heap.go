@@ -44,10 +44,11 @@ func (h *HeapNode) Print(i ...int) {
 	fmt.Printf("%d: ", i[0])
 	fmt.Println(h.data)
 
+	i = []int{i[0] + 1}
 	if h.left != nil {
-		h.left.Print([]int{i[0] + 1}...)
+		h.left.Print(i...)
 	}
 	if h.right != nil {
-		h.right.Print([]int{i[0] + 1}...)
+		h.right.Print(i...)
 	}
 }
