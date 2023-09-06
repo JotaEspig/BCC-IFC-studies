@@ -34,6 +34,9 @@ func NewHeapFromArray(arr []int) *HeapNode {
 	return node
 }
 
+func (h *HeapNode) FindLastNode() {
+}
+
 func (h *HeapNode) Heapify() {
 }
 
