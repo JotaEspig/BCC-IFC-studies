@@ -4,6 +4,13 @@ import "fmt"
 
 func main() {
 	fmt.Println("Hey")
-	root := NewHeapFromArray([]int{1, 3, 4, 7, 5, -1, 0})
-	root.Print()
+	root := NewHeap([]int{22, 15, 7, 2, 1})
+	root.Heapify()
+	root.Print(0)
+	root.MyFunc()
+	root.Print(0)
+	root.MyFunc()
+	root.Print(0)
+	root.MyFunc()
+	root.Print(0)
 }
