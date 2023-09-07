@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"math"
 )
 
 type Heap struct {
@@ -16,6 +15,7 @@ func NewHeap(data []int) *Heap {
 		h.data = append(h.data, elem)
 	}
 	h.length = len(data)
+	h.Heapify()
 	return h
 }
 
@@ -65,20 +65,20 @@ func (h *Heap) Heapify() {
 	}
 }
 
-func countAlg(a int) int {
-	sum := 0
-	size := math.Log10(float64(a)) + 1
-	for size > 0 {
-		sum += a % 10
-		a /= 10
-		size--
-	}
-	return sum
+func (h *Heap) Insert(val int) {
+	h.length++
+	h.data = append(h.data, val)
+	h.Heapify()
 }
 
-func (h *Heap) MyFunc() {
-	h.data[0] -= countAlg(h.data[0])
-	h.heapify(0)
+func (h *Heap) RemoveFirst() int {
+	val := h.data[0]
+	last := h.LastNode()
+	h.data[0], h.data[last] = h.data[last], h.data[0]
+	h.length--
+	h.data = h.data[:last]
+	h.Heapify()
+	return val
 }
 
 func (h *Heap) Print(idx int) {
@@ -86,4 +86,13 @@ func (h *Heap) Print(idx int) {
 		fmt.Printf("%d ", elem)
 	}
 	fmt.Println()
+}
+
+func HeapSort(data []int) []int {
+	newData := []int{}
+	h := NewHeap(data)
+	for h.length != 0 {
+		newData = append(newData, h.RemoveFirst())
+	}
+	return newData
 }

@@ -4,13 +4,9 @@ import "fmt"
 
 func main() {
 	fmt.Println("Hey")
-	root := NewHeap([]int{22, 15, 7, 2, 1})
-	root.Heapify()
+	list := []int{1, 15, 22, 7, 2}
+	root := NewHeap(list)
 	root.Print(0)
-	root.MyFunc()
-	root.Print(0)
-	root.MyFunc()
-	root.Print(0)
-	root.MyFunc()
-	root.Print(0)
+	sorted := HeapSort(list)
+	fmt.Println(sorted)
 }
