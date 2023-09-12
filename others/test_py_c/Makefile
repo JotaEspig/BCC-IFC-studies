@@ -6,3 +6,4 @@ ext:
 
 clean:
 	@rm -rf *.out *.so build
+	@rm -rf hellomod/*.out hellomod/*.so
