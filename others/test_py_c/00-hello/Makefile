@@ -6,9 +6,12 @@ all: | $(ENV_DIR)
 ext:
 	python3 setup.py build_ext --inplace
 
+test: all
+	python3 tests/testc.py
+
 $(ENV_DIR):
 	python3 -m venv $(ENV_DIR)
-	source $(ENV_DIR)/bin/activate
+	. $(ENV_DIR)/bin/activate
 
 .PHONY: clean
 clean:
