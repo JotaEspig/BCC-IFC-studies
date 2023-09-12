@@ -10,7 +10,7 @@ def main() -> None:
         author="Jota Cria",
         author_email="jotaespig@gmail.com",
         packages=find_packages(),
-        ext_modules=[Extension("hellomod.hellolib", ["hellomod/hellomod.c"])]
+        ext_modules=[Extension("hellomod.hellolib", ["src/hellomod.c"])]
     )
 
 
