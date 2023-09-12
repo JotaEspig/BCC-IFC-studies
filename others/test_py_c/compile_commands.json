@@ -1,0 +1,17 @@
+[
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-fPIC",
+            "-Wall",
+            "-Wextra",
+            "-I/home/jotaespig/.asdf/installs/python/3.11.0/include/python3.11/",
+            "-o",
+            "test.o",
+            "test.c"
+        ],
+        "directory": "/home/jotaespig/test_py_c",
+        "file": "test.c"
+    }
+]
