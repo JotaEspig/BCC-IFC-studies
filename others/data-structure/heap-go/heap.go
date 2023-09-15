@@ -11,11 +11,12 @@ type Heap struct {
 
 func NewHeap(data []int) *Heap {
 	h := &Heap{}
-	for _, elem := range data {
-		h.data = append(h.data, elem)
-	}
 	h.length = len(data)
-	h.Heapify()
+	h.data = make([]int, h.length)
+	for idx, elem := range data {
+		h.data[idx] = elem
+	}
+	h.Heapify(h.length)
 	return h
 }
 
@@ -29,55 +30,61 @@ func (h *Heap) Right(currentIdx int) int {
 	return newIdx
 }
 
-func (h *Heap) LastNode() int {
-	return h.length - 1
+func (h *Heap) LastNode(size int) int {
+	return size - 1
 }
 
 func (h *Heap) Parent(idx int) int {
 	return (idx - 1) / 2
 }
 
-func (h *Heap) heapify(idx int) {
-	if idx >= h.length {
+func (h *Heap) IsLeaf(idx, size int) bool {
+	return idx > (size/2) && idx < size
+}
+
+func (h *Heap) heapify(idx, size int) {
+	if h.IsLeaf(idx, size) {
 		return
 	}
 
 	largest := idx
 	left := h.Left(idx)
 	right := h.Right(idx)
-	if left < h.length && h.data[left] > h.data[largest] {
+	if left < size && h.data[left] > h.data[largest] {
 		largest = left
 	}
-	if right < h.length && h.data[right] > h.data[largest] {
+	if right < size && h.data[right] > h.data[largest] {
 		largest = right
 	}
 
 	if largest != idx {
 		h.data[largest], h.data[idx] = h.data[idx], h.data[largest]
-		h.heapify(largest)
+		h.heapify(largest, size)
 	}
 }
 
-func (h *Heap) Heapify() {
-	firstNonLeaf := h.Parent(h.LastNode())
+func (h *Heap) Heapify(size int) {
+	firstNonLeaf := h.Parent(h.LastNode(size))
 	for i := firstNonLeaf; i >= 0; i-- {
-		h.heapify(i)
+		h.heapify(i, size)
 	}
 }
 
 func (h *Heap) Insert(val int) {
 	h.length++
 	h.data = append(h.data, val)
-	h.Heapify()
+	h.Heapify(h.length)
 }
 
 func (h *Heap) RemoveFirst() int {
 	val := h.data[0]
-	last := h.LastNode()
+	last := h.LastNode(h.length)
 	h.data[0], h.data[last] = h.data[last], h.data[0]
 	h.length--
 	h.data = h.data[:last]
-	h.Heapify()
+	// previously I was using h.Heapify, but it was damn slow compared to
+	// h.heapify
+	h.heapify(0, h.length)
 	return val
 }
 
@@ -88,11 +95,21 @@ func (h *Heap) Print(idx int) {
 	fmt.Println()
 }
 
-func HeapSort(data []int) []int {
-	newData := []int{}
+func HeapSortV1(data []int) []int {
 	h := NewHeap(data)
-	for h.length != 0 {
-		newData = append(newData, h.RemoveFirst())
+	for i := h.length - 1; i > 0; i-- {
+		h.data[0], h.data[i] = h.data[i], h.data[0]
+		h.heapify(0, i)
+	}
+	return h.data
+}
+
+func HeapSortV2(data []int) []int {
+	h := NewHeap(data)
+	newData := make([]int, h.length)
+
+	for i := h.length - 1; h.length != 0; i-- {
+		newData[i] = h.RemoveFirst()
 	}
 	return newData
 }
