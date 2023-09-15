@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Meu Portfólio Pessoal">
+	<meta name="author" content="João Vitor Espig">
+	<meta name="keywords" content="HTML, CSS, JavaScript">
+    <title>Meu Portfólio</title>
+	<style>
+		@import url('https://fonts.googleapis.com/css2?family=Raleway:ital@1&family=Roboto&display=swap');
+
+		body, h1, h2, p, ul, li {
+			font-family: 'Roboto', sans-serif;
+			margin: 0;
+			padding: 0;
+		}
+
+		body {
+			font-family: 'Raleway', sans-serif;
+			background-color: #f0f0f0;
+		}
+
+		header {
+			text-align: center;
+			background-color: #0088FF;
+			color: #fff;
+			padding: 20px;
+		}
+
+		nav {
+			text-align: center;
+			background-color: #00A8FF;
+			padding: 10px;
+		}
+
+		nav ul {
+			list-style-type: none;
+		}
+
+		nav li {
+			display: inline;
+			margin: 0 10px;
+		}
+
+		nav a {
+			text-decoration: none;
+			color: #fff;
+		}
+
+		section {
+			max-width: 800px;
+			margin: 20px auto;
+			padding: 20px;
+			background-color: #fff;
+			border-radius: 5px;
+			box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+			margin-bottom: 20px;
+		}
+
+		footer {
+			text-align: center;
+			background-color: #00A8FF;
+			color: #fff;
+			padding: 10px;
+		}
+
+		table {
+			width: 100%;
+			border-collapse: collapse;
+			margin-top: 20px;
+			border: 1px solid #ddd;
+			background-color: #fff;
+		}
+
+		caption {
+			font-size: 1.2em;
+			font-weight: bold;
+			padding: 10px;
+			background-color: #0088FF;
+			color: #fff;
+			border-bottom: 1px solid #ddd;
+		}
+
+		th, td {
+			padding: 10px;
+			text-align: left;
+			border-bottom: 1px solid #ddd;
+		}
+
+		th {
+			background-color: #00A8FF;
+			color: #fff;
+		}
+
+		tr:nth-child(even) {
+			background-color: #f2f2f2;
+		}
+
+		tr:hover {
+			background-color: #ddd;
+		}
+	</style>
+
+</head>
+<body>
+    <header>
+        <h1>Meu Portfólio Pessoal</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#portfolio">Portfolio</a></li>
+            <li><a target="_blank" href="https://github.com/JotaEspig?tab=repositories">Projetos</a></li>
+            <li><a target="_blank" href="https://br.linkedin.com/in/jotaespig">LinkedIn</a></li>
+            <li><a href="mailto:jotinha1300@gmail.com">Contato</a></li>
+            <li><a id="link-download" href="" download="myhtml">Download desse HTML</a></li>
+        </ul>
+    </nav>
+
+    <section id="sobre">
+        <h2>Sobre Mim</h2>
+		<p>Estudante do 2a fase de Ciência da Computação</p>
+    </section>
+
+    <section id="projetos">
+        <h2>Projetos</h2>
+        <ol style="margin-left: 10px">
+            <li><a target="_blank" href="https://github.com/JotaEspig/chronos">Link do Projeto 1</a></li>
+            <li><a target="_blank" href="https://github.com/JotaEspig/axolote-engine">Link do Projeto 2</a></li>
+            <li><a target="_blank" href="https://github.com/JotaEspig/math-interpreter">Link do Projeto 3</a></li>
+        </ol>
+    </section>
+
+	<section id="portfolio">
+        <h2>Portfólio</h2>
+        <table border="1" style="width: 100%;">
+            <caption>Meus Projetos</caption>
+            <thead>
+                <tr>
+                    <th>Projeto</th>
+                    <th>Descrição</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><a target="_blank" href="https://github.com/JotaEspig/chronos">Chronos</a></td>
+                    <td>Projeto de Pesquisa e Extensão</td>
+                </tr>
+
+                <tr>
+                    <td><a target="_blank" href="https://github.com/JotaEspig/axolote-engine">Axolote Engine</a></td>
+                    <td>Engine feita em C++ utilizando OpenGL</td>
+                </tr>
+
+                <tr>
+                    <td><a target="_blank" href="https://github.com/JotaEspig/math-interpreter">Math Interpreter</a></td>
+                    <td>Interpretador de matemática feito em C utilizando AST e lexers</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+	<div style="text-align: center;">
+		<h2>IFC</h2>
+		<iframe width="50%" height="600" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=IFC%20campus%20blumenau+(IFC)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"><a href="https://www.maps.ie/population/">IFC localização</a></iframe>
+	</div>
+
+    <footer>
+        <p>&copy; 2023 Meu Portfólio Pessoal</p>
+    </footer>
+
+	<script>
+		let link = document.getElementById("link-download");
+		let path = window.location.pathname;
+		let filename = path.split("/").pop();
+		link.setAttribute("href", filename);
+	</script>
+</body>
+</html>
