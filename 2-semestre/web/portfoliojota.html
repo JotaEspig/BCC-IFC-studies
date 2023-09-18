@@ -100,6 +100,21 @@
 		tr:hover {
 			background-color: #ddd;
 		}
+
+        .centraliza {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .alinhado {
+            display: flex;
+            align-items: center;
+        }
+
+        .alinhado img {
+            margin-right: 10px;
+        }
 	</style>
 
 </head>
@@ -120,7 +135,9 @@
 
     <section id="sobre">
         <h2>Sobre Mim</h2>
-		<p>Estudante da 2a fase de Ciência da Computação</p>
+		<p style="margin-top: 10px;">
+            Estudante da 2a fase de Ciência da Computação
+        </p>
     </section>
 
     <section id="projetos">
@@ -161,10 +178,19 @@
         </table>
     </section>
 
-	<div style="text-align: center;">
-		<h2>IFC</h2>
-		<iframe width="50%" height="600" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=IFC%20campus%20blumenau+(IFC)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"><a href="https://www.maps.ie/population/">IFC localização</a></iframe>
-	</div>
+    <section id="ifc">
+        <div class="centraliza">
+            <div class="alinhado">
+                <img src="https://cecom.ifc.edu.br/wp-content/uploads/sites/10/2022/10/Logo_IFC_vertical.png" alt="Logo IFC"
+                     width="50px" height="50px">
+                <h2>IFC</h2>
+            </div>
+        </div>
+
+        <div style="text-align: center;">
+            <iframe src="https://maps.google.com/maps?q=Instituto%20Federal%20Catarinense%20Campus%20Blumenau&amp;t=&amp;z=15&amp;ie=UTF8&amp;iwloc=&amp;output=embed" width="70%" height="500px" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+        </div>
+    </section>
 
     <footer>
         <p>&copy; 2023 Meu Portfólio Pessoal</p>
