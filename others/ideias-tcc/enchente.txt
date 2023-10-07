@@ -1,0 +1,2 @@
+fazer uma simulação de possível maneiras que uma barragem ou uma série de barragens podem agir diante de uma situação de enchente na região.
+Seria uma aplicação visual (provavelmente usando OpenGL) que mostra como a barragem agiria diante da situação, afim de evitar uma cheia maior em determinadas cidades
