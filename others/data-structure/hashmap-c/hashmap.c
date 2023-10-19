@@ -76,12 +76,34 @@ hmap_map *hmap_map_new(size_t capacity)
 {
     hmap_map *map = (hmap_map *)malloc(sizeof(hmap_map));
     map->size = 0;
-    map->capacity = capacity;
+    map->buckets_amount = capacity;
     map->v = (hmap_ll_node **)calloc(capacity, sizeof(hmap_ll_node *));
     for (size_t i = 0; i < capacity; ++i)
-        map->v[i] = hmap_ll_node_new((hmap_pair){0, 0});
+        map->v[i] = NULL;
 
     return map;
+}
+
+size_t hmap_map_hash(hmap_map *map, int key)
+{
+    return (key - 1) % map->buckets_amount;
+}
+
+int hmap_map_at(hmap_map *map, int key)
+{
+    int idx = hmap_map_hash(map, key);
+    hmap_ll_node *head = map->v[idx];
+    return hmap_ll_find(head, key);
+}
+
+void hmap_map_set(hmap_map *map, hmap_pair pair)
+{
+    int idx = hmap_map_hash(map, pair.key);
+    hmap_ll_node *head = map->v[idx];
+    if (head != NULL)
+        hmap_ll_set(head, pair);
+    else
+        map->v[idx] = hmap_ll_node_new(pair);
 }
 
 void hmap_map_destroy(hmap_map *map)
@@ -89,12 +111,12 @@ void hmap_map_destroy(hmap_map *map)
     if (map == NULL || map->v == NULL)
         return;
 
-    size_t capacity = map->capacity;
+    size_t capacity = map->buckets_amount;
     for (size_t i = 0; i < capacity; ++i)
-        hmap_ll_destroy(map->v[i]);
+        if (map->v[i] != NULL)
+            hmap_ll_destroy(map->v[i]);
 
     free(map->v);
     map->v = NULL;
     free(map);
-
 }

@@ -26,10 +26,13 @@ typedef struct hmap_map
 {
     hmap_ll_node **v;
     size_t size;
-    size_t capacity;
+    size_t buckets_amount;
 } hmap_map;
 
 hmap_map *hmap_map_new(size_t capacity);
+size_t hmap_map_hash(hmap_map *map, int key);
+int hmap_map_at(hmap_map *map, int key);
+void hmap_map_set(hmap_map *map, hmap_pair pair);
 void hmap_map_destroy(hmap_map *map);
 
 #endif // !HASHMAP_H
