@@ -1,5 +1,5 @@
 CC = gcc
-CC_FLAGS =
+CC_FLAGS = -Wall -Wextra
 
 TARGET = tests
 OBJECTS = hashmap.o tests.o
