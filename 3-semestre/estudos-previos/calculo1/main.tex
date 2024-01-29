@@ -1,13 +1,62 @@
-\documentclass{article}
-\usepackage[brazil]{babel}
+\documentclass[12pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[brazilian]{babel}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{amsmath}
+
+\hypersetup {
+	colorlinks=true,
+	urlcolor=blue,
+}
+
+\newcommand{\minus}{\scalebox{0.75}[1.0]{$-$}}
 
 \begin{document}
 
-\section*{Funções}
+\section*{Limites}
+Considere a função $f(x) = \frac{x^2 - 4}{x-2}$.
+Não temos um valor de $f(x)$ quando $x=2$, pois não é possível dividir por 0.
+O limite dessa função com $x$ se aproximando de 2 é o valor que $f(x)$ tende conforme
+a aproximação de $x$ chega mais próxima do 2, i.e. 4.
+Usando os símbolos de limite: $\lim\limits_{x \to 2} \frac{x^2 - 4}{x-2} = 4$
 
-Dado dois conjuntos $A$ e $B$, uma relação é definida por um par ondenado $(x, y)$, onde $x \in A$ e $y \in B$.
-Uma função é um caso especial de uma relação, onde cada elemento de $A$ está ligado com apenas um elemento de $B$.
-Uma função consiste em entradas e saídas. O conjunto de entrada se chama domínio e o conjunto de saída se chama
-contradomínio
+Podemos ter funções sem limites definidos, e.g. $\sin(1/x)$. É possível visualizar isto usando a tabela:
+\begin{center}
+	\begin{tabular}{l|l}
+		$x$       & $\sin(x)$     \\ \hline
+		$\minus0.1$    & $0.54402111$  \\
+		$\minus0.01$   & $0.50636564$  \\
+		$\minus0.001$  & $\minus0.99388865$ \\
+		$\minus0.0001$ & $\minus0.99388865$ 
+	\end{tabular}
+\end{center}
+Veja o \href{https://www.mathway.com/pt/popular-problems/Calculus/501510}{link}
+
+\subsection*{Limites laterais}
+Considere a função \[f(x) =
+	\begin{cases}
+		x < 2 \Rightarrow x + 1 \\
+		x \ge 2 \Rightarrow x^2 - 4
+	\end{cases}
+\]
+
+O limite $\lim\limits_{x \to 2} f(x)$ não existe, pois se aproximarmos de 2 pelo ``lado esquerdo'' encontrariamos -1
+e pelo ``lado direito'' encontrariamos 2, para essa função temos os chamados limites laterais:
+\[\lim\limits_{x \to 2^{\minus}} f(x)\]
+\begin{center}
+	representa a aproximação pela ``esquerda'' (negativo)
+\end{center}
+\[\lim\limits_{x \to 2^{+}} f(x)\]
+\begin{center}
+	representa a aproximação pela ``direita'' (positivo)
+\end{center}
+
+\subsection*{Limites infinitos}
+Considere a função $f(x) = \frac{1}{x}$, ela tem limites infinitos:
+\[\lim\limits_{x \to 0^{\minus}} f(x) = \minus\infty\]
+\[\lim\limits_{x \to 0^{+}} f(x) = +\infty\]
+
+\section*{Derivadas}
 
 \end{document}
