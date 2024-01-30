@@ -12,7 +12,12 @@
 
 \newcommand{\minus}{\scalebox{0.75}[1.0]{$-$}}
 
+\title{Limites}
+\author{Jota}
+
 \begin{document}
+
+\maketitle
 
 \section*{Limites}
 Considere a função $f(x) = \frac{x^2 - 4}{x-2}$.
@@ -29,9 +34,9 @@ Podemos ter funções sem limites definidos, e.g. $\sin(1/x)$. É possível visu
 		$\minus0.01$   & $0.50636564$  \\
 		$\minus0.001$  & $\minus0.99388865$ \\
 		$\minus0.0001$ & $\minus0.99388865$ 
-	\end{tabular}
+	\end{tabular} \\
+	Veja o \href{https://www.mathway.com/pt/popular-problems/Calculus/501510}{link}
 \end{center}
-Veja o \href{https://www.mathway.com/pt/popular-problems/Calculus/501510}{link}
 
 \subsection*{Limites laterais}
 Considere a função \[f(x) =
@@ -58,11 +63,33 @@ Considere a função $f(x) = \frac{1}{x}$, ela tem limites infinitos:
 \[\lim\limits_{x \to 0^{+}} f(x) = +\infty\]
 
 \subsection*{Leis do limite}
+\underline{Teorema: Limites básicos} \\
 Qualquer número real $a$ ou constante $c$
 \begin{center}
 	\begin{enumerate}
 		\item $\lim\limits_{x \to a} x = a$
 		\item $\lim\limits_{x \to a} c = c$
+	\end{enumerate}
+\end{center}
+\underline{Teorema: Leis do limite}
+Seja $f(x)$ e $g(x)$ definidas para todo $x \neq a$ em um intervalo aberto contendo $a$.
+Seja $c$ uma constante. Então temos que:
+\begin{center}
+	\begin{enumerate}
+		\item \textbf{Lei das somas de limites}:
+			$\lim\limits_{x \to a} [f(x) + g(x)] = \lim\limits_{x \to a} f(x) + \lim\limits_{x \to a} g(x)$
+		\item \textbf{Lei das diferença de limites}:
+			$\lim\limits_{x \to a} [f(x) \minus g(x)] = \lim\limits_{x \to a} f(x) \minus \lim\limits_{x \to a} g(x)$
+		\item \textbf{Lei da multiplicação constante de limites}:
+			$\lim\limits_{x \to a} [c f(x)] = c \lim\limits_{x \to a} f(x)$
+		\item \textbf{Lei do produto de limites}:
+			$\lim\limits_{x \to a} [f(x) \times g(x)] = \lim\limits_{x \to a} f(x) \times \lim\limits_{x \to a} g(x)$
+		\item \textbf{Lei do quociente de limites}:
+			$\lim\limits_{x \to a} \frac{f(x)}{g(x)} = \frac{\lim\limits_{x \to a} f(x)}{\lim\limits_{x \to a} g(x)}$
+		\item \textbf{Lei da potência de limites}:
+			$\lim\limits_{x \to a} (f(x))^n = (\lim\limits_{x \to a} f(x))^n$ para todo $n$ positivo
+		\item \textbf{Lei da raiz de limites}:
+			$\lim\limits_{x \to a} \sqrt[n]{(f(x))} = \sqrt[n]{\lim\limits_{x \to a} f(x)}$ para todo $n$ positivo
 	\end{enumerate}
 \end{center}
 
