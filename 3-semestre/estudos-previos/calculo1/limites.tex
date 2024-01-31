@@ -1,9 +1,13 @@
-\documentclass[12pt,a4paper]{article}
+\documentclass[12pt,a4paper,brazil]{article}
+
 \usepackage[T1]{fontenc}
-\usepackage[brazilian]{babel}
 \usepackage{hyperref}
 \usepackage{graphicx}
+\usepackage{geometry}
 \usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{blindtext}
+\usepackage{outlines}
 
 \hypersetup {
 	colorlinks=true,
@@ -14,22 +18,33 @@
 
 \title{Limites}
 \author{Jota}
+\date{\today}
 
 \begin{document}
 
 \maketitle
 
-\section*{Limites}
-Considere a função $f(x) = \frac{x^2 - 4}{x-2}$.
+\section{\textbf{Limites}}
+Considere a função $f(x) = \frac{x^2 \minus 4}{x\minus2}$.
 Não temos um valor de $f(x)$ quando $x=2$, pois não é possível dividir por 0.
 O limite dessa função com $x$ se aproximando de 2 é o valor que $f(x)$ tende conforme
-a aproximação de $x$ chega mais próxima do 2, i.e. 4.
-Usando os símbolos de limite: $\lim\limits_{x \to 2} \frac{x^2 - 4}{x-2} = 4$
+a aproximação de $x$ chega mais próxima do 2, i.e. 4. É possível visualizar isto através da tabela:
+\begin{center}
+	\begin{tabular}{l|l}
+		$x$       	   & $f(x)$  \\ \hline
+		$\minus2.1$    & $4.1$   \\
+		$\minus2.01$   & $4.01$  \\
+		$\minus2.001$  & $4.001$ \\
+		$\minus2.0001$ & $4.0001$ 
+	\end{tabular} \\
+	Conforme o $x$ se aproxima de 2, $f(x)$ se aproxima de 4
+\end{center}
+Usando os símbolos de limite: $\lim\limits_{x \to 2} \frac{x^2 \minus 4}{x\minus2} = 4$
 
 Podemos ter funções sem limites definidos, e.g. $\sin(1/x)$. É possível visualizar isto usando a tabela:
 \begin{center}
 	\begin{tabular}{l|l}
-		$x$       & $\sin(x)$     \\ \hline
+		$x$       & $\sin(1/x)$     \\ \hline
 		$\minus0.1$    & $0.54402111$  \\
 		$\minus0.01$   & $0.50636564$  \\
 		$\minus0.001$  & $\minus0.99388865$ \\
@@ -38,15 +53,15 @@ Podemos ter funções sem limites definidos, e.g. $\sin(1/x)$. É possível visu
 	Veja o \href{https://www.mathway.com/pt/popular-problems/Calculus/501510}{link}
 \end{center}
 
-\subsection*{Limites laterais}
+\subsection{\textbf{Limites laterais}}
 Considere a função \[f(x) =
 	\begin{cases}
 		x < 2 \Rightarrow x + 1 \\
-		x \ge 2 \Rightarrow x^2 - 4
+		x \ge 2 \Rightarrow x^2 \minus 4
 	\end{cases}
 \]
 
-O limite $\lim\limits_{x \to 2} f(x)$ não existe, pois se aproximarmos de 2 pelo ``lado esquerdo'' encontrariamos -1
+O limite $\lim\limits_{x \to 2} f(x)$ não existe, pois se aproximarmos de 2 pelo ``lado esquerdo'' encontrariamos \minus1
 e pelo ``lado direito'' encontrariamos 2, para essa função temos os chamados limites laterais:
 \[\lim\limits_{x \to 2^{\minus}} f(x)\]
 \begin{center}
@@ -57,12 +72,12 @@ e pelo ``lado direito'' encontrariamos 2, para essa função temos os chamados l
 	representa a aproximação pela ``direita'' (positivo)
 \end{center}
 
-\subsection*{Limites infinitos}
+\subsection{\textbf{Limites infinitos}}
 Considere a função $f(x) = \frac{1}{x}$, ela tem limites infinitos:
 \[\lim\limits_{x \to 0^{\minus}} f(x) = \minus\infty\]
 \[\lim\limits_{x \to 0^{+}} f(x) = +\infty\]
 
-\subsection*{Leis do limite}
+\subsection{\textbf{Leis do limite}}
 \underline{Teorema: Limites básicos} \\
 Qualquer número real $a$ ou constante $c$
 \begin{center}
@@ -71,14 +86,14 @@ Qualquer número real $a$ ou constante $c$
 		\item $\lim\limits_{x \to a} c = c$
 	\end{enumerate}
 \end{center}
-\underline{Teorema: Leis do limite}
+\underline{Teorema: Leis do limite} \\
 Seja $f(x)$ e $g(x)$ definidas para todo $x \neq a$ em um intervalo aberto contendo $a$.
 Seja $c$ uma constante. Então temos que:
 \begin{center}
 	\begin{enumerate}
-		\item \textbf{Lei das somas de limites}:
+		\item \textbf{Lei da soma de limites}:
 			$\lim\limits_{x \to a} [f(x) + g(x)] = \lim\limits_{x \to a} f(x) + \lim\limits_{x \to a} g(x)$
-		\item \textbf{Lei das diferença de limites}:
+		\item \textbf{Lei da diferença de limites}:
 			$\lim\limits_{x \to a} [f(x) \minus g(x)] = \lim\limits_{x \to a} f(x) \minus \lim\limits_{x \to a} g(x)$
 		\item \textbf{Lei da multiplicação constante de limites}:
 			$\lim\limits_{x \to a} [c f(x)] = c \lim\limits_{x \to a} f(x)$
@@ -89,8 +104,40 @@ Seja $c$ uma constante. Então temos que:
 		\item \textbf{Lei da potência de limites}:
 			$\lim\limits_{x \to a} (f(x))^n = (\lim\limits_{x \to a} f(x))^n$ para todo $n$ positivo
 		\item \textbf{Lei da raiz de limites}:
-			$\lim\limits_{x \to a} \sqrt[n]{(f(x))} = \sqrt[n]{\lim\limits_{x \to a} f(x)}$ para todo $n$ positivo
+			$\lim\limits_{x \to a} \sqrt[n]{f(x)} = \sqrt[n]{\lim\limits_{x \to a} f(x)}$ para todo $n$ positivo
 	\end{enumerate}
 \end{center}
+\textbf{Resolvendo um exemplo utilizando as leis acima:} \\
+Tente resolver o limite proposto: $\lim\limits_{x \to \minus3} (4x + 2)$ \\
+\textbf{Solução:}
+\begin{equation*}
+	\begin{aligned}
+		\lim\limits_{x \to \minus3} (4x + 2) &= \lim\limits_{x \to \minus3} 4x + \lim\limits_{x \to \minus3} 2 & & \text{(Lei da soma de limites)} \\
+											 &= 4 \times \lim\limits_{x \to \minus3} x + 2 & & \text{(Lei da multiplicação constante de limites)} \\
+											 &= 4 \times (\minus3) + 2 \\
+											 &= \minus10
+	\end{aligned}
+\end{equation*}
+\textbf{Avaliando funções polinomiais e racionais} \\
+É visível que dado uma função $f(x)$, seu limite se dará como:
+$\lim\limits_{x \to a} f(x) = f(a)$. Porém nem todos os casos isso é válido. \\
+Perceba que dado duas funções $p(x)$ e $q(x)$, o limite se da como:
+$\lim\limits_{x \to a} \frac{p(x)}{q(x)} = \frac{p(a)}{q(a)}$, quando $q(a) \neq 0$.
+\vspace{5mm} \\ % 5mm vertical space
+\textbf{Técnicas adicionais para avaliar um limite} \\
+Considere a função $f(x) = \frac{x^2 - 1}{x - 1}$, o limite $\lim\limits_{x \to 1} f(x)$
+não pode ser calculado utilizando as leis do limite citadas. Esse limite tem a forma de
+$\lim\limits_{x \to a} \frac{f(x)}{g(x)}$, onde $\lim\limits_{x \to a} f(x) = 0$ e $\lim\limits_{x \to a} g(x) = 0$.
+Nesse caso falamos que $\frac{f(x)}{g(x)}$ tem a forma indeterminada de $\frac{0}{0}$.
+O passo a passo a seguir contém estratégias de como conseguir solucionar esse tipo de limite.
+\begin{outline}[enumerate]
+	\1 Identificar que não é possível utilizar apenas as leis do limite
+	\1 Encontrar uma função igual a $h(x) = \frac{f(x)}{g(x)}\,\forall x \neq a$ em algum intervalo que contém $a$
+	\2 Se $f(x)$ e $g(x)$ forem polinomiais, devemos fatorar cada função e eliminar qualquer fator comum
+	\2 Se o numerador ou o denominador contêm uma diferença envolvendo raiz quadrada, devemos tentar multiplicar
+	o numerador e o denominador pelo conjugado da expressão contendo a raiz
+	\2 Se $\frac{f(x)}{g(x)}$ é uma função complexa, devemos tentar simplifica-la
+	\1 E depois, aplicamos as leis do limite
+\end{outline}
 
 \end{document}
