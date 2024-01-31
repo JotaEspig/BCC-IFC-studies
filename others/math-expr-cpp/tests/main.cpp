@@ -1,7 +1,7 @@
-#include <mathexpr/hello.hpp>
+#include <mathexpr/greetings.hpp>
 
 int main()
 {
-	mathexpr::hello();
-	return 0;
+    mathexpr::greetings();
+    return 0;
 }

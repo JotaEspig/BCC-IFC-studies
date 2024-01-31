@@ -29,7 +29,7 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/lib)
 set(SOURCE_DIR ${CMAKE_SOURCE_DIR}/src)
 set(
     SOURCE_FILES
-	${SOURCE_DIR}/hello.cpp
+	${SOURCE_DIR}/greetings.cpp
 )
 
 # Adding mathexpr shared library

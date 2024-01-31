@@ -3,6 +3,6 @@
 namespace mathexpr
 {
 
-void hello();
+void greetings();
 
 } // namespace mathexpr
