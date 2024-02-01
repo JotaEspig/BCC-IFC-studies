@@ -29,7 +29,7 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/lib)
 set(SOURCE_DIR ${CMAKE_SOURCE_DIR}/src)
 set(
     SOURCE_FILES
-	${SOURCE_DIR}/ast.cpp
+	${SOURCE_DIR}/expr.cpp
 	${SOURCE_DIR}/greetings.cpp
 	${SOURCE_DIR}/symbol.cpp
 )
