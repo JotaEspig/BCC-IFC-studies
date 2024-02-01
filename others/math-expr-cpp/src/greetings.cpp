@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include <mathexpr/greetings.hpp>
+#include "mathexpr/greetings.hpp"
 
 namespace mathexpr
 {
