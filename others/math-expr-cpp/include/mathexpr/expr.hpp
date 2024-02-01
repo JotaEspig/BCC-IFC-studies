@@ -16,11 +16,14 @@ public:
     Expr();
     Expr(std::unique_ptr<SymbolNode> &&node);
 
-    // double Eval(const Symbol &sym, double value) const;
+    double eval(const Symbol &sym, double value) const;
 
     friend std::ostream &operator<<(std::ostream &os, const Expr &expr);
-};
 
-// typedef std::unique_ptr<ExprNode> Expr;
+private:
+    double eval_nodes(
+        const std::unique_ptr<SymbolNode> &node, const Symbol &sym, double value
+    ) const;
+};
 
 } // namespace mathexpr

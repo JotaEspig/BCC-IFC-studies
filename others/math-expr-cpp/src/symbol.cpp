@@ -23,14 +23,28 @@ Symbol::Symbol(double value) :
 {
 }
 
-std::unique_ptr<SymbolNode> Symbol::operator+(double value)
+std::unique_ptr<SymbolNode> operator+(const Symbol &sym, double value)
 {
-    Symbol sym = Symbol{"+"};
-    sym.type = Symbol::Type::OPERATOR;
-    std::unique_ptr<SymbolNode> root = SymbolNode::create_node(sym);
-    root->left = SymbolNode::create_node(*this);
+    Symbol sym_op = Symbol{"+"};
+    sym_op.type = Symbol::Type::OPERATOR;
+    std::unique_ptr<SymbolNode> root = SymbolNode::create_node(sym_op);
+    root->left = SymbolNode::create_node(sym);
     root->right = SymbolNode::create_node(Symbol{value});
     return root;
+}
+
+std::unique_ptr<SymbolNode> operator+(double value, const Symbol &sym)
+{
+    return sym + value;
+}
+
+std::ostream &operator<<(std::ostream &os, const Symbol &sym)
+{
+    if (sym.type == Symbol::Type::NUMBER)
+        os << sym.value;
+    else
+        os << sym.id;
+    return os;
 }
 
 SymbolNode::SymbolNode()
@@ -58,17 +72,18 @@ operator+(std::unique_ptr<SymbolNode> node, double value)
     return root;
 }
 
+std::unique_ptr<SymbolNode>
+operator+(double value, std::unique_ptr<SymbolNode> node)
+{
+    return std::move(node) + value;
+}
+
 std::ostream &operator<<(std::ostream &os, const SymbolNode &node)
 {
     if (node.left != nullptr && node.right != nullptr)
         os << "(";
     os << node.left;
-
-    if (node.sym.type == Symbol::Type::NUMBER)
-        os << node.sym.value;
-    else
-        os << node.sym.id;
-
+    os << node.sym;
     os << node.right;
     if (node.left != nullptr && node.right != nullptr)
         os << ")";
@@ -84,12 +99,7 @@ operator<<(std::ostream &os, const std::unique_ptr<SymbolNode> &node)
     if (node->left != nullptr && node->right != nullptr)
         os << "(";
     os << node->left;
-
-    if (node->sym.type == Symbol::Type::NUMBER)
-        os << node->sym.value;
-    else
-        os << node->sym.id;
-
+    os << node->sym;
     os << node->right;
     if (node->left != nullptr && node->right != nullptr)
         os << ")";

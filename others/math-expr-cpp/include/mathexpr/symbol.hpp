@@ -3,6 +3,10 @@
 #include <memory>
 #include <string>
 
+/*
+ * C++ is a real piece of shit
+ * */
+
 namespace mathexpr
 {
 
@@ -28,8 +32,15 @@ public:
     Symbol(std::string id);
     Symbol(double value);
 
-    std::unique_ptr<SymbolNode> operator+(double value);
+    friend std::unique_ptr<SymbolNode>
+    operator+(const Symbol &sym, double value);
+    friend std::unique_ptr<SymbolNode>
+    operator+(double value, const Symbol &sym);
+
+    friend std::ostream &operator<<(std::ostream &os, const Symbol &sym);
 };
+
+// Symbol operators commutative
 
 class SymbolNode
 {
@@ -44,6 +55,9 @@ public:
 
     friend std::unique_ptr<SymbolNode>
     operator+(std::unique_ptr<SymbolNode> node, double value);
+    friend std::unique_ptr<SymbolNode>
+    operator+(double value, std::unique_ptr<SymbolNode> node);
+
     friend std::ostream &operator<<(std::ostream &os, const SymbolNode &node);
     friend std::ostream &
     operator<<(std::ostream &os, const std::unique_ptr<SymbolNode> &node);
