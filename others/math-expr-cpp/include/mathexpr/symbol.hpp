@@ -50,18 +50,27 @@ public:
     Type type = Type::INVALID;
 
     /**
-     * \brief Symbol constructor
+     * \brief Default Symbol constructor
      * \author João Vitor Espig (JotaEspig)
      * \date February 01, 2024
      * \version February 01, 2024
+     *
+     * It just create the object with default values:
+     * id = ""
+     * value = 0
+     * type = Type::INVALID
      **/
     Symbol();
     /**
-     * \brief Symbol constructor for NUMBER and VARIABLE
+     * \brief Symbol constructor for VARIABLE or OPERATOR
      * \author João Vitor Espig (JotaEspig)
      * \date February 01, 2024
      * \version February 01, 2024
      * \param id - Symbol ID
+     *
+     * It initializes as a VARIABLE by default. So if you want the symbol to
+     * represent an operator instead, you must reassign Symbol::type:
+     * sym.type = Symbol::Type::OPERATOR
      **/
     Symbol(std::string id);
     /**
@@ -80,6 +89,9 @@ public:
      * \version February 01, 2024
      * \param sym - Symbol
      * \param value - value
+     *
+     * It creates a small Tree, the root being a + Symbol, left = sym and
+     * right = Symbol{value}
      **/
     friend std::unique_ptr<SymbolNode>
     operator+(const Symbol &sym, double value);
@@ -90,6 +102,9 @@ public:
      * \version February 01, 2024
      * \param value - value
      * \param sym - Symbol
+     *
+     * It creates a small Tree, the root being a + Symbol, left = Symbol{value}
+     * and right = sym
      **/
     friend std::unique_ptr<SymbolNode>
     operator+(double value, const Symbol &sym);
@@ -106,7 +121,7 @@ public:
 };
 
 /**
- * \brief SymbolNode class
+ * \brief Represents a node of a tree containing a Symbol object
  * \author João Vitor Espig (JotaEspig)
  * \date February 01, 2024
  * \version February 01, 2024
@@ -134,6 +149,8 @@ public:
      * \date February 01, 2024
      * \version February 01, 2024
      * \param symbol - Symbol
+     *
+     * Left and right leaf starts as nullptr
      **/
     SymbolNode(Symbol symbol);
     /**
@@ -152,9 +169,13 @@ public:
      * \version February 01, 2024
      * \param node - pointer to SymbolNode
      * \param value - value
+     *
+     * It creates a small Tree, the root being a + Symbol, left = node and
+     * right = Symbol{value}.
+     * It MOVES the pointer of node to the left leaf
      **/
     friend std::unique_ptr<SymbolNode>
-    operator+(std::unique_ptr<SymbolNode> node, double value);
+    operator+(std::unique_ptr<SymbolNode> &node, double value);
     /**
      * \brief SymbolNode + operator overload (allows commutativity)
      * \author João Vitor Espig (JotaEspig)
@@ -162,9 +183,13 @@ public:
      * \version February 01, 2024
      * \param value - value
      * \param node - pointer to SymbolNode
+     *
+     * It creates a small Tree, the root being a + Symbol, left = Symbol{value}
+     * and right = node.
+     * It MOVES the pointer of node to the right leaf
      **/
     friend std::unique_ptr<SymbolNode>
-    operator+(double value, std::unique_ptr<SymbolNode> node);
+    operator+(double value, std::unique_ptr<SymbolNode> &node);
 
     /**
      * \brief SymbolNode << operator overload

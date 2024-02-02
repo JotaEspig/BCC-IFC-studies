@@ -35,7 +35,11 @@ std::unique_ptr<SymbolNode> operator+(const Symbol &sym, double value)
 
 std::unique_ptr<SymbolNode> operator+(double value, const Symbol &sym)
 {
-    return sym + value;
+    std::unique_ptr<SymbolNode> node = sym + value;
+    auto tmp = std::move(node->left);
+    node->left = std::move(node->right);
+    node->right = std::move(tmp);
+    return node;
 }
 
 std::ostream &operator<<(std::ostream &os, const Symbol &sym)
@@ -62,7 +66,7 @@ std::unique_ptr<SymbolNode> SymbolNode::create_node(Symbol symbol)
 }
 
 std::unique_ptr<SymbolNode>
-operator+(std::unique_ptr<SymbolNode> node, double value)
+operator+(std::unique_ptr<SymbolNode> &node, double value)
 {
     Symbol sym = Symbol{"+"};
     sym.type = Symbol::Type::OPERATOR;
@@ -73,9 +77,13 @@ operator+(std::unique_ptr<SymbolNode> node, double value)
 }
 
 std::unique_ptr<SymbolNode>
-operator+(double value, std::unique_ptr<SymbolNode> node)
+operator+(double value, std::unique_ptr<SymbolNode> &node)
 {
-    return std::move(node) + value;
+    std::unique_ptr<SymbolNode> newnode = node + value;
+    auto tmp = std::move(newnode->left);
+    newnode->left = std::move(newnode->right);
+    newnode->right = std::move(tmp);
+    return newnode;
 }
 
 std::ostream &operator<<(std::ostream &os, const SymbolNode &node)
