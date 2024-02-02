@@ -28,31 +28,35 @@ public:
     virtual double get_value(double left, double right) = 0;
 };
 
-/**
- *\brief Addition operator
- * \author João Vitor Espig (JotaEspig)
- * \date February 02, 2024
- * \version February 02, 2024
- **/
 class Addition : public Operator
 {
 public:
-    /**
-     * \brief Constructor
-     * \author João Vitor Espig (JotaEspig)
-     * \date February 02, 2024
-     * \version February 02, 2024
-     **/
     Addition();
 
-    /**
-     * \brief return left + right
-     * \author João Vitor Espig (JotaEspig)
-     * \date February 02, 2024
-     * \version February 02, 2024
-     *
-     * Implements Operator::get_value
-     **/
+    double get_value(double left, double right) override;
+};
+
+class Subtraction : public Operator
+{
+public:
+    Subtraction();
+
+    double get_value(double left, double right) override;
+};
+
+class Multiplication : public Operator
+{
+public:
+    Multiplication();
+
+    double get_value(double left, double right) override;
+};
+
+class Division : public Operator
+{
+public:
+    Division();
+
     double get_value(double left, double right) override;
 };
 
