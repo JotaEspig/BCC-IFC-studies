@@ -10,8 +10,8 @@ int main()
     greetings();
 
     Symbol x{"x"};
-    Expr expr = 8 + 1 + (10 + x) + 1 + 9;
+    Expr expr = 8 + 2 * (10 + x) - 1.0 / 9;
     std::cout << expr << std::endl;
-    std::cout << expr.eval(x, 15) << std::endl;
+    std::cout << expr.eval(x, 0) << std::endl;
     return 0;
 }

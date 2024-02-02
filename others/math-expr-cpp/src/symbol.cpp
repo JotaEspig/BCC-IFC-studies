@@ -42,6 +42,63 @@ std::unique_ptr<SymbolNode> operator+(double value, const Symbol &sym)
     return node;
 }
 
+std::unique_ptr<SymbolNode> operator-(const Symbol &sym, double value)
+{
+    Symbol sym_op = Symbol{"-"};
+    sym_op.type = Symbol::Type::OPERATOR;
+    std::unique_ptr<SymbolNode> root = SymbolNode::create_node(sym_op);
+    root->left = SymbolNode::create_node(sym);
+    root->right = SymbolNode::create_node(Symbol{value});
+    return root;
+}
+
+std::unique_ptr<SymbolNode> operator-(double value, const Symbol &sym)
+{
+    std::unique_ptr<SymbolNode> node = sym - value;
+    auto tmp = std::move(node->left);
+    node->left = std::move(node->right);
+    node->right = std::move(tmp);
+    return node;
+}
+
+std::unique_ptr<SymbolNode> operator*(const Symbol &sym, double value)
+{
+    Symbol sym_op = Symbol{"*"};
+    sym_op.type = Symbol::Type::OPERATOR;
+    std::unique_ptr<SymbolNode> root = SymbolNode::create_node(sym_op);
+    root->left = SymbolNode::create_node(sym);
+    root->right = SymbolNode::create_node(Symbol{value});
+    return root;
+}
+
+std::unique_ptr<SymbolNode> operator*(double value, const Symbol &sym)
+{
+    std::unique_ptr<SymbolNode> node = sym * value;
+    auto tmp = std::move(node->left);
+    node->left = std::move(node->right);
+    node->right = std::move(tmp);
+    return node;
+}
+
+std::unique_ptr<SymbolNode> operator/(const Symbol &sym, double value)
+{
+    Symbol sym_op = Symbol{"/"};
+    sym_op.type = Symbol::Type::OPERATOR;
+    std::unique_ptr<SymbolNode> root = SymbolNode::create_node(sym_op);
+    root->left = SymbolNode::create_node(sym);
+    root->right = SymbolNode::create_node(Symbol{value});
+    return root;
+}
+
+std::unique_ptr<SymbolNode> operator/(double value, const Symbol &sym)
+{
+    std::unique_ptr<SymbolNode> node = sym / value;
+    auto tmp = std::move(node->left);
+    node->left = std::move(node->right);
+    node->right = std::move(tmp);
+    return node;
+}
+
 std::ostream &operator<<(std::ostream &os, const Symbol &sym)
 {
     if (sym.type == Symbol::Type::NUMBER)
@@ -80,6 +137,69 @@ std::unique_ptr<SymbolNode>
 operator+(double value, std::unique_ptr<SymbolNode> node)
 {
     std::unique_ptr<SymbolNode> newnode = std::move(node) + value;
+    auto tmp = std::move(newnode->left);
+    newnode->left = std::move(newnode->right);
+    newnode->right = std::move(tmp);
+    return newnode;
+}
+
+std::unique_ptr<SymbolNode>
+operator-(std::unique_ptr<SymbolNode> node, double value)
+{
+    Symbol sym = Symbol{"-"};
+    sym.type = Symbol::Type::OPERATOR;
+    std::unique_ptr<SymbolNode> root = SymbolNode::create_node(sym);
+    root->left = std::move(node);
+    root->right = SymbolNode::create_node(Symbol{value});
+    return root;
+}
+
+std::unique_ptr<SymbolNode>
+operator-(double value, std::unique_ptr<SymbolNode> node)
+{
+    std::unique_ptr<SymbolNode> newnode = std::move(node) - value;
+    auto tmp = std::move(newnode->left);
+    newnode->left = std::move(newnode->right);
+    newnode->right = std::move(tmp);
+    return newnode;
+}
+
+std::unique_ptr<SymbolNode>
+operator*(std::unique_ptr<SymbolNode> node, double value)
+{
+    Symbol sym = Symbol{"*"};
+    sym.type = Symbol::Type::OPERATOR;
+    std::unique_ptr<SymbolNode> root = SymbolNode::create_node(sym);
+    root->left = std::move(node);
+    root->right = SymbolNode::create_node(Symbol{value});
+    return root;
+}
+
+std::unique_ptr<SymbolNode>
+operator*(double value, std::unique_ptr<SymbolNode> node)
+{
+    std::unique_ptr<SymbolNode> newnode = std::move(node) * value;
+    auto tmp = std::move(newnode->left);
+    newnode->left = std::move(newnode->right);
+    newnode->right = std::move(tmp);
+    return newnode;
+}
+
+std::unique_ptr<SymbolNode>
+operator/(std::unique_ptr<SymbolNode> node, double value)
+{
+    Symbol sym = Symbol{"/"};
+    sym.type = Symbol::Type::OPERATOR;
+    std::unique_ptr<SymbolNode> root = SymbolNode::create_node(sym);
+    root->left = std::move(node);
+    root->right = SymbolNode::create_node(Symbol{value});
+    return root;
+}
+
+std::unique_ptr<SymbolNode>
+operator/(double value, std::unique_ptr<SymbolNode> node)
+{
+    std::unique_ptr<SymbolNode> newnode = std::move(node) / value;
     auto tmp = std::move(newnode->left);
     newnode->left = std::move(newnode->right);
     newnode->right = std::move(tmp);

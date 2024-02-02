@@ -108,6 +108,84 @@ public:
      **/
     friend std::unique_ptr<SymbolNode>
     operator+(double value, const Symbol &sym);
+    /**
+     * \brief Symbol - operator overload
+     * \author João Vitor Espig (JotaEspig)
+     * \date February 02, 2024
+     * \version February 02, 2024
+     * \param sym - Symbol
+     * \param value - value
+     *
+     * It creates a small Tree, the root being a - Symbol, left = sym and
+     * right = Symbol{value}
+     **/
+    friend std::unique_ptr<SymbolNode>
+    operator-(const Symbol &sym, double value);
+    /**
+     * \brief Symbol - operator overload
+     * \author João Vitor Espig (JotaEspig)
+     * \date February 02, 2024
+     * \version February 02, 2024
+     * \param value - value
+     * \param sym - Symbol
+     *
+     * It creates a small Tree, the root being a - Symbol, left = Symbol{value}
+     * and right = sym
+     **/
+    friend std::unique_ptr<SymbolNode>
+    operator-(double value, const Symbol &sym);
+    /**
+     * \brief Symbol * operator overload
+     * \author João Vitor Espig (JotaEspig)
+     * \date February 02, 2024
+     * \version February 02, 2024
+     * \param sym - Symbol
+     * \param value - value
+     *
+     * It creates a small Tree, the root being a * Symbol, left = sym and
+     * right = Symbol{value}
+     **/
+    friend std::unique_ptr<SymbolNode>
+    operator*(const Symbol &sym, double value);
+    /**
+     * \brief Symbol * operator overload (allows commutativity)
+     * \author João Vitor Espig (JotaEspig)
+     * \date February 02, 2024
+     * \version February 02, 2024
+     * \param value - value
+     * \param sym - Symbol
+     *
+     * It creates a small Tree, the root being a * Symbol, left = Symbol{value}
+     * and right = sym
+     **/
+    friend std::unique_ptr<SymbolNode>
+    operator*(double value, const Symbol &sym);
+    /**
+     * \brief Symbol / operator overload
+     * \author João Vitor Espig (JotaEspig)
+     * \date February 02, 2024
+     * \version February 02, 2024
+     * \param sym - Symbol
+     * \param value - value
+     *
+     * It creates a small Tree, the root being a / Symbol, left = sym and
+     * right = Symbol{value}
+     **/
+    friend std::unique_ptr<SymbolNode>
+    operator/(const Symbol &sym, double value);
+    /**
+     * \brief Symbol / operator overload
+     * \author João Vitor Espig (JotaEspig)
+     * \date February 02, 2024
+     * \version February 02, 2024
+     * \param value - value
+     * \param sym - Symbol
+     *
+     * It creates a small Tree, the root being a / Symbol, left = Symbol{value}
+     * and right = sym
+     **/
+    friend std::unique_ptr<SymbolNode>
+    operator/(double value, const Symbol &sym);
 
     /**
      * \brief Symbol << operator overload
@@ -190,6 +268,90 @@ public:
      **/
     friend std::unique_ptr<SymbolNode>
     operator+(double value, std::unique_ptr<SymbolNode> node);
+    /**
+     * \brief SymbolNode - operator overload
+     * \author João Vitor Espig (JotaEspig)
+     * \date February 02, 2024
+     * \version February 02, 2024
+     * \param node - pointer to SymbolNode
+     * \param value - value
+     *
+     * It creates a small Tree, the root being a - Symbol, left = node and
+     * right = Symbol{value}.
+     * It MOVES the pointer of node to the left leaf
+     **/
+    friend std::unique_ptr<SymbolNode>
+    operator-(std::unique_ptr<SymbolNode> node, double value);
+    /**
+     * \brief SymbolNode - operator overload
+     * \author João Vitor Espig (JotaEspig)
+     * \date February 02, 2024
+     * \version February 02, 2024
+     * \param value - value
+     * \param node - pointer to SymbolNode
+     *
+     * It creates a small Tree, the root being a - Symbol, left = Symbol{value}
+     * and right = node.
+     * It MOVES the pointer of node to the right leaf
+     **/
+    friend std::unique_ptr<SymbolNode>
+    operator-(double value, std::unique_ptr<SymbolNode> node);
+    /**
+     * \brief SymbolNode * operator overload
+     * \author João Vitor Espig (JotaEspig)
+     * \date February 02, 2024
+     * \version February 02, 2024
+     * \param node - pointer to SymbolNode
+     * \param value - value
+     *
+     * It creates a small Tree, the root being a * Symbol, left = node and
+     * right = Symbol{value}.
+     * It MOVES the pointer of node to the left leaf
+     **/
+    friend std::unique_ptr<SymbolNode>
+    operator*(std::unique_ptr<SymbolNode> node, double value);
+    /**
+     * \brief SymbolNode * operator overload (allows commutativity)
+     * \author João Vitor Espig (JotaEspig)
+     * \date February 02, 2024
+     * \version February 02, 2024
+     * \param value - value
+     * \param node - pointer to SymbolNode
+     *
+     * It creates a small Tree, the root being a * Symbol, left = Symbol{value}
+     * and right = node.
+     * It MOVES the pointer of node to the right leaf
+     **/
+    friend std::unique_ptr<SymbolNode>
+    operator*(double value, std::unique_ptr<SymbolNode> node);
+    /**
+     * \brief SymbolNode / operator overload
+     * \author João Vitor Espig (JotaEspig)
+     * \date February 02, 2024
+     * \version February 02, 2024
+     * \param node - pointer to SymbolNode
+     * \param value - value
+     *
+     * It creates a small Tree, the root being a / Symbol, left = node and
+     * right = Symbol{value}.
+     * It MOVES the pointer of node to the left leaf
+     **/
+    friend std::unique_ptr<SymbolNode>
+    operator/(std::unique_ptr<SymbolNode> node, double value);
+    /**
+     * \brief SymbolNode / operator overload
+     * \author João Vitor Espig (JotaEspig)
+     * \date February 02, 2024
+     * \version February 02, 2024
+     * \param value - value
+     * \param node - pointer to SymbolNode
+     *
+     * It creates a small Tree, the root being a / Symbol, left = Symbol{value}
+     * and right = node.
+     * It MOVES the pointer of node to the right leaf
+     **/
+    friend std::unique_ptr<SymbolNode>
+    operator/(double value, std::unique_ptr<SymbolNode> node);
 
     /**
      * \brief SymbolNode << operator overload
