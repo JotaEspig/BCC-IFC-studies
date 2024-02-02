@@ -1,6 +1,7 @@
 #include <memory>
 
 #include "mathexpr/expr.hpp"
+#include "mathexpr/operator.hpp"
 #include "mathexpr/symbol.hpp"
 
 namespace mathexpr
@@ -41,11 +42,9 @@ double Expr::eval_nodes(
 
     double left_val = eval_nodes(node->left, sym, value);
     double right_val = eval_nodes(node->right, sym, value);
-    double val = 0;
-    if (node->sym.id == "+")
-        val = left_val + right_val;
 
-    return val;
+    std::unique_ptr<Operator> op = OperatorFactory::create(node->sym);
+    return op->get_value(left_val, right_val);
 }
 
 } // namespace mathexpr

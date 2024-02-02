@@ -31,6 +31,7 @@ set(
     SOURCE_FILES
 	${SOURCE_DIR}/expr.cpp
 	${SOURCE_DIR}/greetings.cpp
+	${SOURCE_DIR}/operator.cpp
 	${SOURCE_DIR}/symbol.cpp
 )
 
