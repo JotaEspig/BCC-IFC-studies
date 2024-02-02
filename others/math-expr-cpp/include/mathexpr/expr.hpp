@@ -16,7 +16,7 @@ namespace mathexpr
 {
 
 /**
- * \brief Represents a math expression
+ * \brief Represents a math expression as an AST
  * \author João Vitor Espig (JotaEspig)
  * \date February 01, 2024
  * \version February 01, 2024
