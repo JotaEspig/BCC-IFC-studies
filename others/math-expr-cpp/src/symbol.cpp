@@ -66,7 +66,7 @@ std::unique_ptr<SymbolNode> SymbolNode::create_node(Symbol symbol)
 }
 
 std::unique_ptr<SymbolNode>
-operator+(std::unique_ptr<SymbolNode> &node, double value)
+operator+(std::unique_ptr<SymbolNode> node, double value)
 {
     Symbol sym = Symbol{"+"};
     sym.type = Symbol::Type::OPERATOR;
@@ -77,9 +77,9 @@ operator+(std::unique_ptr<SymbolNode> &node, double value)
 }
 
 std::unique_ptr<SymbolNode>
-operator+(double value, std::unique_ptr<SymbolNode> &node)
+operator+(double value, std::unique_ptr<SymbolNode> node)
 {
-    std::unique_ptr<SymbolNode> newnode = node + value;
+    std::unique_ptr<SymbolNode> newnode = std::move(node) + value;
     auto tmp = std::move(newnode->left);
     newnode->left = std::move(newnode->right);
     newnode->right = std::move(tmp);

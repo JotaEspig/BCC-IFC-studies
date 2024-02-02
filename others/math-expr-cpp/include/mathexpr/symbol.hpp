@@ -175,7 +175,7 @@ public:
      * It MOVES the pointer of node to the left leaf
      **/
     friend std::unique_ptr<SymbolNode>
-    operator+(std::unique_ptr<SymbolNode> &node, double value);
+    operator+(std::unique_ptr<SymbolNode> node, double value);
     /**
      * \brief SymbolNode + operator overload (allows commutativity)
      * \author João Vitor Espig (JotaEspig)
@@ -189,7 +189,7 @@ public:
      * It MOVES the pointer of node to the right leaf
      **/
     friend std::unique_ptr<SymbolNode>
-    operator+(double value, std::unique_ptr<SymbolNode> &node);
+    operator+(double value, std::unique_ptr<SymbolNode> node);
 
     /**
      * \brief SymbolNode << operator overload
