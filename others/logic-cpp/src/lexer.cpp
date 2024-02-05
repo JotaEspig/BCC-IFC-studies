@@ -1,4 +1,5 @@
 #include <cctype>
+#include <iostream>
 #include <vector>
 
 #include "logic/lexer.hpp"
@@ -51,6 +52,50 @@ void Lexer::next()
 std::vector<Token> Lexer::generate_tokens()
 {
     std::vector<Token> tokens;
+    char curr_ch = curr_char();
+    while (curr_ch != 0)
+    {
+        // jumps space characters
+        if (curr_ch == ' ')
+        {
+            next();
+            curr_ch = curr_char();
+            continue;
+        }
+
+        Token t;
+        bool need_next = true;
+        if (curr_ch == '-' || curr_ch == 'v' || curr_ch == '&'
+            || curr_ch == '<')
+        {
+            t = read_operator();
+            // prevents a syntax error to stop the lexer
+            if (t.type != Token::Type::UNKNOWN)
+                need_next = false;
+        }
+        else if (std::isalpha(curr_ch))
+        {
+            t = read_bool();
+            if (t.type == Token::Type::UNKNOWN)
+                t = read_variable();
+
+            // prevents a syntax error to stop the lexer
+            if (t.type != Token::Type::UNKNOWN)
+                need_next = false;
+        }
+        else if (curr_ch == '(' || curr_ch == ')')
+        {
+            t = Token{{curr_ch, 0}, Token::Type::PARENTHESIS};
+        }
+        else
+            t.value = {curr_ch, 0};
+
+        if (need_next)
+            next();
+        curr_ch = curr_char();
+
+        tokens.push_back(t);
+    }
     return tokens;
 }
 
@@ -71,16 +116,50 @@ Token Lexer::read_variable()
 {
     Token token;
     char curr_ch = curr_char();
-    if (curr_ch == 0 || !islower(curr_ch))
+    if (curr_ch == 0 || !isupper(curr_ch))
         return token;
 
     token.type = Token::Type::VARIABLE;
-    while (curr_ch != 0 && islower(curr_ch))
+    while (curr_ch != 0 && isupper(curr_ch))
     {
         token.value += curr_ch;
         next();
         curr_ch = curr_char();
     }
+    return token;
+}
+
+Token Lexer::read_operator()
+{
+    Token token;
+    char curr_ch = curr_char();
+    if (curr_ch == '&' || curr_ch == 'v')
+    {
+        token = Token({curr_ch, 0}, Token::Type::OPERATOR);
+        next();
+    }
+    else if (curr_ch == '<')
+    {
+        if (_curr + 2 < _end && *(_curr + 1) == '-' && *(_curr + 2) == '>')
+        {
+            token = Token{"<->", Token::Type::OPERATOR};
+            _curr += 3;
+        }
+    }
+    else if (curr_ch == '-')
+    {
+        if (_curr + 1 < _end && *(_curr + 1) == '>')
+        {
+            token = Token{"->", Token::Type::OPERATOR};
+            _curr += 2;
+        }
+        else
+        {
+            token = Token{"-", Token::Type::OPERATOR};
+            next();
+        }
+    }
+
     return token;
 }
 

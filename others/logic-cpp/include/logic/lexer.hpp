@@ -90,9 +90,10 @@ public:
      * \author João Vitor Espig (JotaEspig)
      * \date 05 February, 2024
      * \version 05 February, 2024
+     *
+     * TODO maybe I should improve this function in some way
      **/
     std::vector<Token> generate_tokens();
-
     /**
      * \brief Reads a bool at given _curr iterator
      * \author João Vitor Espig (JotaEspig)
@@ -111,6 +112,15 @@ public:
      * It changes _curr iterator
      **/
     Token read_variable();
+    /**
+     * \brief Reads an operator at given _curr iterator
+     * \author João Vitor Espig (JotaEspig)
+     * \date 05 February, 2024
+     * \version 05 February, 2024
+     *
+     * It changes _curr iterator
+     **/
+    Token read_operator();
 
 private:
     string_it _begin;
