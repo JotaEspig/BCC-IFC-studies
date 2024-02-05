@@ -9,7 +9,7 @@ int main()
     logic::greetings();
     std::cout << std::endl;
 
-    std::string fuck = "Q & R * <-> (S -> T)";
+    std::string fuck = "Q & R  <-> (S -> T)";
     logic::Lexer lex{fuck};
 
     auto tokens = lex.generate_tokens();
