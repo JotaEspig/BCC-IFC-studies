@@ -7,6 +7,9 @@
 #pragma once
 
 #include <string>
+#include <vector>
+
+#include "logic/token.hpp"
 
 namespace logic
 {
@@ -29,6 +32,14 @@ public:
      * \version 04 February, 2024
      **/
     Lexer();
+    /**
+     * \brief Lexer constructor
+     * \author João Vitor Espig (JotaEspig)
+     * \date 04 February, 2024
+     * \version 04 February, 2024
+     * \param string - string
+     **/
+    Lexer(std::string &string);
     /**
      * \brief Lexer constructor
      * \author João Vitor Espig (JotaEspig)
@@ -67,12 +78,6 @@ public:
      * \version 05 February, 2024
      **/
     char curr_char() const;
-
-private:
-    string_it _begin;
-    string_it _end;
-    string_it _curr;
-
     /**
      * \brief Increase iterator at current position by one
      * \author João Vitor Espig (JotaEspig)
@@ -80,6 +85,37 @@ private:
      * \version 04 February, 2024
      **/
     void next();
+    /**
+     * \brief Generates a vector of tokens for the given string
+     * \author João Vitor Espig (JotaEspig)
+     * \date 05 February, 2024
+     * \version 05 February, 2024
+     **/
+    std::vector<Token> generate_tokens();
+
+    /**
+     * \brief Reads a bool at given _curr iterator
+     * \author João Vitor Espig (JotaEspig)
+     * \date 05 February, 2024
+     * \version 05 February, 2024
+     *
+     * It changes _curr iterator
+     **/
+    Token read_bool();
+    /**
+     * \brief Reads a variable at given _curr iterator
+     * \author João Vitor Espig (JotaEspig)
+     * \date 05 February, 2024
+     * \version 05 February, 2024
+     *
+     * It changes _curr iterator
+     **/
+    Token read_variable();
+
+private:
+    string_it _begin;
+    string_it _end;
+    string_it _curr;
 };
 
 } // namespace logic
