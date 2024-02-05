@@ -60,6 +60,13 @@ public:
      * \version 04 February, 2024
      **/
     string_it curr() const;
+    /**
+     * \brief Gets current char in _curr iterator
+     * \author João Vitor Espig (JotaEspig)
+     * \date 05 February, 2024
+     * \version 05 February, 2024
+     **/
+    char curr_char() const;
 
 private:
     string_it _begin;

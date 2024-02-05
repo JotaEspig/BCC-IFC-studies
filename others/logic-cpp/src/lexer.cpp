@@ -29,6 +29,11 @@ inline Lexer::string_it Lexer::curr() const
     return _curr;
 }
 
+inline char Lexer::curr_char() const
+{
+    return _curr < _end ? *_curr : 0;
+}
+
 inline void Lexer::next()
 {
     ++_curr;
