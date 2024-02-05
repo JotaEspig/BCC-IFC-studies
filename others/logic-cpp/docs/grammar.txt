@@ -1,8 +1,10 @@
 Context-free Grammar
 
-Expression := Term {+ | - Term} 
-Term       := Factor {*|/ Factor}
-Factor     := Number | (Expression) | +Factor | -Factor
-Number     := Int.Int
-Int        := Digit {Digit}
-Digit      := {0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
+Expression := Term | -Expression
+Term       := SubTerm {& | v SubTerm}
+SubTerm    := Factor {-> | <-> Factor}
+Factor     := Bool | Variable | (Expression)
+
+Bool       := {true, false}
+Variable   := Digit {Digit}
+Digit      := {a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z}
