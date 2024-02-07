@@ -7,6 +7,7 @@
 #pragma once
 
 #include <memory>
+#include <ostream>
 
 #include "logic/token.hpp"
 
@@ -52,6 +53,7 @@ struct AST
          **/
         Node(const Token &token);
     };
+    typedef std::unique_ptr<Node> node_ptr;
 
     /** Root of the tree **/
     std::unique_ptr<Node> root;
@@ -64,5 +66,8 @@ struct AST
      **/
     AST();
 };
+
+std::ostream &operator<<(std::ostream &os, const AST &ast);
+std::ostream &operator<<(std::ostream &os, const AST::node_ptr &node);
 
 } // namespace logic;

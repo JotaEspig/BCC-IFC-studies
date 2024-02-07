@@ -17,4 +17,29 @@ AST::AST()
 {
 }
 
+std::ostream &operator<<(std::ostream &os, const AST &ast)
+{
+    os << ast.root;
+    return os;
+}
+
+std::ostream &operator<<(std::ostream &os, const AST::node_ptr &node)
+{
+    if (node == nullptr)
+    {
+        return os;
+    }
+    else if (node->value.type == Token::Type::OPERATOR)
+    {
+        os << node->left;
+        os << node->value.value;
+        os << node->right;
+    }
+    else
+    {
+        os << node->value.value;
+    }
+    return os;
+}
+
 } // namespace logic
