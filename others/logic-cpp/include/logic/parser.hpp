@@ -6,6 +6,7 @@
  **/
 #pragma once
 
+#include <string>
 #include <vector>
 
 #include "logic/ast.hpp"
@@ -16,11 +17,25 @@ namespace logic
 
 class Parser
 {
+    typedef std::vector<Token> token_vec;
+
 public:
-    std::vector<Token> tokens;
+    token_vec tokens;
+    std::string error;
 
     Parser();
-    Parser(const std::vector<Token> &tokens);
+    Parser(const token_vec &tokens);
+
+    AST generate_ast();
+    AST::node_ptr parse_expression(
+        const token_vec::iterator &begin, const token_vec::iterator &end
+    );
+    AST::node_ptr parse_term(
+        const token_vec::iterator &begin, const token_vec::iterator &end
+    );
+    AST::node_ptr parse_factor(
+        const token_vec::iterator &begin, const token_vec::iterator &end
+    );
 };
 
 } // namespace logic

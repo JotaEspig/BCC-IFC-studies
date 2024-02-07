@@ -2,6 +2,7 @@
 
 #include "logic/greetings.hpp"
 #include "logic/lexer.hpp"
+#include "logic/parser.hpp"
 #include "logic/token.hpp"
 
 int main()
@@ -9,16 +10,15 @@ int main()
     logic::greetings();
     std::cout << std::endl;
 
-    std::string fuck = "Q & R  <-> (S -> T)";
+    std::string a{{'&', 0}};
+    std::cout << (a == "&") << std::endl;
+    std::string fuck = "Q & R";
     logic::Lexer lex{fuck};
 
     auto tokens = lex.generate_tokens();
-    for (auto &t : tokens)
-    {
-        if (t.type != logic::Token::Type::UNKNOWN)
-            std::cout << t.value << std::endl;
-        else
-            std::cout << t.value << " is INVALID" << std::endl;
-    }
+    auto parser = logic::Parser{tokens};
+    auto ast = parser.generate_ast();
+    std::cout << ast << std::endl;
+    std::cout << parser.error << std::endl;
     return 0;
 }
