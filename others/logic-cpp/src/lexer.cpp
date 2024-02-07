@@ -1,5 +1,4 @@
 #include <cctype>
-#include <iostream>
 #include <vector>
 
 #include "logic/lexer.hpp"
@@ -85,10 +84,10 @@ std::vector<Token> Lexer::generate_tokens()
         }
         else if (curr_ch == '(' || curr_ch == ')')
         {
-            t = Token{{curr_ch, 0}, Token::Type::PARENTHESIS};
+            t = Token{{curr_ch}, Token::Type::PARENTHESIS};
         }
         else
-            t.value = {curr_ch, 0};
+            t.value = {curr_ch};
 
         if (need_next)
             next();
@@ -135,7 +134,7 @@ Token Lexer::read_operator()
     char curr_ch = curr_char();
     if (curr_ch == '&' || curr_ch == 'v')
     {
-        token = Token({curr_ch, 0}, Token::Type::OPERATOR);
+        token = Token({curr_ch}, Token::Type::OPERATOR);
         next();
     }
     else if (curr_ch == '<')
