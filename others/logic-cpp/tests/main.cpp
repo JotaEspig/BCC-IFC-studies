@@ -17,7 +17,7 @@ int main()
 
         auto parser = logic::Parser{tokens};
         auto ast = parser.generate_ast();
-        std::cout << ast << std::endl;
+        std::cout << str << " - " << ast << std::endl;
         std::cout << parser.error << std::endl;
     }
     return 0;

@@ -57,8 +57,8 @@ AST Parser::generate_ast()
 {
     AST ast{};
     ast.root = parse_expression();
-    if (error != "")
-        ast.root = nullptr;
+    if (error == "" && _begin < _end)
+        ast.root = set_error("begin < end at the end of the parsing");
 
     return ast;
 }
@@ -67,11 +67,11 @@ AST::node_ptr Parser::parse_expression()
 {
     if (_curr >= _end)
     {
-        return set_error("parser: begin <= end at parse_expression");
+        return set_error("begin <= end at parse_expression");
     }
     else if (_curr->type == Token::Type::UNKNOWN)
     {
-        return set_error("parser: Unknown token type");
+        return set_error("Unknown token type");
     }
 
     auto node = parse_term();
@@ -99,11 +99,11 @@ AST::node_ptr Parser::parse_term()
 {
     if (_curr >= _end)
     {
-        return set_error("parser: begin <= end at parse_term");
+        return set_error("begin <= end at parse_term");
     }
     else if (_curr->type == Token::Type::UNKNOWN)
     {
-        return set_error("parser: Unknown token type");
+        return set_error("Unknown token type");
     }
 
     auto node = parse_factor();
@@ -131,11 +131,11 @@ AST::node_ptr Parser::parse_factor()
 {
     if (_curr >= _end)
     {
-        return set_error("parser: begin <= end at parse_factor");
+        return set_error("begin <= end at parse_factor");
     }
     else if (_curr->type == Token::Type::UNKNOWN)
     {
-        return set_error("parser: Unknown token type");
+        return set_error("Unknown token type");
     }
 
     auto node = std::make_unique<AST::Node>();
@@ -157,13 +157,13 @@ AST::node_ptr Parser::parse_factor()
         node = parse_expression();
         if (_curr->value != ")")
         {
-            return set_error("parser: not found expected \")\"");
+            return set_error("not found expected \")\"");
         }
         next();
     }
     else
     {
-        return set_error("parser: not found Factor at parse_factor");
+        return set_error("not found Factor at parse_factor");
     }
 
     return node;
