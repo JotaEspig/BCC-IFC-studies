@@ -56,21 +56,21 @@ public:
      * \date 04 February, 2024
      * \version 04 February, 2024
      **/
-    string_it begin() const;
+    const string_it &begin() const;
     /**
      * \brief member end get
      * \author João Vitor Espig (JotaEspig)
      * \date 04 February, 2024
      * \version 04 February, 2024
      **/
-    string_it end() const;
+    const string_it &end() const;
     /**
      * \brief member curr get
      * \author João Vitor Espig (JotaEspig)
      * \date 04 February, 2024
      * \version 04 February, 2024
      **/
-    string_it curr() const;
+    const string_it &curr() const;
     /**
      * \brief Gets current char in _curr iterator
      * \author João Vitor Espig (JotaEspig)

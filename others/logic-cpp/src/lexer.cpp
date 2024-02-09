@@ -23,17 +23,17 @@ Lexer::Lexer(const string_it &begin, const string_it &end) :
 {
 }
 
-Lexer::string_it Lexer::begin() const
+const Lexer::string_it &Lexer::begin() const
 {
     return _begin;
 }
 
-Lexer::string_it Lexer::end() const
+const Lexer::string_it &Lexer::end() const
 {
     return _end;
 }
 
-Lexer::string_it Lexer::curr() const
+const Lexer::string_it &Lexer::curr() const
 {
     return _curr;
 }
