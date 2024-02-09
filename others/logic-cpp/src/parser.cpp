@@ -12,10 +12,31 @@ Parser::Parser()
 }
 
 Parser::Parser(const token_vec &tokens) :
-    tokens{tokens},
-    begin{Parser::tokens.begin()},
-    end{Parser::tokens.end()}
+    _tokens{tokens},
+    _begin{_tokens.begin()},
+    _end{_tokens.end()},
+    _curr{_tokens.begin()}
 {
+}
+
+const Parser::token_vec &Parser::tokens() const
+{
+    return _tokens;
+}
+
+const Parser::token_vec::iterator &Parser::begin() const
+{
+    return _begin;
+}
+
+const Parser::token_vec::iterator &Parser::end() const
+{
+    return _end;
+}
+
+const Parser::token_vec::iterator &Parser::curr() const
+{
+    return _curr;
 }
 
 AST::node_ptr Parser::set_error(std::string str)
@@ -23,13 +44,13 @@ AST::node_ptr Parser::set_error(std::string str)
     std::string base = "parser error: ";
     std::string final = base + str;
     error = final;
-    begin = end;
+    _curr = _end;
     return nullptr;
 }
 
 void Parser::next()
 {
-    ++begin;
+    ++_curr;
 }
 
 AST Parser::generate_ast()
@@ -44,28 +65,26 @@ AST Parser::generate_ast()
 
 AST::node_ptr Parser::parse_expression()
 {
-    if (begin >= end)
+    if (_curr >= _end)
     {
-        set_error("parser: begin <= end at parse_expression");
-        return nullptr;
+        return set_error("parser: begin <= end at parse_expression");
     }
-    else if (begin->type == Token::Type::UNKNOWN)
+    else if (_curr->type == Token::Type::UNKNOWN)
     {
-        set_error("parser: Unknown token type");
-        return nullptr;
+        return set_error("parser: Unknown token type");
     }
 
     auto node = parse_term();
     if (node == nullptr)
         return nullptr;
 
-    while (begin < end && begin->type == Token::Type::OPERATOR
-           && (begin->value == "->" || begin->value == "<->"))
+    while (_curr < _end && _curr->type == Token::Type::OPERATOR
+           && (_curr->value == "->" || _curr->value == "<->"))
     {
         auto temp = std::move(node);
         node = std::make_unique<AST::Node>();
 
-        node->value = *begin;
+        node->value = *_curr;
         node->left = std::move(temp);
         next();
         node->right = parse_term();
@@ -78,28 +97,26 @@ AST::node_ptr Parser::parse_expression()
 
 AST::node_ptr Parser::parse_term()
 {
-    if (begin >= end)
+    if (_curr >= _end)
     {
-        set_error("parser: begin <= end at parse_term");
-        return nullptr;
+        return set_error("parser: begin <= end at parse_term");
     }
-    else if (begin->type == Token::Type::UNKNOWN)
+    else if (_curr->type == Token::Type::UNKNOWN)
     {
-        set_error("parser: Unknown token type");
-        return nullptr;
+        return set_error("parser: Unknown token type");
     }
 
     auto node = parse_factor();
     if (node == nullptr)
         return nullptr;
 
-    while (begin < end && begin->type == Token::Type::OPERATOR
-           && (begin->value == "&" || begin->value == "v"))
+    while (_curr < _end && _curr->type == Token::Type::OPERATOR
+           && (_curr->value == "&" || _curr->value == "v"))
     {
         auto temp = std::move(node);
         node = std::make_unique<AST::Node>();
 
-        node->value = *begin;
+        node->value = *_curr;
         node->left = std::move(temp);
         next();
         node->right = parse_factor();
@@ -112,45 +129,41 @@ AST::node_ptr Parser::parse_term()
 
 AST::node_ptr Parser::parse_factor()
 {
-    if (begin >= end)
+    if (_curr >= _end)
     {
-        set_error("parser: begin <= end at parse_factor");
-        return nullptr;
+        return set_error("parser: begin <= end at parse_factor");
     }
-    else if (begin->type == Token::Type::UNKNOWN)
+    else if (_curr->type == Token::Type::UNKNOWN)
     {
-        set_error("parser: Unknown token type");
-        return nullptr;
+        return set_error("parser: Unknown token type");
     }
 
     auto node = std::make_unique<AST::Node>();
 
-    if (begin->value == "-")
+    if (_curr->value == "-")
     {
-        node->value = *begin;
+        node->value = *_curr;
         next();
         node->left = parse_factor();
     }
-    else if (begin->type == Token::Type::BOOL || begin->type == Token::Type::VARIABLE)
+    else if (_curr->type == Token::Type::BOOL || _curr->type == Token::Type::VARIABLE)
     {
-        node->value = *begin;
+        node->value = *_curr;
         next();
     }
-    else if (begin->value == "(")
+    else if (_curr->value == "(")
     {
         next();
         node = parse_expression();
-        if (begin->value != ")")
+        if (_curr->value != ")")
         {
-            set_error("parser: not found expected \")\"");
-            return nullptr;
+            return set_error("parser: not found expected \")\"");
         }
         next();
     }
     else
     {
-        set_error("parser: not found Factor at parse_factor");
-        return nullptr;
+        return set_error("parser: not found Factor at parse_factor");
     }
 
     return node;
