@@ -101,6 +101,9 @@ std::vector<Token> Lexer::generate_tokens()
 Token Lexer::read_bool()
 {
     Token token;
+    if (_curr + 4 >= _end)
+        return token;
+
     std::string first_4letters{_curr, _curr + 4};
     if (first_4letters == "true" || first_4letters == "false")
     {
