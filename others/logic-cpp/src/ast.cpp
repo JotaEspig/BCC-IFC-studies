@@ -31,9 +31,19 @@ std::ostream &operator<<(std::ostream &os, const AST::node_ptr &node)
     }
     else if (node->value.type == Token::Type::OPERATOR)
     {
-        os << node->left;
-        os << node->value.value;
-        os << node->right;
+        os << "(";
+        if (node->value.value == "-")
+        {
+            os << node->value.value;
+            os << node->left;
+        }
+        else
+        {
+            os << node->left;
+            os << node->value.value;
+            os << node->right;
+        }
+        os << ")";
     }
     else
     {
