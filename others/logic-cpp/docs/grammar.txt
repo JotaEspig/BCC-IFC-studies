@@ -2,8 +2,8 @@ Context-free Grammar
 
 Alphabet   := {A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, (, ), -, &, v, ->, <->}
 
-Expression := Term {& | v Term}
-Term       := Factor {-> | <-> Factor}
+Expression := Term {->  | <-> Term}
+Term       := Factor {& | v Factor}
 Factor     := -Factor | Bool | Variable | (Expression)
 
 Bool       := {true, false}
