@@ -21,21 +21,19 @@ class Parser
 
 public:
     token_vec tokens;
+    token_vec::iterator begin;
+    token_vec::iterator end;
     std::string error;
 
     Parser();
     Parser(const token_vec &tokens);
 
+    AST::node_ptr set_error(std::string msg);
+    void next();
     AST generate_ast();
-    AST::node_ptr parse_expression(
-        const token_vec::iterator &begin, const token_vec::iterator &end
-    );
-    AST::node_ptr parse_term(
-        const token_vec::iterator &begin, const token_vec::iterator &end
-    );
-    AST::node_ptr parse_factor(
-        const token_vec::iterator &begin, const token_vec::iterator &end
-    );
+    AST::node_ptr parse_expression();
+    AST::node_ptr parse_term();
+    AST::node_ptr parse_factor();
 };
 
 } // namespace logic
