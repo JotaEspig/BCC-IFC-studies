@@ -26,10 +26,10 @@ int main()
     ll_node_t deleted = ll_delete_at(ll, 3);
     ll_node_destroy(&deleted);
 
-    for (int i = 0; i < 20; ++i)
+    for (int i = 0; i < 5; ++i)
         ll_insert(ll, untyped_new_int(i));
 
-    int idx = 19;
+    int idx = 4;
     printf("\nGet at %d: ", idx);
     ll_node_print(ll_get_at(ll, idx));
     printf("\nAssign at %d\n", idx);
@@ -37,6 +37,12 @@ int main()
     printf("Get at %d: ", 10);
     ll_node_print(ll_get_at(ll, idx));
     printf("\n");
+    ll_print(ll);
+
+    ll_insert_at(ll, 0, untyped_new_str("Start"));
+    ll_insert_at(ll, 1, untyped_new_str("Second"));
+    ll_insert_at(ll, ll->size - 1, untyped_new_str("one before last"));
+
     ll_print(ll);
 
     ll_destroy(&ll);

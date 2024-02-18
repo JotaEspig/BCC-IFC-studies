@@ -22,7 +22,8 @@ typedef struct linked_list
 } *linked_list_t;
 
 linked_list_t ll_new();
-linked_list_t ll_insert(linked_list_t ll, untyped_t value);
+void ll_insert(linked_list_t ll, untyped_t value);
+void ll_insert_at(linked_list_t ll, size_t idx, untyped_t value);
 // It destroys the previous item at the index and replaces it with value
 void ll_assign(linked_list_t ll, size_t idx, untyped_t value);
 ll_node_t ll_get_at(linked_list_t ll, size_t idx);

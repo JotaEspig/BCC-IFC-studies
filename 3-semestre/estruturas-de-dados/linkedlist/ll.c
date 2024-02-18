@@ -41,7 +41,7 @@ linked_list_t ll_new()
     return ll;
 }
 
-linked_list_t ll_insert(linked_list_t ll, untyped_t value)
+void ll_insert(linked_list_t ll, untyped_t value)
 {
     assert(ll != NULL);
 
@@ -49,7 +49,7 @@ linked_list_t ll_insert(linked_list_t ll, untyped_t value)
     {
         ll->head->value = value;
         ++ll->size;
-        return ll;
+        return;
     }
 
     ll_node_t new_node = ll_node_new();
@@ -60,7 +60,31 @@ linked_list_t ll_insert(linked_list_t ll, untyped_t value)
 
     curr->next = new_node;
     ++ll->size;
-    return ll;
+}
+
+void ll_insert_at(linked_list_t ll, size_t idx, untyped_t value)
+{
+    assert(ll != NULL);
+    assert(idx < ll->size);
+
+    ll_node_t new_node = ll_node_new();
+    new_node->value = value;
+
+    ll_node_t *curr = &ll->head;
+    ll_node_t prev = NULL;
+    size_t i = 0;
+    while (i < idx && (*curr)->next != NULL)
+    {
+        prev = *curr;
+        curr = &(*curr)->next;
+        ++i;
+    }
+
+    new_node->next = (*curr);
+    *curr = new_node;
+    if (prev)
+        prev->next = new_node;
+    ++ll->size;
 }
 
 void ll_assign(linked_list_t ll, size_t idx, untyped_t value)
