@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGS =
 BUILD_DIR = build
-SRC = ll.c untyped.c utils.c main.c
+SRC = main.c avl.c
 OBJNAMES = $(patsubst %.c, %.o, $(SRC))
 OBJ = $(foreach item,$(OBJNAMES),./$(BUILD_DIR)/$(item))
 TARGET = $(BUILD_DIR)/a.out
