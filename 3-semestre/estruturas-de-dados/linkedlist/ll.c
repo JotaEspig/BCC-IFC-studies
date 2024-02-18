@@ -5,20 +5,40 @@
 #include "ll.h"
 #include "untyped.h"
 
-linked_list_t ll_new()
-{
-    linked_list_t ll = malloc(sizeof(struct linked_list));
-    ll->head = ll_node_new();
-    ll->size = 0;
-    return ll;
-}
-
 ll_node_t ll_node_new()
 {
     ll_node_t node = malloc(sizeof(struct ll_node));
     node->value = NULL;
     node->next = NULL;
     return node;
+}
+
+void ll_node_print(ll_node_t node)
+{
+    assert(node != NULL);
+    untyped_print(node->value);
+}
+
+void ll_node_destroy(ll_node_t *node)
+{
+    assert(node != NULL);
+    if (*node == NULL)
+        return;
+
+    // Go recursive
+    ll_node_destroy(&((*node)->next));
+
+    untyped_destroy(&(*node)->value);
+    free(*node);
+    *node = NULL;
+}
+
+linked_list_t ll_new()
+{
+    linked_list_t ll = malloc(sizeof(struct linked_list));
+    ll->head = ll_node_new();
+    ll->size = 0;
+    return ll;
 }
 
 linked_list_t ll_insert(linked_list_t ll, untyped_t value)
@@ -112,12 +132,6 @@ void ll_print(linked_list_t ll)
     }
 }
 
-void ll_node_print(ll_node_t node)
-{
-    assert(node != NULL);
-    untyped_print(node->value);
-}
-
 void ll_destroy(linked_list_t *ll)
 {
     assert(ll != NULL);
@@ -127,18 +141,4 @@ void ll_destroy(linked_list_t *ll)
     ll_node_destroy(&(*ll)->head);
     free(*ll);
     *ll = NULL;
-}
-
-void ll_node_destroy(ll_node_t *node)
-{
-    assert(node != NULL);
-    if (*node == NULL)
-        return;
-
-    // Go recursive
-    ll_node_destroy(&((*node)->next));
-
-    untyped_destroy(&(*node)->value);
-    free(*node);
-    *node = NULL;
 }
