@@ -1,3 +1,4 @@
+#include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -14,28 +15,43 @@ avl_node_t avl_node_new(int value)
 
 void avl_node_rot_ll(avl_node_t *node)
 {
-    avl_node_t aux = (*node)->left;
-    (*node)->left = aux->right;
-    aux->right = *node;
-    *node = aux;
+    avl_node_t a = *node;
+    avl_node_t b = a->left;
+    a->left = b->right;
+    b->right = a;
+    *node = b;
 }
 
 void avl_node_rot_rr(avl_node_t *node)
 {
-    avl_node_t aux = (*node)->right;
-    (*node)->right = aux->left;
-    aux->left = *node;
-    *node = aux;
+    avl_node_t a = *node;
+    avl_node_t b = a->right;
+    a->right = b->left;
+    b->left = a;
+    *node = b;
 }
 
 void avl_node_rot_lr(avl_node_t *node)
 {
-    avl_node_t b = (*node)->left;
+    avl_node_t a = *node;
+    avl_node_t b = a->left;
     avl_node_t c = b->right;
     b->right = c->left;
-    (*node)->left = c->right;
+    a->left = c->right;
     c->left = b;
-    c->right = *node;
+    c->right = a;
+    *node = c;
+}
+
+void avl_node_rot_rl(avl_node_t *node)
+{
+    avl_node_t a = *node;
+    avl_node_t b = a->right;
+    avl_node_t c = b->left;
+    b->left = c->right;
+    a->right = c->left;
+    c->right = b;
+    c->left = a;
     *node = c;
 }
 
@@ -55,4 +71,16 @@ void avl_node_print(avl_node_t node, int space)
     printf("%d\n", node->value);
 
     avl_node_print(node->left, space);
+}
+
+void avl_node_destroy(avl_node_t *node)
+{
+    assert(node != NULL);
+    if (*node == NULL)
+        return;
+
+    avl_node_destroy(&(*node)->left);
+    avl_node_destroy(&(*node)->right);
+    free(*node);
+    *node = NULL;
 }
