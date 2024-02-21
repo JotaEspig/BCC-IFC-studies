@@ -9,7 +9,7 @@ avl_node_t avl_node_new(int value)
 {
     avl_node_t node = malloc(sizeof(struct avl_node));
     node->value = value;
-    node->value = 0;
+    node->height = 0;
     node->left = NULL;
     node->right = NULL;
     return node;
@@ -50,9 +50,9 @@ void avl_node_set_height(avl_node_t node)
     assert(node != NULL);
     size_t height = 0;
     if (node->left == NULL)
-        height = node->left->height + 1;
+        height = avl_node_height(node->left) + 1;
     if (node->right == NULL)
-        height = max(height, node->right->height + 1);
+        height = max(height, avl_node_height(node->right) + 1);
 
     node->height = height;
 }
