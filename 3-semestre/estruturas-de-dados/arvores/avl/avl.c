@@ -87,6 +87,9 @@ void avl_node_rot(avl_node_t *node)
         else
             avl_node_rot_rl(node);
     }
+
+    avl_node_set_height(*node);
+    printf("%d - %d\n", (*node)->value, (*node)->height);
 }
 
 void avl_node_rot_ll(avl_node_t *node)
@@ -154,7 +157,7 @@ void avl_node_print(avl_node_t node, int space)
     printf("\n");
     for (int i = step; i < space; i++)
         printf(" ");
-    printf("%d\n", node->value);
+    printf("%d - %ld\n", node->value, node->height);
 
     avl_node_print(node->left, space);
 }
