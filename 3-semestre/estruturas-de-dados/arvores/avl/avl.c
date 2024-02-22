@@ -69,16 +69,10 @@ long avl_node_balance(avl_node_t node)
 
 void avl_node_rot(avl_node_t *node)
 {
-    printf("%p\n", node);
-    printf("l %p  -- ", (*node)->left);
-    printf("r %p  -- ", (*node)->right);
-    printf("%d -- ", avl_node_height((*node)->left));
-    printf("%d ===", avl_node_height((*node)->right));
     long balance = avl_node_balance(*node);
     printf("%d\n", balance);
     if (balance >= 2)
     {
-        printf("2\n");
         avl_node_t left = (*node)->left;
         if (avl_node_height(left->left) - avl_node_height(left->right) >= 1)
             avl_node_rot_ll(node);
@@ -87,9 +81,7 @@ void avl_node_rot(avl_node_t *node)
     }
     else if (balance <= -2)
     {
-        printf("-2\n");
         avl_node_t right = (*node)->right;
-        printf("r %p\n", right);
         if (avl_node_height(right->left) - avl_node_height(right->right) <= -1)
             avl_node_rot_rr(node);
         else
