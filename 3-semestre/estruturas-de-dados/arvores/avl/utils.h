@@ -1,7 +1,7 @@
-#ifndef  UTILS_H
-#define  UTILS_H
+#ifndef UTILS_H
+#define UTILS_H
 
-#define max(a, b) a ? a > b : b
-#define min(a, b) a ? a < b : b
+#define max(a, b) a > b ? a : b
+#define min(a, b) a < b ? a : b
 
 #endif // UTILS_H

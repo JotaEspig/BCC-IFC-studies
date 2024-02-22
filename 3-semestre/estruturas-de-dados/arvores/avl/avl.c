@@ -25,19 +25,18 @@ void avl_node_insert(avl_node_t *node, int value)
     if (*node == NULL)
     {
         *node = avl_node_new(value);
+        return;
     }
     else if ((*node)->value > value)
     {
         avl_node_insert(&(*node)->left, value);
         avl_node_set_height(*node);
-        size_t balance = avl_node_balance(*node);
         avl_node_rot(node);
     }
     else if ((*node)->value <= value)
     {
         avl_node_insert(&(*node)->right, value);
         avl_node_set_height(*node);
-        size_t balance = avl_node_balance(*node);
         avl_node_rot(node);
     }
 }
@@ -70,11 +69,10 @@ long avl_node_balance(avl_node_t node)
 void avl_node_rot(avl_node_t *node)
 {
     long balance = avl_node_balance(*node);
-    printf("%d\n", balance);
     if (balance >= 2)
     {
         avl_node_t left = (*node)->left;
-        if (avl_node_height(left->left) - avl_node_height(left->right) >= 1)
+        if (avl_node_balance(left) >= 1)
             avl_node_rot_ll(node);
         else
             avl_node_rot_lr(node);
@@ -82,14 +80,11 @@ void avl_node_rot(avl_node_t *node)
     else if (balance <= -2)
     {
         avl_node_t right = (*node)->right;
-        if (avl_node_height(right->left) - avl_node_height(right->right) <= -1)
+        if (avl_node_balance(right) <= -1)
             avl_node_rot_rr(node);
         else
             avl_node_rot_rl(node);
     }
-
-    avl_node_set_height(*node);
-    printf("%d - %d\n", (*node)->value, (*node)->height);
 }
 
 void avl_node_rot_ll(avl_node_t *node)
