@@ -8,6 +8,9 @@
 avl_node_t avl_node_new(int value)
 {
     avl_node_t node = malloc(sizeof(struct avl_node));
+    if (node == NULL)
+        return NULL;
+
     node->value = value;
     node->height = 0;
     node->left = NULL;
@@ -26,12 +29,14 @@ void avl_node_insert(avl_node_t *node, int value)
     else if ((*node)->value > value)
     {
         avl_node_insert(&(*node)->left, value);
+        avl_node_set_height(*node);
         size_t balance = avl_node_balance(*node);
         avl_node_rot(node);
     }
     else if ((*node)->value <= value)
     {
         avl_node_insert(&(*node)->right, value);
+        avl_node_set_height(*node);
         size_t balance = avl_node_balance(*node);
         avl_node_rot(node);
     }
@@ -49,34 +54,40 @@ void avl_node_set_height(avl_node_t node)
 {
     assert(node != NULL);
     size_t height = 0;
-    if (node->left == NULL)
+    if (node->left != NULL)
         height = avl_node_height(node->left) + 1;
-    if (node->right == NULL)
+    if (node->right != NULL)
         height = max(height, avl_node_height(node->right) + 1);
 
     node->height = height;
 }
 
-size_t avl_node_balance(avl_node_t node)
+long avl_node_balance(avl_node_t node)
 {
-    return avl_node_height(node->left)- avl_node_height(node->right);
+    return avl_node_height(node->left) - avl_node_height(node->right);
 }
 
 void avl_node_rot(avl_node_t *node)
 {
     printf("%p\n", node);
-    if (avl_node_height((*node)->left) - avl_node_height((*node)->right) >= 2)
+    printf("l %p  -- ", (*node)->left);
+    printf("r %p  -- ", (*node)->right);
+    printf("%d -- ", avl_node_height((*node)->left));
+    printf("%d ===", avl_node_height((*node)->right));
+    long balance = avl_node_balance(*node);
+    printf("%d\n", balance);
+    if (balance >= 2)
     {
+        printf("2\n");
         avl_node_t left = (*node)->left;
-        printf("l %p\n", left);
         if (avl_node_height(left->left) - avl_node_height(left->right) >= 1)
             avl_node_rot_ll(node);
         else
             avl_node_rot_lr(node);
     }
-    else if (avl_node_height((*node)->left)
-            - avl_node_height((*node)->right) <= -2)
+    else if (balance <= -2)
     {
+        printf("-2\n");
         avl_node_t right = (*node)->right;
         printf("r %p\n", right);
         if (avl_node_height(right->left) - avl_node_height(right->right) <= -1)

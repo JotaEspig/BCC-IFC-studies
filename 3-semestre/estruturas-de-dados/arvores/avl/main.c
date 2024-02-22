@@ -1,12 +1,19 @@
 #include <assert.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "avl.h"
 
 int main()
 {
+    printf("aa\n");
     avl_node_t node = avl_node_new(1);
-    for (int i = 2; i < 6; ++i)
+    if (node == NULL)
+    {
+        perror("Memory allocation failed");
+        exit(1);
+    }
+    for (int i = 2; i < 15; ++i)
     {
         printf("%d\n", i);
         avl_node_insert(&node, i);
