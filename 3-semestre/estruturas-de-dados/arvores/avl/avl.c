@@ -139,7 +139,17 @@ void avl_node_rot_rl(avl_node_t *node)
     avl_node_set_height(c);
 }
 
-void avl_node_print(avl_node_t node, int space)
+void avl_node_print(avl_node_t node)
+{
+    if (node == NULL)
+        return;
+
+    avl_node_print(node->left);
+    printf("%d ", node->value);
+    avl_node_print(node->right);
+}
+
+void avl_node_beautiful_print(avl_node_t node, int space)
 {
     if (node == NULL)
         return;
@@ -147,14 +157,14 @@ void avl_node_print(avl_node_t node, int space)
     int step = 8;
     space += step;
 
-    avl_node_print(node->right, space);
+    avl_node_beautiful_print(node->right, space);
 
     printf("\n");
     for (int i = step; i < space; i++)
         printf(" ");
     printf("%d - %ld\n", node->value, node->height);
 
-    avl_node_print(node->left, space);
+    avl_node_beautiful_print(node->left, space);
 }
 
 void avl_node_destroy(avl_node_t *node)

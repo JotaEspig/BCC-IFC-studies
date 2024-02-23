@@ -12,13 +12,18 @@ int main()
         perror("Memory allocation failed");
         exit(1);
     }
-    for (int i = 2; i < 20; ++i)
+    for (int i = 2; i < 120000; ++i)
         avl_node_insert(&node, i);
 
     printf("%p\n", node);
-    avl_node_print(node, 0);
+    // avl_node_beautiful_print(node, 0);
+
+    printf("\n");
+    avl_node_print(node);
+    printf("\n");
 
     avl_node_destroy(&node);
     assert(node == NULL);
+    printf("sizeof(struct avl_node): %ld\n", sizeof(struct avl_node));
     return 0;
 }
