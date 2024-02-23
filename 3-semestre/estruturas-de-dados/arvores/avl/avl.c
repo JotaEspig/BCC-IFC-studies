@@ -46,6 +46,25 @@ void avl_node_insert(avl_node_t *node, int value)
     }
 }
 
+avl_node_t avl_node_search(avl_node_t node, int value)
+{
+    assert(node != NULL);
+
+    avl_node_t curr = node;
+    while (curr != NULL)
+    {
+        if (curr->value == value)
+            return curr;
+
+        if (curr->value > value)
+            curr = curr->left;
+        else
+            curr = curr->right;
+    }
+
+    return NULL;
+}
+
 size_t avl_node_height(avl_node_t node)
 {
     size_t height = 0;

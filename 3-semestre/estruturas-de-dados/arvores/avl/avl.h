@@ -12,6 +12,7 @@ typedef struct avl_node
 
 avl_node_t avl_node_new(int value);
 void avl_node_insert(avl_node_t *node, int value);
+avl_node_t avl_node_search(avl_node_t node, int value);
 size_t avl_node_height(avl_node_t node);
 void avl_node_set_height(avl_node_t node);
 long avl_node_balance(avl_node_t node);
