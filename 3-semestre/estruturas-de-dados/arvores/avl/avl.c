@@ -25,6 +25,11 @@ void avl_node_insert(avl_node_t *node, int value)
     if (*node == NULL)
     {
         *node = avl_node_new(value);
+        if (*node == NULL)
+        {
+            perror("Memory allocation failed");
+            exit(1);
+        }
         return;
     }
     else if ((*node)->value > value)
