@@ -65,6 +65,65 @@ avl_node_t avl_node_search(avl_node_t node, int value)
     return NULL;
 }
 
+avl_node_t avl_node_min_value(avl_node_t node)
+{
+    avl_node_t curr = node;
+    while (curr != NULL)
+        curr = curr->left;
+    return curr;
+}
+
+void avl_node_delete(avl_node_t *node, int value)
+{
+    assert(node != NULL);
+    if (*node == NULL)
+        return;
+
+    if ((*node)->value > value)
+    {
+        avl_node_delete(&(*node)->left, value);
+    }
+    else if ((*node)->value < value)
+    {
+        avl_node_delete(&(*node)->right, value);
+    }
+    else
+    {
+        // One child or no child cases
+        if((*node)->left == NULL || (*node)->right == NULL) 
+        { 
+            avl_node_t temp = (*node)->left ? 
+                (*node)->left : 
+                (*node)->right; 
+
+            // No child case 
+            // ERROR is here
+            if (temp == NULL) 
+            { 
+                avl_node_destroy(node);
+            } 
+            else
+            {
+                free(*node);
+                *node = temp;
+            }
+
+        }
+        else
+        {
+            avl_node_t min_node = avl_node_min_value((*node)->right);
+            (*node)->value = min_node->value;
+            avl_node_delete(&(*node)->right, min_node->value);
+        }
+    }
+
+    if (*node == NULL)
+        return;
+
+    avl_node_set_height(*node);
+    avl_node_rot(node);
+}
+
 size_t avl_node_height(avl_node_t node)
 {
     size_t height = 0;
