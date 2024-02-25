@@ -68,7 +68,7 @@ avl_node_t avl_node_search(avl_node_t node, int value)
 avl_node_t avl_node_min_value(avl_node_t node)
 {
     avl_node_t curr = node;
-    while (curr != NULL)
+    while (curr->left != NULL)
         curr = curr->left;
     return curr;
 }
@@ -90,31 +90,30 @@ void avl_node_delete(avl_node_t *node, int value)
     else
     {
         // One child or no child cases
-        if((*node)->left == NULL || (*node)->right == NULL) 
-        { 
-            avl_node_t temp = (*node)->left ? 
-                (*node)->left : 
-                (*node)->right; 
+        if ((*node)->left == NULL || (*node)->right == NULL)
+        {
+            avl_node_t *temp = (*node)->left ? &(*node)->left : &(*node)->right;
 
-            // No child case 
-            // ERROR is here
-            if (temp == NULL) 
-            { 
+            // No child case
+            if (*temp == NULL)
+            {
                 avl_node_destroy(node);
-            } 
+            }
             else
             {
-                free(*node);
-                *node = temp;
+                int aux = (*temp)->value;
+                (*node)->value = aux;
+                avl_node_destroy(temp);
+                avl_node_set_height(*node);
             }
 
+            return;
         }
-        else
-        {
-            avl_node_t min_node = avl_node_min_value((*node)->right);
-            (*node)->value = min_node->value;
-            avl_node_delete(&(*node)->right, min_node->value);
-        }
+
+        // Two children case
+        avl_node_t min_node = avl_node_min_value((*node)->right);
+        (*node)->value = min_node->value;
+        avl_node_delete(&(*node)->right, min_node->value);
     }
 
     if (*node == NULL)
