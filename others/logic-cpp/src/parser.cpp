@@ -57,7 +57,7 @@ AST Parser::generate_ast()
 {
     AST ast{};
     ast.root = parse_expression();
-    if (error == "" && _begin < _end)
+    if (error == "" && _begin >= _end)
         ast.root = set_error("begin < end at the end of the parsing");
 
     return ast;
