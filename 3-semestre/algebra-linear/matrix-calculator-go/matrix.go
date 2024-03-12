@@ -124,6 +124,7 @@ func (m *Matrix[T]) Cofactor(r, c uint16) (*Matrix[T], error) {
 			count2++
 		}
 
+		count2 = 0
 		count1++
 	}
 
@@ -149,9 +150,79 @@ func (m *Matrix[T]) Inverse() (*Matrix[T], error) {
 		}
 	}
 
-	// TODO finish
-	result := NewWithoutData[T](m.rows, m.columns)
+	return aux.gaussJordan()
+}
+
+// TODO finish
+func (m *Matrix[T]) gaussJordan() (*Matrix[T], error) {
+	for col := range m.columns / 2 {
+		// set pivot to one
+		if m.data[col][col] == 0 {
+			err := errors.New("Invalid gauss jordan: determinant == 0")
+			for row := range m.rows {
+				if m.data[row][col] != 0 {
+					m.AddMultipliedRow(col, row, T(math.Pow(float64(m.data[row][col]), -1)))
+					err = nil
+					break
+				}
+			}
+
+			if err != nil {
+				return nil, err
+			}
+
+		} else {
+			m.MultiplyRow(col, T(math.Pow(float64(m.data[col][col]), -1)))
+		}
+
+		for row := range m.rows {
+			if col == row {
+				continue
+			}
+
+			m.AddMultipliedRow(row, col, -1*m.data[row][col])
+		}
+	}
+
+	result := NewWithoutData[T](m.rows, m.columns/2)
+	colAux := 0
+	for row := range m.rows {
+		for col := m.columns / 2; col < m.columns; col++ {
+			result.data[row][colAux] = m.data[row][col]
+			colAux++
+		}
+		colAux = 0
+	}
 	return result, nil
+}
+
+// ----- Elementary operations -----
+
+func (m *Matrix[T]) SwapLines(r1, r2 uint16) error {
+	return nil
+}
+
+func (m *Matrix[T]) MultiplyRow(row uint16, num T) error {
+	if row >= m.rows {
+		return errors.New("invalid dest our source in MultiplyRow")
+	}
+
+	for j := range m.columns {
+		m.data[row][j] = m.data[row][j] * num
+	}
+
+	return nil
+}
+
+func (m *Matrix[T]) AddMultipliedRow(dest, source uint16, num T) error {
+	if dest >= m.rows || source >= m.rows {
+		return errors.New("invalid dest our source in AddMultipliedRow")
+	}
+
+	for j := range m.columns {
+		m.data[dest][j] += m.data[source][j] * num
+	}
+	return nil
 }
 
 func (m Matrix[T]) Print() {
