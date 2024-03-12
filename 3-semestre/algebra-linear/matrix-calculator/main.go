@@ -13,4 +13,5 @@ func main() {
 	m3, _ := m1.Multiply(m2)
 	m3.Print()
 	fmt.Println(m3.Determinant())
+	m3.Inverse()
 }

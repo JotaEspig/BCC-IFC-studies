@@ -134,7 +134,24 @@ func (m *Matrix[T]) Inverse() (*Matrix[T], error) {
 	if det, _ := m.Determinant(); det == 0 {
 		return nil, errors.New("matrix: cannot get inverse, determinant == 0")
 	}
-	return nil, nil
+
+	// Build matrix for Gauss-Jordan / Row reduction method
+	aux := NewWithoutData[T](m.rows, m.columns*2)
+	for i := range aux.rows {
+		for j := range aux.columns {
+			if j >= m.columns {
+				if j-m.columns == i {
+					aux.data[i][j] = 1
+				}
+			} else {
+				aux.data[i][j] = m.data[i][j]
+			}
+		}
+	}
+
+	// TODO finish
+	result := NewWithoutData[T](m.rows, m.columns)
+	return result, nil
 }
 
 func (m Matrix[T]) Print() {
