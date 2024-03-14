@@ -1,4 +1,4 @@
-package main
+package matrix
 
 import (
 	"errors"
@@ -6,28 +6,27 @@ import (
 	"math"
 )
 
-type number interface {
-	int8 | int16 | int32 | int64 | int | float32 | float64
-}
-
-type Matrix[T number] struct {
+type Matrix struct {
 	rows    uint16
 	columns uint16
-	data    [][]T
+	data    [][]Fraction
 }
 
-func NewWithoutData[T number](r uint16, c uint16) *Matrix[T] {
-	result := &Matrix[T]{}
+func NewWithoutData(r uint16, c uint16) *Matrix {
+	result := &Matrix{}
 	result.rows = r
 	result.columns = c
-	result.data = make([][]T, r)
+	result.data = make([][]Fraction, r)
 	for i := range r {
-		result.data[i] = make([]T, c)
+		result.data[i] = make([]Fraction, c)
+		for j := range c {
+			result.data[i][j] = Frac(0, 1)
+		}
 	}
 	return result
 }
 
-func New[T number](data [][]T) (*Matrix[T], error) {
+func New(data [][]Fraction) (*Matrix, error) {
 	r := uint16(len(data))
 	if r == 0 {
 		return nil, errors.New("rows amound cannot be zero")
@@ -38,10 +37,10 @@ func New[T number](data [][]T) (*Matrix[T], error) {
 		return nil, errors.New("rows amound cannot be zero")
 	}
 
-	return &Matrix[T]{r, c, data}, nil
+	return &Matrix{r, c, data}, nil
 }
 
-func (m *Matrix[T]) MultiplyByScalar(num T) (*Matrix[T], error) {
+func (m *Matrix) MultiplyByScalar(num Fraction) (*Matrix, error) {
 	result, err := New(m.data)
 	if err != nil {
 		return nil, err
@@ -49,23 +48,23 @@ func (m *Matrix[T]) MultiplyByScalar(num T) (*Matrix[T], error) {
 
 	for i := range m.rows {
 		for j := range m.columns {
-			result.data[i][j] *= num
+			result.data[i][j] = result.data[i][j].Mult(num)
 		}
 	}
 	return result, nil
 }
 
-func (m *Matrix[T]) Multiply(m2 *Matrix[T]) (*Matrix[T], error) {
+func (m *Matrix) Multiply(m2 *Matrix) (*Matrix, error) {
 	if m.columns != m2.rows {
 		errorMsg := fmt.Sprintf("Cannot multiply matrix: m.c == %d and m2.r == %d", m.columns, m2.rows)
 		return nil, errors.New(errorMsg)
 	}
 
-	result := NewWithoutData[T](m.rows, m2.columns)
+	result := NewWithoutData(m.rows, m2.columns)
 	for i := range m.rows {
 		for j := range m2.columns {
 			for k := range m2.rows {
-				result.data[i][j] += m.data[i][k] * m2.data[k][j]
+				result.data[i][j] = result.data[i][j].Add(m.data[i][k].Mult(m2.data[k][j]))
 			}
 		}
 	}
@@ -73,38 +72,41 @@ func (m *Matrix[T]) Multiply(m2 *Matrix[T]) (*Matrix[T], error) {
 	return result, nil
 }
 
-func (m *Matrix[T]) Determinant() (T, error) {
+func (m *Matrix) Determinant() (Fraction, error) {
 	if m.rows-m.columns != 0 {
-		return 0, errors.New("You cannot get a determinant from non-square matrix")
+		return Frac(0, 1), errors.New("You cannot get a determinant from non-square matrix")
 	}
 	if m.rows == 1 && m.columns == 1 {
 		return m.data[0][0], nil
 	}
 
-	var result T
+	result := Frac(0, 1)
 	// It uses Laplace at first row every time
 	row := uint16(0)
 	for j := range m.columns {
 		cofactor, err := m.Cofactor(row, j)
 		if err != nil {
-			return 0, err
+			return Frac(0, 1), err
 		}
 		det, err := cofactor.Determinant()
 		if err != nil {
-			return 0, err
+			return Frac(0, 1), err
 		}
 
-		result += m.data[row][j] * T(math.Pow(-1, float64(j))) * det
+		minus := int64(math.Pow(-1, float64(j)))
+		result = result.Add(
+			m.data[row][j].Mult(det).Mult(Frac(minus, 1)),
+		)
 	}
 	return result, nil
 }
 
-func (m *Matrix[T]) Cofactor(r, c uint16) (*Matrix[T], error) {
+func (m *Matrix) Cofactor(r, c uint16) (*Matrix, error) {
 	if r >= m.rows || c >= m.columns {
 		return nil, errors.New("Invalid cofactor matrix")
 	}
 
-	result := NewWithoutData[T](m.rows-1, m.columns-1)
+	result := NewWithoutData(m.rows-1, m.columns-1)
 	if result.rows == 0 || result.columns == 0 {
 		return nil, errors.New("Invalid cofactor matrix")
 	}
@@ -131,18 +133,18 @@ func (m *Matrix[T]) Cofactor(r, c uint16) (*Matrix[T], error) {
 	return result, nil
 }
 
-func (m *Matrix[T]) Inverse() (*Matrix[T], error) {
-	if det, _ := m.Determinant(); det == 0 {
+func (m *Matrix) Inverse() (*Matrix, error) {
+	if det, _ := m.Determinant(); det == Frac(0, 1) {
 		return nil, errors.New("matrix: cannot get inverse, determinant == 0")
 	}
 
 	// Build matrix for Gauss-Jordan / Row reduction method
-	aux := NewWithoutData[T](m.rows, m.columns*2)
+	aux := NewWithoutData(m.rows, m.columns*2)
 	for i := range aux.rows {
 		for j := range aux.columns {
 			if j >= m.columns {
 				if j-m.columns == i {
-					aux.data[i][j] = 1
+					aux.data[i][j] = Frac(1, 1)
 				}
 			} else {
 				aux.data[i][j] = m.data[i][j]
@@ -154,14 +156,15 @@ func (m *Matrix[T]) Inverse() (*Matrix[T], error) {
 }
 
 // TODO finish
-func (m *Matrix[T]) gaussJordan() (*Matrix[T], error) {
+func (m *Matrix) gaussJordan() (*Matrix, error) {
 	for col := range m.columns / 2 {
 		// set pivot to one
-		if m.data[col][col] == 0 {
+		if m.data[col][col] == Frac(0, 1) {
 			err := errors.New("Invalid gauss jordan: determinant == 0")
 			for row := range m.rows {
-				if m.data[row][col] != 0 {
-					m.AddMultipliedRow(col, row, T(math.Pow(float64(m.data[row][col]), -1)))
+				if m.data[row][col] != Frac(0, 1) {
+					m.AddMultipliedRow(col, row,
+						Frac(m.data[row][col].Denominator, m.data[row][col].Numerator))
 					err = nil
 					break
 				}
@@ -172,7 +175,7 @@ func (m *Matrix[T]) gaussJordan() (*Matrix[T], error) {
 			}
 
 		} else {
-			m.MultiplyRow(col, T(math.Pow(float64(m.data[col][col]), -1)))
+			m.MultiplyRow(col, Frac(m.data[col][col].Denominator, m.data[col][col].Numerator))
 		}
 
 		for row := range m.rows {
@@ -180,11 +183,11 @@ func (m *Matrix[T]) gaussJordan() (*Matrix[T], error) {
 				continue
 			}
 
-			m.AddMultipliedRow(row, col, -1*m.data[row][col])
+			m.AddMultipliedRow(row, col, m.data[row][col].Neg())
 		}
 	}
 
-	result := NewWithoutData[T](m.rows, m.columns/2)
+	result := NewWithoutData(m.rows, m.columns/2)
 	colAux := 0
 	for row := range m.rows {
 		for col := m.columns / 2; col < m.columns; col++ {
@@ -198,41 +201,46 @@ func (m *Matrix[T]) gaussJordan() (*Matrix[T], error) {
 
 // ----- Elementary operations -----
 
-func (m *Matrix[T]) SwapLines(r1, r2 uint16) error {
+func (m *Matrix) SwapLines(r1, r2 uint16) error {
 	return nil
 }
 
-func (m *Matrix[T]) MultiplyRow(row uint16, num T) error {
+func (m *Matrix) MultiplyRow(row uint16, num Fraction) error {
 	if row >= m.rows {
 		return errors.New("invalid dest our source in MultiplyRow")
 	}
 
 	for j := range m.columns {
-		m.data[row][j] = m.data[row][j] * num
+		m.data[row][j] = m.data[row][j].Mult(num)
 	}
 
 	return nil
 }
 
-func (m *Matrix[T]) AddMultipliedRow(dest, source uint16, num T) error {
+func (m *Matrix) AddMultipliedRow(dest, source uint16, num Fraction) error {
 	if dest >= m.rows || source >= m.rows {
 		return errors.New("invalid dest our source in AddMultipliedRow")
 	}
 
 	for j := range m.columns {
-		m.data[dest][j] += m.data[source][j] * num
+		m.data[dest][j] = m.data[dest][j].Add(
+			m.data[source][j].Mult(num),
+		)
 	}
 	return nil
 }
 
-func (m Matrix[T]) Print() {
+func (m Matrix) Print() {
 	if m.rows == 0 {
 		return
 	}
 
 	fmt.Println("[-")
 	for i := range m.rows {
-		fmt.Printf("%v,\n", m.data[i])
+		for j := range m.columns {
+			fmt.Printf("%s, ", m.data[i][j].String())
+		}
+		fmt.Println()
 	}
 	fmt.Println("-]")
 }
