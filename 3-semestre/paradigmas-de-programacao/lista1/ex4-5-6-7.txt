@@ -1,0 +1,9 @@
+ex4) C
+
+ex5) O programa é confiável quando tem as seguintes condições compridas:
+Simplicidade, ortogonalidade, tipos de dados, projeto da sintaxe, suporta para abstração,
+expressividade, verificação de tipos, tratamento de erros, keywords restritas
+
+ex6) Mais fácil depuração, possibilidade de existência de um REPL, desenvolvimento e testes feito de forma mais rápida (em geral)
+
+ex7) F, F, V, V
