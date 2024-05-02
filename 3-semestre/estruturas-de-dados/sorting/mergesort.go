@@ -19,29 +19,24 @@ func merge[T number](arr1 []T, arr2 []T) []T {
 	aux := make([]T, len1+len2)
 	i := 0
 	j := 0
-	count := 0
 	for i < len1 && j < len2 {
 		if arr2[j] > arr1[i] {
-			aux[count] = arr1[i]
+			aux[i+j] = arr1[i]
 			i++
 		} else {
-			aux[count] = arr2[j]
+			aux[i+j] = arr2[j]
 			j++
 		}
-
-		count++
 	}
 
 	for i < len1 {
-		aux[count] = arr1[i]
+		aux[i+j] = arr1[i]
 		i++
-		count++
 	}
 
 	for j < len2 {
-		aux[count] = arr2[j]
+		aux[i+j] = arr2[j]
 		j++
-		count++
 	}
 
 	return aux
