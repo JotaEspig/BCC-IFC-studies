@@ -1,0 +1,41 @@
+Considere a existência da classe Lampada e os códigos da tabela abaixo. O código da esquerda (Código 1) foi inserido na função main em uma classe chamada TesteDesafio1, e o código da direita (Código 2) foi inserido na função main em uma classe chamada TestaDesafio2. Com base nas informações e nos códigos abaixo, faça o que se pede:
+========
+Código 1
+Lampada lamp1 = new Lampada();
+Lampada lamp2 = lamp1;
+int i = 10;
+if (lamp1 == lamp2) {
+    System.out.println(i++);
+}
+========
+Código 2
+Lampada lamp1 = new Lampada();
+lamp1.ligar();
+lamp1.trocarTipo(“LED”);
+Lampada lamp2 = new Lampada();
+lamp2.ligar();
+lamp2.trocarTipo(“LED”);
+int i = 10;
+if (lamp1 == lamp2) {
+    System.out.println(i++);
+}
+========
+
+Respostas:
+a. O que é exibido na tela quando o código da esquerda é executado? Por quê?
+R.: Será exibido o valor 10, pois lamp2 é uma referência para lamp1 (logo iguais) e também porque i++ incrementa apenas após a chamada da função println.
+
+b. O que é exibido na tela quando o código da direita é executado? Por quê?
+R.: Não será exibido nenhum valor, pois as variáveis lamp1 e lamp2 são duas instâncias diferentes da classe Lampada, portanto não iguais.
+
+c. Qual é o valor de i ao final da execução do código da esquerda?
+R.: O valor de i após a execução do código é 11.
+
+d. Qual é o valor de i ao final da execução do código da direita?
+R.: 10
+
+e. O que acontece se acrescentarmos as duas linhas abaixo no código da esquerda? E no da direita? Por quê?
+lamp1.trocarTipo(“Halógena”);
+lamp2.mostrarInformacoesGerais();
+R.: No código da esquerda: Mostrará as informações atualizadas da lamp1. No código da direita: Mostrará as informações da lamp2 onde o seu tipo continua sendo "LED"
+
