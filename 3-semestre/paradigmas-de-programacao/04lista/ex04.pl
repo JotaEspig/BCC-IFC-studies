@@ -1,0 +1,1 @@
+?- irma(X, bruno).
