@@ -1,0 +1,258 @@
+\documentclass[12pt,a4paper,brazil]{article}
+
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{color}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{
+    frame=tb,
+    language=Prolog,
+    aboveskip=3mm,
+    belowskip=3mm,
+    showstringspaces=false,
+    columns=flexible,
+    basicstyle={\small\ttfamily},
+    numbers=none,
+    numberstyle=\tiny\color{gray},
+    keywordstyle=\color{blue},
+    commentstyle=\color{dkgreen},
+    stringstyle=\color{mauve},
+    breaklines=true,
+    breakatwhitespace=true,
+    tabsize=4
+}
+
+\title{Lista 04}
+\author{João Vitor Espig}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+Usando \LaTeX
+
+\section*{Exercício 1}
+\begin{lstlisting}
+pessoa(joao).
+pessoa(maria).
+pessoa(pedro).
+pessoa(marcos).
+pessoa(joana).
+pessoa(ricardo).
+pessoa(bruno).
+
+pai(joao, maria).
+pai(joao, pedro).
+pai(joao, marcos).
+pai(joao, joana).
+pai(pedro, ricardo).
+pai(pedro, bruno).
+\end{lstlisting}
+
+\section*{Exercício 2}
+\begin{lstlisting}
+?- pai(X, ricardo).
+\end{lstlisting}
+
+\section*{Exercício 3}
+\begin{lstlisting}
+pessoa(joao).
+pessoa(maria).
+pessoa(pedro).
+pessoa(marcos).
+pessoa(joana).
+pessoa(ricardo).
+pessoa(bruno).
+pessoa(victor).
+
+% sexo(X, S) significa X eh do sexo S
+sexo(joao, m).
+sexo(maria, f).
+sexo(pedro, m).
+sexo(marcos, m).
+sexo(joana, f).
+sexo(ricardo, m).
+sexo(bruno, m).
+sexo(victor, m).
+
+% pai(X, Y) significa X eh pai de Y
+pai(joao, maria).
+pai(joao, pedro).
+pai(joao, marcos).
+pai(joao, joana).
+pai(pedro, ricardo).
+pai(pedro, bruno).
+pai(bruno, victor).
+
+% irmao(X, Y) significa X eh irmao de Y
+irmao(X, Y) :- pai(Z, X), pai(Z, Y), sexo(X, m), X \== Y.
+
+% irma(X, Y) significa X eh irma de Y
+irma(X, Y) :- pai(Z, X), pai(Z, Y), sexo(X, f), X \== Y.
+\end{lstlisting}
+
+\section*{Exercício 4}
+\begin{lstlisting}
+?- irma(X, bruno).
+\end{lstlisting}
+
+\section*{Exercício 5}
+\begin{lstlisting}
+pessoa(joao).
+pessoa(maria).
+pessoa(pedro).
+pessoa(marcos).
+pessoa(joana).
+pessoa(ricardo).
+pessoa(bruno).
+pessoa(victor).
+
+% sexo(X, S) significa X eh do sexo S
+sexo(joao, m).
+sexo(maria, f).
+sexo(pedro, m).
+sexo(marcos, m).
+sexo(joana, f).
+sexo(ricardo, m).
+sexo(bruno, m).
+sexo(victor, m).
+
+% pai(X, Y) significa X eh pai de Y
+pai(joao, maria).
+pai(joao, pedro).
+pai(joao, marcos).
+pai(joao, joana).
+pai(pedro, ricardo).
+pai(pedro, bruno).
+pai(bruno, victor).
+
+% irmao(X, Y) significa X eh irmao de Y
+irmao(X, Y) :- pai(Z, X), pai(Z, Y), sexo(X, m), X \== Y.
+
+% irma(X, Y) significa X eh irma de Y
+irma(X, Y) :- pai(Z, X), pai(Z, Y), sexo(X, f), X \== Y.
+
+% neto(X, Y) significa X eh neto de Y
+neto(X, Y) :- pai(Y, Z), pai(Z, X), sexo(X, m).
+
+% neta(X, Y) significa X eh neta de Y
+neta(X, Y) :- pai(Y, Z), pai(Z, X), sexo(X, f).
+
+% comando para descobrir neto de joao: ?- neto(X, joao).
+\end{lstlisting}
+
+\section*{Exercício 6}
+\begin{lstlisting}
+pessoa(joao).
+pessoa(maria).
+pessoa(pedro).
+pessoa(marcos).
+pessoa(joana).
+pessoa(ricardo).
+pessoa(bruno).
+pessoa(victor).
+
+% sexo(X, S) significa X eh do sexo S
+sexo(joao, m).
+sexo(maria, f).
+sexo(pedro, m).
+sexo(marcos, m).
+sexo(joana, f).
+sexo(ricardo, m).
+sexo(bruno, m).
+sexo(victor, m).
+
+% pai(X, Y) significa X eh pai de Y
+pai(joao, maria).
+pai(joao, pedro).
+pai(joao, marcos).
+pai(joao, joana).
+pai(pedro, ricardo).
+pai(pedro, bruno).
+pai(bruno, victor).
+
+% irmao(X, Y) significa X eh irmao de Y
+irmao(X, Y) :- pai(Z, X), pai(Z, Y), sexo(X, m), X \== Y.
+
+% irma(X, Y) significa X eh irma de Y
+irma(X, Y) :- pai(Z, X), pai(Z, Y), sexo(X, f), X \== Y.
+
+% neto(X, Y) significa X eh neto de Y
+neto(X, Y) :- pai(Y, Z), pai(Z, X), sexo(X, m).
+
+% neta(X, Y) significa X eh neta de Y
+neta(X, Y) :- pai(Y, Z), pai(Z, X), sexo(X, f).
+
+% bisneto(X, Y) significa X eh bisneto de Y
+bisneto(X, Y) :- pai(Z, X), neto(Z, Y), sexo(X, m).
+
+% bisneta(X, Y) significa X eh bisneta de Y
+bisneta(X, Y) :- pai(Z, X), neto(Z, Y), sexo(X, f).
+
+% comando para descobrir bisneto de joao: ?- bisneto(X, joao).
+\end{lstlisting}
+
+\section*{Exercício 7}
+\begin{lstlisting}
+aluno(joao).
+aluno(maria).
+aluno(ana).
+aluno(antonio).
+\end{lstlisting}
+
+\section*{Exercício 8}
+\begin{lstlisting}
+aluno(joao).
+aluno(maria).
+aluno(ana).
+aluno(antonio).
+
+nota(joao, 10.0).
+nota(maria, 9.0).
+nota(ana, 8.0).
+nota(antonio, 7.0).
+\end{lstlisting}
+
+\section*{Exercício 9}
+\begin{lstlisting}
+aluno(joao).
+aluno(maria).
+aluno(ana).
+aluno(antonio).
+
+nota(joao, 10.0).
+nota(maria, 7.0).
+nota(ana, 3.0).
+nota(antonio, 6.9).
+
+passou(X) :- aluno(X), nota(X, Z), Z >= 7.
+\end{lstlisting}
+
+\section*{Exercício 10}
+\begin{lstlisting}
+aluno(joao).
+aluno(maria).
+aluno(ana).
+aluno(antonio).
+
+nota(joao, 10.0).
+nota(maria, 7.0).
+nota(ana, 3.0).
+nota(antonio, 6.9).
+
+frequencia(joao, 90).
+frequencia(maria, 75).
+frequencia(ana, 50).
+frequencia(antonio, 70).
+
+passou(X) :- aluno(X), nota(X, Z), Z >= 7.
+passou2(X) :- aluno(X), nota(X, Z), Z >= 7, frequencia(X, Y), Y >= 75.
+\end{lstlisting}
+
+\end{document}
