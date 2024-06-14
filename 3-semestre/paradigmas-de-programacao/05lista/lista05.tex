@@ -1,0 +1,99 @@
+\documentclass[12pt,a4paper,brazil]{article}
+
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{color}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage{amsmath}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{
+    frame=tb,
+    language=Haskell,
+    aboveskip=3mm,
+    belowskip=3mm,
+    showstringspaces=false,
+    columns=flexible,
+    basicstyle={\small\ttfamily},
+    numbers=none,
+    numberstyle=\tiny\color{gray},
+    keywordstyle=\color{blue},
+    commentstyle=\color{dkgreen},
+    stringstyle=\color{mauve},
+    breaklines=true,
+    breakatwhitespace=true,
+    tabsize=4
+}
+
+\title{Lista 05}
+\author{João Vitor Espig}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+Usando \LaTeX
+
+\section*{Exercício 1}
+O resultado é (False,-4).
+O primeiro valor é False pois a expressão
+$$1 == 4 \ \&\& \ \text{True}$$
+é interpretada como
+$$(1 == 4) \ \&\& \ \text{True}$$
+que é falsa ($1 == 4$ resulta em False,
+e consequentemente $\text{False} \ \&\& \ \text{True}$ resulta em False). \\
+O segundo valor é -4 pois a expressão
+$$\text{mod} \ (4*8) \ 31^2-5$$
+é interpretada como
+$$(\text{mod} \ (4*8) \ (31))^2-5$$
+Logo:
+\begin{align*}
+(\text{mod} \ (4*8) \ (31))^2-5 & = (\text{mod} \ (32) \ (31))^2-5 \\
+                                &= (1)^2 - 5 \\
+                                &= -4
+\end{align*}
+\section*{Exercício 2}
+4 e 0.5: \\
+- 4\char94 0.5 resulta em um erro \\
+- 4 ** (0.5) resulta em 2
+
+\section*{Exercício 3}
+\begin{lstlisting}
+dobro :: Double -> Double
+dobro x = 2 * x
+\end{lstlisting}
+
+\section*{Exercício 4}
+\begin{lstlisting}
+\end{lstlisting}
+
+\section*{Exercício 5}
+o comando nos mostra o tipo do valor que é passado após o :t, avaliando a expressão
+"decremento (incremento 9)" \ temos 9, pois incremento 9 = 10 e decremento 10 = 9.
+Assim o tipo de 9 é Num a => a.
+
+\section*{Exercício 6}
+\begin{lstlisting}
+\end{lstlisting}
+
+\section*{Exercício 7}
+\begin{lstlisting}
+\end{lstlisting}
+
+\section*{Exercício 8}
+\begin{lstlisting}
+\end{lstlisting}
+
+\section*{Exercício 9}
+\begin{lstlisting}
+negate (-9)
+\end{lstlisting}
+
+\section*{Exercício 10}
+negate -9 resulta em um erro pois a expressão não é interpretada como negate (-9) e sim como (negate) (-) 9.
+
+\end{document}
