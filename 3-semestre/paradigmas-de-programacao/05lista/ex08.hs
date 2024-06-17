@@ -1,2 +1,2 @@
-trocaValor :: (Int, Int) -> (Int, Int)
-trocaValor (a, b) = (b, a)
+trocaValor :: (a, b) -> (b, a)
+trocaValor (x, y) = (y, x)

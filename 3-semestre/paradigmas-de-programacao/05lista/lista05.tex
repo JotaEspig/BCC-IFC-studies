@@ -69,6 +69,11 @@ dobro x = 2 * x
 
 \section*{Exercício 4}
 \begin{lstlisting}
+incremento :: Num a => a -> a
+incremento x = x + 1
+
+decremento :: Num a => a -> a
+decremento x = x - 1
 \end{lstlisting}
 
 \section*{Exercício 5}
@@ -78,14 +83,26 @@ Assim o tipo de 9 é Num a => a.
 
 \section*{Exercício 6}
 \begin{lstlisting}
+sobeDesce :: (Num t, Num t) => (t, t) -> (t, t)
+sobeDesce (x,y) = (x+1,y-1)
 \end{lstlisting}
 
 \section*{Exercício 7}
 \begin{lstlisting}
+incremento :: Num a => a -> a
+incremento x = x + 1
+
+decremento :: Num a => a -> a
+decremento x = x - 1
+
+sobeDesce2 :: (Num t, Num t) => (t, t) -> (t, t)
+sobeDesce2 (x, y) = (incremento x, decremento y)
 \end{lstlisting}
 
 \section*{Exercício 8}
 \begin{lstlisting}
+trocaValor :: (a, b) -> (b, a)
+trocaValor (x, y) = (y, x)
 \end{lstlisting}
 
 \section*{Exercício 9}
