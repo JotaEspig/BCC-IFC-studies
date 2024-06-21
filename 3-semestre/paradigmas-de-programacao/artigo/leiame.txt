@@ -1,0 +1,10 @@
+Paradigma orientado a eventos (https://pt.wikipedia.org/wiki/Programa%C3%A7%C3%A3o_orientada_a_eventos)
+
+Paradigma orientado a aspectos (https://www.treinaweb.com.br/blog/o-que-e-aop-programacao-orientada-a-aspectos)
+
+Programação simbólica (https://www.dic.app.br/2012/11/linguagem-simbolica.html)
+
+Programação concorrente
+
+USAR COMO BASE:
+https://www.researchgate.net/publication/272577347_Programming_Language_Paradigms_The_Main_Principles_of_Object-Oriented_Programming
