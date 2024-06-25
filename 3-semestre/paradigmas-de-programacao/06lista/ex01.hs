@@ -1,6 +1,5 @@
 import Text.Printf
 
-areaCircunsferencia :: Floating a => a -> a
 areaCircunsferencia r = pi * r^2
 
 main :: IO()
