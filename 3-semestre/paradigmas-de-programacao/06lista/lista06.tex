@@ -1,0 +1,176 @@
+\documentclass[12pt,a4paper,brazil]{article}
+
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{color}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage{amsmath}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{
+    frame=tb,
+    language=Haskell,
+    aboveskip=3mm,
+    belowskip=3mm,
+    showstringspaces=false,
+    columns=flexible,
+    basicstyle={\small\ttfamily},
+    numbers=none,
+    numberstyle=\tiny\color{gray},
+    keywordstyle=\color{blue},
+    commentstyle=\color{dkgreen},
+    stringstyle=\color{mauve},
+    breaklines=true,
+    breakatwhitespace=true,
+    tabsize=4
+}
+
+\title{Lista 06}
+\author{João Vitor Espig}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+Usando \LaTeX
+
+\section*{Exercício 1}
+\begin{lstlisting}
+import Text.Printf
+
+areaCircunsferencia r = pi * r^2
+
+main :: IO()
+main = do
+    let result = (let r = 10 :: Double in areaCircunsferencia r)
+    printf "Area da circunferencia: %.2f\n" result
+\end{lstlisting}
+
+\section*{Exercício 2}
+\begin{lstlisting}
+tipoTriangulo a b c
+    | a <= 0 || b <= 0 || c <= 0 = "NAOTRI"
+    | a == b && b == c = "Equilatero"
+    | a + b <= c || a + c <= b || b + c <= a = "NAOTRI"
+    | a == b || a == c || b == c = "Isosceles"
+    | otherwise = "Escaleno"
+\end{lstlisting}
+
+\section*{Exercício 3}
+\begin{lstlisting}
+multiplica x y
+    | x == 0 || y == 0 = 0
+    | y > 0 = x + multiplica x (y - 1)
+    | y < 0 = -multiplica x (-y)
+\end{lstlisting}
+
+\section*{Exercício 4}
+\begin{lstlisting}
+multiplica x y
+    | x == 0 || y == 0 = 0
+    | y > 0 = x + multiplica x (y - 1)
+    | y < 0 = -multiplica x (-y)
+
+multiplicaNaturais x y
+    | x < 0 || y < 0 = error "multiplicaNaturais: argumentos negativos"
+    | otherwise = multiplica x y
+\end{lstlisting}
+
+\section*{Exercício 5}
+\begin{lstlisting}
+maxAux x y
+    | x > y = x
+    | otherwise = y
+
+myMax x y z
+    | x >= maxAux y z = x
+    | y >= maxAux x z = y
+    | z >= maxAux x y = z
+
+myMin x y z = negate (myMax (-x) (-y) (-z))
+\end{lstlisting}
+
+\section*{Exercício 6}
+\begin{lstlisting}
+xor x y = x /= y
+\end{lstlisting}
+
+\section*{Exercício 7}
+\begin{lstlisting}
+clonaNumeros [] = []
+clonaNumeros (x:xs) = x:x:clonaNumeros (xs)
+\end{lstlisting}
+
+\section*{Exercício 8}
+\begin{lstlisting}
+somaDoisPrimeiros (x:y:_) = x + y
+somaDoisPrimeiros _ = error "somaDoisPrimeiros: lista com menos de dois elementos"
+\end{lstlisting}
+
+\section*{Exercício 9}
+\begin{lstlisting}
+listaAte x = [0..(abs x)]
+\end{lstlisting}
+
+\section*{Exercício 10}
+\begin{lstlisting}
+parOuImpar arr = map even arr
+\end{lstlisting}
+
+\section*{Exercício 11}
+\begin{lstlisting}
+soPar arr = filter even arr
+\end{lstlisting}
+
+\section*{Exercício 12}
+\begin{lstlisting}
+import Data.Char
+
+soMinuscula arr = filter isLower arr
+\end{lstlisting}
+
+\section*{Exercício 13}
+\begin{lstlisting}
+import Data.Char
+
+isVowel c = c `elem` "aeiouAEIOU"
+
+substituiVogais :: [Char] -> [Char]
+substituiVogais arr = map (\c -> if isVowel c then toUpper c else c) arr
+\end{lstlisting}
+
+\section*{Exercício 14}
+\begin{lstlisting}
+friboi arr = map (++ " Friboi") arr
+\end{lstlisting}
+
+\section*{Exercício 15}
+\begin{lstlisting}
+pertence x arr = x `elem` arr
+\end{lstlisting}
+
+\section*{Exercício 16}
+\begin{lstlisting}
+filtraAux [] newArr = newArr
+filtraAux (x:xs) newArr = if x `elem` newArr
+                            then filtraAux xs newArr
+                            else filtraAux xs (x:newArr)
+
+filtraLista arr = reverse (filtraAux arr [])
+\end{lstlisting}
+
+\section*{Exercício 17}
+\begin{lstlisting}
+nPrimeiros arr n = take n arr
+\end{lstlisting}
+
+\section*{Exercício 18}
+\begin{lstlisting}
+let arr = [x * 3 | x <- [0..100]]
+\end{lstlisting}
+
+\end{document}

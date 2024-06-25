@@ -1,3 +1,6 @@
-count arr x = length (filter (==x) arr)
+filtraAux [] newArr = newArr
+filtraAux (x:xs) newArr = if x `elem` newArr
+                            then filtraAux xs newArr
+                            else filtraAux xs (x:newArr)
 
-filtraLista arr = filter (\x -> count arr x == 1) arr
+filtraLista arr = reverse (filtraAux arr [])
