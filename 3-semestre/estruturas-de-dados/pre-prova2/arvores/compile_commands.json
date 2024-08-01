@@ -1,0 +1,20 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-Wextra",
+      "-Wpedantic",
+      "-std=c99",
+      "-g",
+      "-fsanitize=address,undefined",
+      "-c",
+      "-o",
+      "build/bin_tre.o",
+      "bin_tre.c"
+    ],
+    "directory": "/home/jotaespig/BCC-IFC-studies/3-semestre/estruturas-de-dados/pre-prova2/arvores",
+    "file": "/home/jotaespig/BCC-IFC-studies/3-semestre/estruturas-de-dados/pre-prova2/arvores/bin_tre.c",
+    "output": "/home/jotaespig/BCC-IFC-studies/3-semestre/estruturas-de-dados/pre-prova2/arvores/build/bin_tre.o"
+  }
+]
