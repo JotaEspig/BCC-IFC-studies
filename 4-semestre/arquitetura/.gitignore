@@ -1,0 +1,4 @@
+*.bin
+*.o
+floppy.img
+bochsout.txt
