@@ -1,4 +1,3 @@
-*.bin
-*.o
-floppy.img
+build/
+
 bochsout.txt
