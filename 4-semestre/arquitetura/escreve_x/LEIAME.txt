@@ -1,0 +1,12 @@
+Antes de tudo você precisará instalar o bochs, caso use Windows, recomendo usar Linux :)
+
+Instale o bochs com o debugger embutido.
+
+para rodar o exemplo basta colar essas duas linhas no terminal:
+
+make
+bochs -q
+
+O arquivo bochsrc.txt é essencial para isso, é um arquivo de configuração do bochs
+quando vc roda o bochs com "bochs -q" esse arquivo é usado para ver onde pegar o arquivo
+floppy.img e outras configurações. Vc n precisa entender o conteúdo do arquivo por agr
