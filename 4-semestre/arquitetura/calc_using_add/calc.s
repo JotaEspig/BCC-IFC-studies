@@ -100,12 +100,12 @@ loop_final:
 
 in1: .byte 10
 in2: .byte 3
-out1: .byte
-out2: .byte
-out3: .byte
-out4: .byte
-aux1: .byte
-aux2: .byte
+out1: .byte 0
+out2: .byte 0
+out3: .byte 0
+out4: .byte 0
+aux1: .byte 0
+aux2: .byte 0
 
 . = _start + 510
 
