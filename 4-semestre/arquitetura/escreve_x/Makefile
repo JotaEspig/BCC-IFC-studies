@@ -9,7 +9,7 @@
 .PHONY: clean image
 SOURCE = escreve_x
 BUILD_DIR=build
-TARGET=$(BUILD_DIR)/floppy.img
+TARGET=floppy.img
 
 all: image
 
