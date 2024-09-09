@@ -1,5 +1,5 @@
 CC=gcc
-CC_FLAGS=-lm
+CC_FLAGS=-lm -g3 -fsanitize=address,undefined
 BUILD_DIR=build
 TARGET=$(BUILD_DIR)/map
 SOURCE=unordered_map.c main.c

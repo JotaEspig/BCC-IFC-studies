@@ -18,5 +18,6 @@ int main() {
         dll_print(node);
     }
     printf("Key: %d -> %d\n", 3, unordered_map_get(um, 3));
+    unordered_map_destroy(&um);
     return 0;
 }
