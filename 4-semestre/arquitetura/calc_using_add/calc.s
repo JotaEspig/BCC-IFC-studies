@@ -75,9 +75,8 @@ subtrair:
     # pop <register> to get the result
     pusha
     # Pega argumento
-    push %bp
     mov %sp, %bp
-    mov 20(%bp), %ax
+    mov 18(%bp), %ax
 
     # Subtrai with add
     not %ah
@@ -86,8 +85,8 @@ subtrair:
     xor %ah, %ah
 
     # Modifica a stack para "retornar" o valor
-    mov %ax, 20(%bp)
-    pop %bp
+    # Ver com o Eder como "retornar" valor
+    mov %ax, 18(%bp)
     popa
     ret
 
