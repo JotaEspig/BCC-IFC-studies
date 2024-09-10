@@ -21,10 +21,18 @@ _start:
     # goes to most significant byte
     push (in1)
     call subtrair
-    pop %ax
+    add $2, %sp # remove the arguments from the stack
     movb %al, (out2)
     call int_to_char
     call new_line
+
+    push (in1)
+    call multiplicar
+    add $2, %sp # remove the arguments from the stack
+    movb %al, (out3)
+    call int_to_char
+    call new_line
+
 
     jmp loop_final
 
@@ -72,7 +80,7 @@ subtrair:
     # uso:
     # push <2 bytes, first byte being the first operand and the second the second operand>
     # call subtrair
-    # pop <register> to get the result
+    # Result will be stored in %ax
     pusha
     # Pega argumento
     mov %sp, %bp
@@ -86,8 +94,43 @@ subtrair:
 
     # Modifica a stack para "retornar" o valor
     # Ver com o Eder como "retornar" valor
-    mov %ax, 18(%bp)
+    # usando memoria como auxilio
+    # Deve ser possivel fazer isso sem usar memoria
+    mov %ax, (aux1)
     popa
+    mov (aux1), %ax
+    ret
+
+multiplicar:
+    # Pega o argumento da stack
+    # e retorna o valor para a stack
+    # uso:
+    # push <2 bytes, first byte being the first operand and the second the second operand>
+    # call multiplicar
+    # Result will be stored in %ax
+    pusha
+    # Pega argumento
+    mov %sp, %bp
+    mov 18(%bp), %ax
+
+    # Multiplica
+    xor %cx, %cx
+    movb %al, %cl
+    xor %al, %al
+loop_mult:
+    addb %ah, %al
+    dec %cx
+    cmp $0, %cx
+    jg loop_mult
+
+    xor %ah, %ah
+    # Modifica a stack para "retornar" o valor
+    # Ver com o Eder como "retornar" valor
+    # usando memoria como auxilio
+    # Deve ser possivel fazer isso sem usar memoria
+    mov %ax, (aux1)
+    popa
+    mov (aux1), %ax
     ret
 
 
