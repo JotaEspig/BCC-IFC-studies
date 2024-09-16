@@ -33,6 +33,13 @@ _start:
     call int_to_char
     call new_line
 
+    push (in1)
+    call divide
+    add $2, %sp # remove the arguments from the stack
+    movb %al, (out3)
+    call int_to_char
+    call new_line
+
 
     jmp loop_final
 
@@ -134,14 +141,43 @@ loop_mult:
     ret
 
 
+divide:
+    pusha
+    # Pega argumento
+    mov %sp, %bp
+    mov 18(%bp), %ax
+    mov %ax, %bx
+    movb %bl, %ah
+    movb %bh, %al
+
+    # Divide
+    xor %dx, %dx
+divide_loop:
+    subb %al, %ah
+    inc %dx
+    cmp $0, %ah
+    jg divide_loop
+
+    cmp $0, %ah
+    jz divide_final
+    dec %dx
+
+divide_final:
+    mov %dx, %ax
+    mov %ax, (aux1)
+    popa
+    mov (aux1), %ax
+    ret
+
+
 loop_final:
     hlt
     jmp loop_final
 
 . = _start + 400
 
-in1: .byte 10
-in2: .byte 3
+in1: .byte 25
+in2: .byte 4
 out1: .byte 0
 out2: .byte 0
 out3: .byte 0
