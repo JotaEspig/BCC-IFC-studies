@@ -6,41 +6,41 @@ _start:
 
     mov $80, %cx
     movb $'x' , %al
-oops:
+print_linha_full:
     movb $0x0e, %ah
     int  $0x10
     dec  %cx
-    jnz  oops
+    jnz  print_linha_full
 
 
 mov $22, %ch
-big:
+print_linha_mix:
     movb $'x', %al
     movb $0x0e, %ah
     int $0x10
     movb $78, %cl
     movb $' ' , %al
 
-big_m:
+print_linha_mix_espacos_loop:
     movb $0x0e, %ah
     int  $0x10
     decb  %cl
-    jnz big_m 
+    jnz print_linha_mix_espacos_loop 
 
     movb $'x', %al
     movb $0x0e, %ah
     int $0x10
 
     decb %ch
-    jnz big
+    jnz print_linha_mix
 
     mov $80, %cx
     movb $'x' , %al
-oops2:
+print_linha_full2:
     movb $0x0e, %ah
     int  $0x10
     dec  %cx
-    jnz  oops2
+    jnz  print_linha_full2
 
     jmp loop_final
 
