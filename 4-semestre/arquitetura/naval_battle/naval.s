@@ -12,8 +12,26 @@ _start:
     call print_char_at
     add $6, %sp # Remove the arguments from the stack
 
+    movw $0x0a0b, %dx
+    push $254
+    push %dx
+    push $2
+    call print_char_at
+    add $6, %sp # Remove the arguments from the stack
 
-    jmp loop_final
+    movw $0x0a0c, %dx
+    push $254
+    push %dx
+    push $2
+    call print_char_at
+    add $6, %sp # Remove the arguments from the stack
+
+    movw $0x0, %dx
+    movb $2, %ah
+    movb $0, %bh
+    int $0x10
+
+    jmp main_loop
 
 
 clear_screen:
@@ -22,20 +40,20 @@ clear_screen:
     xorb %al, %al # Clear the screen
     xorw %cx, %cx # Upper left corner
     movw $0x184f, %dx # Lower right corner
-    movb $0x9f, %bh # Yellow on blue
+    movb $0x1f, %bh # White on Blue
     int $0x10
     popa
     ret
 
 
+# Usage:
+#  push %ax # Character to print (Should be on the Low byte)
+#  push %dx # Coordinates x and y (Low byte is x, High byte is y)
+#  push $2 # number of arguments
+#  call print_char_at
+#  pop %ax # Return code (it replaces the value of the number of arguments)
+#  add $4, %sp # Remove the left argument from the stack
 print_char_at:
-    # Usage:
-    #  push %ax # Character to print (Should be on the Low byte)
-    #  push %dx # Coordinates x and y (Low byte is x, High byte is y)
-    #  push $2 # number of arguments
-    #  call print_char_at
-    #  pop %ax # Return code (it replaces the value of the number of arguments)
-    #  add $4, %sp # Remove the left argument from the stack
     pusha
     # Gets the arguments from the stack
     movw %sp, %bp
@@ -62,10 +80,58 @@ _print_char_at_error:
     ret
 
 
-loop_final:
-    hlt
-    jmp loop_final
+move_left:
+    addb $0xff, cursor_position
+    jmp main_loop
 
+move_right:
+    addb $0x01, cursor_position
+    jmp main_loop
+
+move_up:
+    addb $0xff, cursor_position + 1
+    jmp main_loop
+
+move_down:
+    addb $0x01, cursor_position + 1
+    jmp main_loop
+
+move_cursor:
+    pusha
+    movb $0x02, %ah
+    movb $0, %bh
+    movb cursor_position, %dl
+    movb cursor_position + 1, %dh
+    int $0x10
+    popa
+    ret
+
+
+main_loop:
+    call move_cursor
+
+    # Gets the key pressed
+    movb $0x0, %ah
+    xorb %al, %al
+    int $0x16
+
+    cmp $0x77, %al
+    # Push current program counter to the stack
+    je move_up
+    cmp $0x73, %al
+    je move_down
+    cmp $0x61, %al
+    je move_left
+    cmp $0x64, %al
+    je move_right
+
+    jmp main_loop
+
+
+. = _start + 450
+cursor_position:
+    .byte 0
+    .byte 0
 
 . = _start + 510
 
