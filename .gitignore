@@ -1,3 +1,6 @@
 bin/
+build/
 __pycache__/
 .clangd/
+.cache/
+.vscode/
