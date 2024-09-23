@@ -1,0 +1,26 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-o",
+      "build/btree.o",
+      "btree.c"
+    ],
+    "directory": "/home/jotaespig/BCC-IFC-studies/4-semestre/ed2/trees/btree",
+    "file": "/home/jotaespig/BCC-IFC-studies/4-semestre/ed2/trees/btree/btree.c",
+    "output": "/home/jotaespig/BCC-IFC-studies/4-semestre/ed2/trees/btree/build/btree.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-o",
+      "build/main.o",
+      "main.c"
+    ],
+    "directory": "/home/jotaespig/BCC-IFC-studies/4-semestre/ed2/trees/btree",
+    "file": "/home/jotaespig/BCC-IFC-studies/4-semestre/ed2/trees/btree/main.c",
+    "output": "/home/jotaespig/BCC-IFC-studies/4-semestre/ed2/trees/btree/build/main.o"
+  }
+]
