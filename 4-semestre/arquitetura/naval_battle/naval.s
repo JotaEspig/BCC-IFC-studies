@@ -32,22 +32,16 @@ print_char_at:
     # Usage:
     #  push %ax # Character to print (Should be on the Low byte)
     #  push %dx # Coordinates x and y (Low byte is x, High byte is y)
-    #  push $3 # number of arguments
+    #  push $2 # number of arguments
     #  call print_char_at
     #  pop %ax # Return code (it replaces the value of the number of arguments)
-    #  add $6, %sp # Remove the left argument from the stack
+    #  add $4, %sp # Remove the left argument from the stack
     pusha
-
     # Gets the arguments from the stack
     movw %sp, %bp
     movw 18(%bp), %ax
     cmp $2, %ax
-    je _print_char_at_args_ok
-    movw $1, 18(%bp) # Return code (1 = error in the number of arguments)
-    popa
-    ret
-
-_print_char_at_args_ok:
+    jne _print_char_at_error
     # Go to coordinates
     movw 20(%bp), %dx
     movb $2, %ah
@@ -60,6 +54,11 @@ _print_char_at_args_ok:
     int $0x10
     popa
     movw $0, 18(%bp) # Return code (0 = success)
+    ret
+
+_print_char_at_error:
+    movw $1, 18(%bp) # Return code (1 = error in the number of arguments)
+    popa
     ret
 
 
