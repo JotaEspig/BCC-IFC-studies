@@ -3,17 +3,10 @@
 .text
 .globl _start
 _start:
-    # Move cursor pos
-    movb $20, %dl
-    movb $20, %dh
-    movb $2, %ah
-    movb $0, %bh
-    int $0x10
-
     movb $0x0e, %ah
     movb $'j' , %al
     int  $0x10
-    # call new_line
+    call new_line
 
     jmp loop_final
 
