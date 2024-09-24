@@ -81,7 +81,7 @@ _print_char_at_error:
 
 
 move_left:
-    addb $0xff, cursor_position
+    subb $0x1, cursor_position
     jmp main_loop
 
 move_right:
@@ -89,19 +89,31 @@ move_right:
     jmp main_loop
 
 move_up:
-    addb $0xff, cursor_position + 1
+    subb $0x1, cursor_position + 1
     jmp main_loop
 
 move_down:
     addb $0x01, cursor_position + 1
     jmp main_loop
 
+try:
+    movb $0x06, %ah # Scroll up window
+    xorb %al, %al # Clear the screen
+    movw (cursor_position), %cx # Upper left corner
+    movw (cursor_position), %dx # Lower right corner
+    movb $0x1c, %bh # Red on Blue
+    int $0x10
+
+    movb $'X', %al
+    movb $0x0e, %ah
+    int $0x10
+    jmp main_loop
+
 move_cursor:
     pusha
     movb $0x02, %ah
     movb $0, %bh
-    movb cursor_position, %dl
-    movb cursor_position + 1, %dh
+    movw cursor_position, %dx
     int $0x10
     popa
     ret
@@ -115,15 +127,16 @@ main_loop:
     xorb %al, %al
     int $0x16
 
-    cmp $0x77, %al
-    # Push current program counter to the stack
+    cmp $0x48, %ah
     je move_up
-    cmp $0x73, %al
+    cmp $0x50, %ah
     je move_down
-    cmp $0x61, %al
+    cmp $0x4b, %ah
     je move_left
-    cmp $0x64, %al
+    cmp $0x4d, %ah
     je move_right
+    cmp $0x1c, %ah
+    je try
 
     jmp main_loop
 
