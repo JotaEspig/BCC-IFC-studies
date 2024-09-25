@@ -5,27 +5,26 @@
 _start:
     call clear_screen
 
-    movw $0x0a0a, %dx
+    xorw %cx, %cx
+    movw $0x001, %ax
+    cmpb $0, (ships)
+    je draw_ships
+    movw $0x0100, %ax
+
+draw_ships:
+    movw (ships + 1), %dx
+
+_draw_ships_loop:
     push $254
     push %dx
     push $2
     call print_char_at
     add $6, %sp # Remove the arguments from the stack
+    add %ax, %dx
+    cmpw (ships + 3), %dx
+    jle _draw_ships_loop
 
-    movw $0x0a0b, %dx
-    push $254
-    push %dx
-    push $2
-    call print_char_at
-    add $6, %sp # Remove the arguments from the stack
-
-    movw $0x0a0c, %dx
-    push $254
-    push %dx
-    push $2
-    call print_char_at
-    add $6, %sp # Remove the arguments from the stack
-
+    # Move the cursor to the initial position
     movw $0x0, %dx
     movb $2, %ah
     movb $0, %bh
@@ -78,6 +77,10 @@ _print_char_at_error:
     movw $1, 18(%bp) # Return code (1 = error in the number of arguments)
     popa
     ret
+
+
+check_ship:
+
 
 
 move_left:
@@ -141,10 +144,17 @@ main_loop:
     jmp main_loop
 
 
+# Variables
 . = _start + 450
 cursor_position:
     .byte 0
     .byte 0
+ships:
+    # Ship 1
+    .byte 0 # Is vertical
+    .word 0x0a0c # Initial Position
+    .word 0x0a12 # Final Position
+
 
 . = _start + 510
 
