@@ -16,6 +16,11 @@
 
 #include "defines.hpp"
 
+/**
+ * @brief ServerTCP class that abstracts the server side of a TCP connection.
+ * Works on both Windows and Unix systems.
+ * @author João Vitor Espig (jotaespig@gmail.com)
+ **/
 class ServerTCP {
 public:
     ServerTCP();
@@ -24,7 +29,7 @@ public:
     void listen_socket();
     Client accept_client();
     void read_from_client(Client client, char *buffer, int buffer_len = BUFLEN);
-    void send_to_client(Client client);
+    void send_to_client(Client client, const char *message);
     void close();
     void cleanup();
 

@@ -77,8 +77,7 @@ void ServerTCP::read_from_client(Client client, char *buffer, int buffer_len) {
     buffer[strcspn(buffer, "\n")] = '\0';
 }
 
-void ServerTCP::send_to_client(Client client) {
-    const char *message = "Hello from server";
+void ServerTCP::send_to_client(Client client, const char *message) {
     int bytes_sent = send(client, message, strlen(message), 0);
     if (bytes_sent == SOCKET_ERROR) {
         std::cerr << "Send failed" << std::endl;
