@@ -1,4 +1,4 @@
-#include <exception>
+#include <cstring>
 #include <iostream>
 
 #include "server_tcp.hpp"
@@ -15,9 +15,7 @@ ServerTCP::ServerTCP() {
     server_fd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     if (server_fd == INVALID_SOCKET) {
         std::cerr << "Socket creation failed" << std::endl;
-#ifdef _WIN32
-        std::cerr << "Error code: " << WSAGetLastError() << std::endl;
-#endif
+        print_error();
         throw std::runtime_error("Socket creation failed");
     }
 
@@ -26,24 +24,20 @@ ServerTCP::ServerTCP() {
     address.sin_port = htons(9090);
 }
 
-void ServerTCP::bind_socket() {
-    if (bind(server_fd, (sockaddr *)&address, sizeof(address))
+void ServerTCP::bind() {
+    if (::bind(server_fd, (sockaddr *)&address, sizeof(address))
         == SOCKET_ERROR) {
         std::cerr << "Bind failed" << std::endl;
-#ifdef _WIN32
-        std::cerr << "Error code: " << WSAGetLastError() << std::endl;
-#endif
+        print_error();
         close();
         throw std::runtime_error("Bind failed");
     }
 }
 
-void ServerTCP::listen_socket() {
-    if (listen(server_fd, SOMAXCONN) == SOCKET_ERROR) {
+void ServerTCP::listen() {
+    if (::listen(server_fd, SOMAXCONN) == SOCKET_ERROR) {
         std::cerr << "Listen failed" << std::endl;
-#ifdef _WIN32
-        std::cerr << "Error code: " << WSAGetLastError() << std::endl;
-#endif
+        print_error();
         close();
         throw std::runtime_error("Listen failed");
     }
@@ -54,39 +48,42 @@ Client ServerTCP::accept_client() {
     client = accept(server_fd, NULL, NULL);
     if (client == INVALID_SOCKET) {
         std::cerr << "Accept failed" << std::endl;
-#ifdef _WIN32
-        std::cerr << "Error code: " << WSAGetLastError() << std::endl;
-#endif
+        print_error();
         close();
         throw std::runtime_error("Accept failed");
     }
     return client;
 }
 
-void ServerTCP::read_from_client(Client client, char *buffer, int buffer_len) {
+int ServerTCP::read_from_client(Client client, char *buffer, int buffer_len) {
     int bytes_received = recv(client, buffer, buffer_len, 0);
     if (bytes_received == SOCKET_ERROR) {
         std::cerr << "Receive failed" << std::endl;
-#ifdef _WIN32
-        std::cerr << "Error code: " << WSAGetLastError() << std::endl;
-#endif
+        print_error();
         close();
         throw std::runtime_error("Receive failed");
     }
     buffer[bytes_received] = '\0';
-    buffer[strcspn(buffer, "\n")] = '\0';
+    buffer[std::strcspn(buffer, "\n")] = '\0';
+    return bytes_received;
 }
 
 void ServerTCP::send_to_client(Client client, const char *message) {
     int bytes_sent = send(client, message, strlen(message), 0);
     if (bytes_sent == SOCKET_ERROR) {
         std::cerr << "Send failed" << std::endl;
-#ifdef _WIN32
-        std::cerr << "Error code: " << WSAGetLastError() << std::endl;
-#endif
+        print_error();
         close();
         throw std::runtime_error("Send failed");
     }
+}
+
+void ServerTCP::print_error() {
+#ifdef _WIN32
+    std::cerr << "Error code: " << WSAGetLastError() << std::endl;
+#else
+    std::cout << "Error: " << ::strerror(errno) << std::endl;
+#endif
 }
 
 void ServerTCP::close() {
@@ -94,7 +91,7 @@ void ServerTCP::close() {
     closesocket(server_fd);
     cleanup();
 #else
-    close(server_fd);
+    ::close(server_fd);
 #endif
 }
 

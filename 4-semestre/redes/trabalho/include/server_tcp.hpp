@@ -12,6 +12,8 @@
 #include <unistd.h>
 
 #define Client int
+#define INVALID_SOCKET -1
+#define SOCKET_ERROR -1
 #endif
 
 #include "defines.hpp"
@@ -25,11 +27,12 @@ class ServerTCP {
 public:
     ServerTCP();
 
-    void bind_socket();
-    void listen_socket();
+    void bind();
+    void listen();
     Client accept_client();
-    void read_from_client(Client client, char *buffer, int buffer_len = BUFLEN);
+    int read_from_client(Client client, char *buffer, int buffer_len = BUFLEN);
     void send_to_client(Client client, const char *message);
+    void print_error();
     void close();
     void cleanup();
 
@@ -38,7 +41,7 @@ private:
     SOCKET server_fd = INVALID_SOCKET;
     WSADATA wsaData;
 #else
-    int server_fd = 0;
+    int server_fd = INVALID_SOCKET;
 #endif
     struct sockaddr_in address;
 };

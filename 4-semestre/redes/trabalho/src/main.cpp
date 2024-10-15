@@ -8,12 +8,13 @@ int main() {
     std::cout << "Hello, World!" << std::endl;
 
     ServerTCP server;
-    server.bind_socket();
-    server.listen_socket();
+    server.bind();
+    server.listen();
     Client client = server.accept_client();
     bool should_stop = false;
     char buffer[BUFLEN] = {0};
     server.send_to_client(client, "Hello from server!\n");
+
     std::thread input_thread([&]() {
         std::string input;
         while (!should_stop) {
@@ -28,7 +29,10 @@ int main() {
     });
 
     while (!should_stop) {
-        server.read_from_client(client, buffer);
+        if (server.read_from_client(client, buffer) == 0) {
+            std::cout << "Client disconnected" << std::endl;
+            return 0;
+        }
         if (std::string(buffer) == "exit") {
             should_stop = true;
             break;
