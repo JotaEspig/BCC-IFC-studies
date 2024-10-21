@@ -1,4 +1,5 @@
 #include <iostream>
+#include <mutex>
 #include <string>
 #include <thread>
 
@@ -15,11 +16,13 @@ int main() {
     char buffer[BUFLEN] = {0};
     server.send_to_client(client, "Hello from server!\n");
 
+    std::mutex mtx;
     std::thread input_thread([&]() {
         std::string input;
         while (!should_stop) {
             std::getline(std::cin, input);
             if (input == "exit") {
+                std::lock_guard<std::mutex> lock(mtx);
                 should_stop = true;
                 break;
             }
@@ -28,12 +31,18 @@ int main() {
         }
     });
 
-    while (!should_stop) {
+    while (true) {
+        std::lock_guard<std::mutex> lock(mtx);
+        if (should_stop) {
+            break;
+        }
         if (server.read_from_client(client, buffer) == 0) {
             std::cout << "Client disconnected" << std::endl;
+            input_thread.join();
             return 0;
         }
         if (std::string(buffer) == "exit") {
+            std::lock_guard<std::mutex> lock(mtx);
             should_stop = true;
             break;
         }
