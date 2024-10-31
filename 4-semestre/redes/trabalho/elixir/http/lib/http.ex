@@ -1,23 +1,8 @@
 defmodule Http do
-  @moduledoc """
-  Documentation for `Http`.
-  """
-
-  @doc """
-  Hello world.
-
-  ## Examples
-
-      iex> Http.hello()
-      :world
-
-  """
-  def hello do
-    :world
-  end
-
   def start(_type, _args) do
     IO.puts "Application started"
+    port = Application.get_env(:http, :port)
+    Http.Supervisor.start_link port
     {:ok, self()}
   end
 end

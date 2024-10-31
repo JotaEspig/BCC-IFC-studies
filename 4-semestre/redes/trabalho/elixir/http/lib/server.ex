@@ -1,5 +1,6 @@
-defmodule Tcp.Server do
+defmodule Http.Server do
   use GenServer
+  require Logger
 
   def start_link(port) do
     GenServer.start_link(__MODULE__, port)
@@ -14,9 +15,9 @@ defmodule Tcp.Server do
   @impl true
   def handle_continue(:accept, listen_socket) do
     {:ok, client_socket} = :gen_tcp.accept(listen_socket)
-    {:ok, pid} = Tcp.Handler.start_link(client_socket)
+    {:ok, pid} = Http.Handler.start_link(client_socket)
     :gen_tcp.controlling_process(client_socket, pid)
-    IO.puts("Accepted connection")
+    Logger.info "Accepted connection"
     {:noreply, listen_socket, {:continue, :accept}}
   end
 end
