@@ -6,6 +6,10 @@ defmodule Http.Handler do
     GenServer.start_link(__MODULE__, client_socket)
   end
 
+  def start(client_socket) do
+    GenServer.start(__MODULE__, client_socket)
+  end
+
   @impl true
   def init(client_socket) do
     :inet.setopts(client_socket, active: :once)
