@@ -26,7 +26,6 @@ defmodule Http.Handler do
     {head, tail} = List.pop_at(buffers, 0)
     ctx = Map.replace!(ctx, :buffer, head)
     ctx = Map.replace!(ctx, :buffers, tail)
-    Enum.each(ctx.buffers, &Logger.debug("Buffer: #{inspect &1}"))
     {:noreply, ctx, {:continue, ctx.state}}
   end
 
@@ -75,7 +74,7 @@ defmodule Http.Handler do
     if ctx.buffer == "\r\n" or ctx.buffer == "\n" or ctx.buffer == "" do
       {:noreply, ctx, {:continue, :pre_send_response}}
     else
-      Logger.debug "NOT IMPLEMENTED BODY"
+      Logger.error "NOT IMPLEMENTED BODY"
       Logger.debug "Body: #{inspect ctx.buffer}"
       ctx = Map.replace!(ctx, :buffer, "")
       do_the_thing ctx
@@ -161,7 +160,6 @@ defmodule Http.Handler do
   end
 
   defp is_under_content_dir?(filename, content_dir) do
-    Logger.debug "Checking if #{filename} is under #{content_dir}"
     String.starts_with?(filename, content_dir)
   end
 
