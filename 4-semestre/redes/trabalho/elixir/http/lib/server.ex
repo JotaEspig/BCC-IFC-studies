@@ -16,17 +16,27 @@ defmodule Http.Server do
   @impl true
   def handle_continue(:accept, listen_socket) do
     {:ok, client_socket} = :gen_tcp.accept(listen_socket)
-    {:ok, pid} = Http.Handler.start client_socket
-    :gen_tcp.controlling_process(client_socket, pid)
-    {:ok, {client_ip, client_port}} = :inet.peername client_socket
-    client_ip = :inet_parse.ntoa client_ip
-    Logger.debug "Accepted connection from #{client_ip}:#{client_port}"
-    {:noreply, listen_socket, {:continue, :accept}}
+    {status, pid} = Http.Handler.start client_socket
+    if status == :ok do
+      Logger.debug "Started handler #{inspect pid}"
+      :gen_tcp.controlling_process(client_socket, pid)
+      {:noreply, listen_socket, {:continue, :accept}}
+    else
+      Logger.error "Failed to start handler"
+      {:noreply, listen_socket}
+    end
   end
 
   @impl true
   def handle_info({:EXIT, pid, reason}, listen_socket) do
     Logger.error "Handler #{inspect pid} exited: #{inspect reason}"
     {:noreply, listen_socket, {:continue, :accept}}
+  end
+
+  @impl true
+  def terminate(_reason, listen_socket) do
+    Logger.info "Shutting down server"
+    :gen_tcp.close(listen_socket)
+    :ok
   end
 end

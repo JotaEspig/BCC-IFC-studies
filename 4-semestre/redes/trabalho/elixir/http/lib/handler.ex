@@ -13,9 +13,14 @@ defmodule Http.Handler do
   @impl true
   def init(client_socket) do
     :inet.setopts(client_socket, active: :once)
-    {:ok, client_name} = :inet.peername client_socket
-    ctx = %Context{client_socket: client_socket, client_name: client_name}
-    {:ok, ctx}
+    {status, client_name} = :inet.peername client_socket
+    if status == :ok do
+      ctx = %Context{client_socket: client_socket, client_name: client_name}
+      {:ok, ctx}
+    else
+      Logger.error "Failed to get client name"
+      {:stop, :failed_to_get_client_name}
+    end
   end
 
   @impl true
