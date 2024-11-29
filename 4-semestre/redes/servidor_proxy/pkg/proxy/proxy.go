@@ -20,7 +20,12 @@ func convert_request_line(request_line string) (method, target, path, version st
 	target = ""
 	slash_count := 0
 	i := 0
-	for slash_count < 3 {
+	if strings.Count(parts[1], "/") < 3 {
+		path = parts[1]
+		return
+	}
+
+	for slash_count < 3 && i < len(parts[1]) {
 		if len(parts[1]) == 0 {
 			break
 		}
@@ -67,7 +72,16 @@ func (p *Proxy) handleConnection(conn net.Conn) {
 		method, target, path, version := convert_request_line(request_line)
 
 		// Connect to the target server
-		domain := strings.Split(target, "://")[1]
+		var domain string
+		if target == "" {
+			// Get target using Host
+			target_line := strings.Index(string(buff), "Host:")
+			target_line_end := strings.Index(string(buff[target_line:]), "\r\n")
+			domain = string(buff[target_line+6 : target_line+target_line_end])
+			fmt.Println(domain)
+		} else {
+			domain = strings.Split(target, "://")[1]
+		}
 		target_conn, err := net.Dial("tcp", domain+":80")
 		if err != nil {
 			fmt.Println(err)
