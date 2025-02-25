@@ -3,19 +3,19 @@
 .text
 .globl _start
 _start:
-    # 1
+    # 1 (Loop de 0 a 10)
     movb $0, %cl
 loop:
     inc %cl
     cmp $10, %cl
     jne loop
 
-    # 2
+    # 2 (Verifica se é impar)
     xor %ax, %ax
     mov $0x01, %ax
     call is_odd
 
-    # 3
+    # 3 (Utilização de instruções de jump)
     cmp $0x01, %ax
     jl loop_final
     movb $0x0e, %ah

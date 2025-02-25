@@ -34,5 +34,5 @@ image: $(BUILD_DIR)/$(SOURCE).bin $(TARGET)
 # delete all files generated 
 clean:
 	$(RM) -f $(TARGET)
-	$(RM) -f $(BUILD_DIR)$(SOURCE).o
-	$(RM) -f $(BUILD_DIR)$(SOURCE).bin
+	$(RM) -f $(BUILD_DIR)/$(SOURCE).o
+	$(RM) -f $(BUILD_DIR)/$(SOURCE).bin

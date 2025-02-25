@@ -1,9 +1,10 @@
 # Author: Éder Augusto Penharbel
+# Adaptado por João Vitor Espig
 # date: February, 2022
 # version: September 6, 2024
 
 .PHONY: clean image
-SOURCE = write
+SOURCE = template
 BUILD_DIR=build
 TARGET=$(BUILD_DIR)/floppy.img
 
@@ -33,5 +34,5 @@ image: $(BUILD_DIR)/$(SOURCE).bin $(TARGET)
 # delete all files generated 
 clean:
 	$(RM) -f $(TARGET)
-	$(RM) -f $(BUILD_DIR)$(SOURCE).o
-	$(RM) -f $(BUILD_DIR)$(SOURCE).bin
+	$(RM) -f $(BUILD_DIR)/$(SOURCE).o
+	$(RM) -f $(BUILD_DIR)/$(SOURCE).bin

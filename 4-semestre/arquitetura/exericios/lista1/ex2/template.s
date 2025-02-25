@@ -3,14 +3,14 @@
 .text
 .globl _start
 _start:
-    # 1
+    # 1 (Leitura)
     movw (v1), %ax
 
-    # 2
+    # 2 (Escrita)
     movb $0x43, (v1)
     movb $0x21, (v1 + 1)
 
-    # 3
+    # 3 (Soma de elementos de um vetor)
     movb $0, %cl
     movw $0, %ax
     movw $arr, %si
