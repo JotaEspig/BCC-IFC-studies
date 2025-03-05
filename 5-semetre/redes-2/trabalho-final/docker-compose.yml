@@ -1,0 +1,41 @@
+version: "3.9"
+
+networks:
+  trabalho-redes:
+    driver: bridge
+
+services:
+  database:
+    image: postgres:latest
+    container_name: database
+    restart: always
+    environment:
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: mydatabase
+    networks:
+      - trabalho-redes
+
+      #  backend:
+      #    build: ./backend
+      #    container_name: backend
+      #    restart: always
+      #    depends_on:
+      #      - database
+      #    environment:
+      #      DATABASE_URL: "postgresql://myuser:mypassword@database:5432/mydatabase"
+      #    networks:
+      #      - trabalho-redes
+
+  frontend:
+    image: httpd:latest
+    container_name: frontend
+    restart: always
+    #    depends_on:
+    #      - backend
+    networks:
+      - trabalho-redes
+    ports:
+      - "80:80"
+    volumes:
+      - ./frontend:/usr/local/apache2/htdocs
