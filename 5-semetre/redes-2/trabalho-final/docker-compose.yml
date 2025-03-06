@@ -13,21 +13,27 @@ services:
       POSTGRES_USER: myuser
       POSTGRES_PASSWORD: mypassword
       POSTGRES_DB: mydatabase
+    command: ["postgres", "-c", "ssl=off"]
     networks:
       - trabalho-redes
+    ports:
+      - "5432:5432"
 
-      #  backend:
-      #    build: ./backend
-      #    container_name: backend
-      #    restart: always
-      #    depends_on:
-      #      - database
-      #    environment:
-      #      DATABASE_URL: "postgresql://myuser:mypassword@database:5432/mydatabase"
-      #    networks:
-      #      - trabalho-redes
+  backend:
+    build: ./backend
+    container_name: backend
+    restart: always
+    depends_on:
+      - database
+    environment:
+      DATABASE_URL: "postgresql://myuser:mypassword@database:5432/mydatabase?sslmode=disable"
+    networks:
+      - trabalho-redes
+    ports:
+      - "8080:8080"
 
   frontend:
+    # Using apache 2 at the moment
     image: httpd:latest
     container_name: frontend
     restart: always
@@ -37,5 +43,6 @@ services:
       - trabalho-redes
     ports:
       - "80:80"
+    # Keep track of the frontend files
     volumes:
       - ./frontend:/usr/local/apache2/htdocs
