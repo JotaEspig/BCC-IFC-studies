@@ -16,8 +16,8 @@ services:
     command: ["postgres", "-c", "ssl=off"]
     networks:
       - trabalho-redes
-    ports:
-      - "5432:5432"
+    expose:
+      - "5432"
 
   backend:
     build: ./backend
@@ -37,8 +37,8 @@ services:
     image: httpd:latest
     container_name: frontend
     restart: always
-    #    depends_on:
-    #      - backend
+    depends_on:
+      - backend
     networks:
       - trabalho-redes
     ports:
