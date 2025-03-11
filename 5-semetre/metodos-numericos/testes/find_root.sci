@@ -23,10 +23,20 @@ function root = bisection(f, a, b, tol, max_iter)
     root = (a + b) / 2;
 endfunction
 
-function y = f(x)
-    y = x^3 - 2*x - 5;
+function r = fixed_point(g, x0, tol, max_iter)
+    x = x0;
+    iter = 0;
+    while iter < max_iter do
+        x_new = g(x);
+        
+        if abs(x_new - x) < tol || abs(x_new) < tol then
+            r = x_new;
+            return;
+        end
+        
+        x = x_new;
+        iter = iter + 1;
+    end
+    
+    r = x;
 endfunction
-
-root = bisection(f, 2, 3, 1e-6, 100);
-disp("Root: " + string(root));
-
