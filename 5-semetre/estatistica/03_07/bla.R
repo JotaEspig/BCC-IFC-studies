@@ -36,7 +36,7 @@ salaryCountries <- data %>%
 
 par(mar = c(7.0, 7.0, 2.0, 2.0), mgp = c(5, 1, 0))
 barplot(salaryCountries$meanSalary, names.arg = salaryCountries$pais_empreg,
-        las = 2, col = "blue", xlab = "Country", ylab = "Mean Salary (USD)",
+        las = 2, col = "blue", xlab = "Country", ylab = "Mean Salary (USD per year)",
         main = "Mean Salary by Country")
 readline()
 
