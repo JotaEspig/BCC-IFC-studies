@@ -1,0 +1,20 @@
+main {
+1: do inc Y goto 2
+2: do inc Y goto 3
+3: do inc Y goto 4
+4: do inc Y goto 5
+5: do inc Y goto 6
+6: do inc Y goto 7
+7: do inc Y goto 8
+8: do inc Y goto 9
+
+9: if zero Y then goto 13 else goto 10
+10: do dec Y goto 11
+11: do inc X goto 12
+12: do inc D goto 9
+
+13: if zero D then goto 0 else goto 14
+14: do inc Y goto 15
+15: do dec D goto 13
+}
+
