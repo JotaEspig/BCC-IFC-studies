@@ -2,7 +2,7 @@
 
 ## Atividade 1 - Funcionamento do servidor e cliente
 
-![servidor_chat.png](img/servidor_chat.png)
+![servidor_chat.png](img/servidor_chata.png)
 ![cliente_chat1.png](img/cliente_chat1.png)
 ![cliente_chat2.png](img/cliente_chat2.png)
 
