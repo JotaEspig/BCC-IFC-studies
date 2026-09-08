@@ -1,0 +1,4 @@
+CompileFlags:
+  Add:
+    - -I/home/jotaespig/BCC-IFC-studies/8-semestre/compiladores/mylang/include
+    - -std=c++17
