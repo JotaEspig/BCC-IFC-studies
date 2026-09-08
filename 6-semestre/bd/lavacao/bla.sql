@@ -1,0 +1,28 @@
+CREATE TABLE R034FUN (
+    NumCad INT PRIMARY KEY,
+    NomFun VARCHAR(100) NOT NULL,
+    CodCar INT NOT NULL REFERENCES R034CAR(CodCar),
+    CodUsu INT NOT NULL REFERENCES R034USU(CodUsu)
+);
+
+CREATE TABLE R034CAR (
+    CodCar INT PRIMARY KEY,
+    DesCar VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE R034USU (
+    CodUsu INT PRIMARY KEY,
+    NomUsu VARCHAR(100) NOT NULL
+);
+
+INSERT INTO R034CAR (CodCar, DesCar) VALUES
+(1, 'Gerenre'),
+(2, 'Lavador');
+
+INSERT INTO R034USU (CodUsu, NomUsu) VALUES
+(1, 'admin'),
+(2, 'user1');
+
+INSERT INTO R034FUN (NumCad, NomFun, CodCar, CodUsu) VALUES
+(1001, 'João Silva', 1, 1),
+(1002, 'Maria Souza', 2, 2);
