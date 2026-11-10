@@ -1,0 +1,151 @@
+{
+  "origem": "dados fictícios para demonstração",
+  "estacoes": [
+    {
+      "cidade": "Blumenau",
+      "altitude": 21,
+      "temp_media": 21.6,
+      "chuva_anual": 1969,
+      "litoral": false
+    },
+    {
+      "cidade": "Florianópolis",
+      "altitude": 3,
+      "temp_media": 21.1,
+      "chuva_anual": 1636,
+      "litoral": true
+    },
+    {
+      "cidade": "Lages",
+      "altitude": 916,
+      "temp_media": 15.8,
+      "chuva_anual": 1984,
+      "litoral": false
+    },
+    {
+      "cidade": "Chapecó",
+      "altitude": 679,
+      "temp_media": 17.1,
+      "chuva_anual": 1431,
+      "litoral": false
+    },
+    {
+      "cidade": "Joinville",
+      "altitude": 4,
+      "temp_media": 20.9,
+      "chuva_anual": 1635,
+      "litoral": true
+    },
+    {
+      "cidade": "São Joaquim",
+      "altitude": 1353,
+      "temp_media": 14.1,
+      "chuva_anual": 1930,
+      "litoral": false
+    },
+    {
+      "cidade": "Criciúma",
+      "altitude": 46,
+      "temp_media": 21.5,
+      "chuva_anual": 1998,
+      "litoral": true
+    },
+    {
+      "cidade": "Rio do Sul",
+      "altitude": 341,
+      "temp_media": 20.0,
+      "chuva_anual": 1597,
+      "litoral": false
+    },
+    {
+      "cidade": "Caçador",
+      "altitude": 920,
+      "temp_media": 15.8,
+      "chuva_anual": 1961,
+      "litoral": false
+    },
+    {
+      "cidade": "Itajaí",
+      "altitude": 1,
+      "temp_media": 21.8,
+      "chuva_anual": 1419,
+      "litoral": true
+    }
+  ],
+  "blumenau": {
+    "mensal": [
+      {
+        "mes": "Jan",
+        "temp_min": 19.7,
+        "temp_max": 30.5,
+        "chuva": 190
+      },
+      {
+        "mes": "Fev",
+        "temp_min": 19.6,
+        "temp_max": 30.4,
+        "chuva": 180
+      },
+      {
+        "mes": "Mar",
+        "temp_min": 18.7,
+        "temp_max": 29.5,
+        "chuva": 150
+      },
+      {
+        "mes": "Abr",
+        "temp_min": 16.2,
+        "temp_max": 27.0,
+        "chuva": 110
+      },
+      {
+        "mes": "Mai",
+        "temp_min": 12.9,
+        "temp_max": 23.7,
+        "chuva": 105
+      },
+      {
+        "mes": "Jun",
+        "temp_min": 11.0,
+        "temp_max": 21.8,
+        "chuva": 100
+      },
+      {
+        "mes": "Jul",
+        "temp_min": 10.7,
+        "temp_max": 21.5,
+        "chuva": 110
+      },
+      {
+        "mes": "Ago",
+        "temp_min": 12.1,
+        "temp_max": 22.9,
+        "chuva": 95
+      },
+      {
+        "mes": "Set",
+        "temp_min": 13.4,
+        "temp_max": 24.2,
+        "chuva": 150
+      },
+      {
+        "mes": "Out",
+        "temp_min": 15.5,
+        "temp_max": 26.3,
+        "chuva": 160
+      },
+      {
+        "mes": "Nov",
+        "temp_min": 17.2,
+        "temp_max": 28.0,
+        "chuva": 140
+      },
+      {
+        "mes": "Dez",
+        "temp_min": 18.9,
+        "temp_max": 29.7,
+        "chuva": 165
+      }
+    ]
+  }
+}

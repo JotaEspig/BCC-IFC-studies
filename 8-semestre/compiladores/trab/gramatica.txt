@@ -1,0 +1,249 @@
+==============================================================================
+ GRAMÁTICA LIVRE DE CONTEXTO DA LINGUAGEM DE DASHBOARDS (dashc)
+==============================================================================
+
+G = (V, T, P, S)
+
+  V (não-terminais) = { programa, itens, item, configuracao, tema, fonte,
+                        formato, elementos, elemento, tipo_grafico,
+                        propriedades, propriedade, prop_texto, prop_numero,
+                        booleano, lista_cores, lista_series, serie,
+                        serie_base, agregacao, direcao, expr, coluna,
+                        palavra }
+
+  T (terminais)     = palavras reservadas, símbolos, NUM, STRING e ID
+                      (definidos na seção 2)
+
+  S (símbolo inicial) = programa
+
+  P (produções)     = seção 1
+
+Notação: não-terminais em minúsculas; terminais entre aspas simples ou em
+MAIÚSCULAS (NUM, STRING, ID); ε é a cadeia vazia; | separa alternativas.
+
+A implementação desta gramática está em src/parser.y (bison) e a dos
+terminais em src/lexer.l (flex).
+
+
+------------------------------------------------------------------------------
+ 1. PRODUÇÕES
+------------------------------------------------------------------------------
+
+programa      → 'dashboard' STRING '{' itens '}'
+
+itens         → ε
+              | itens item
+
+item          → configuracao
+              | fonte
+              | elemento
+
+configuracao  → 'tema' ':' tema ';'
+              | 'colunas' ':' NUM ';'
+
+tema          → 'claro' | 'escuro' | 'auto'
+
+fonte         → 'fonte' ID '=' formato '(' STRING ')' ';'
+              | 'fonte' ID '=' formato '(' STRING ',' STRING ')' ';'
+
+formato       → 'csv' | 'json'
+
+elementos     → ε
+              | elementos elemento
+
+elemento      → 'grafico' tipo_grafico STRING '{' propriedades '}'
+              | 'indicador' STRING '{' propriedades '}'
+              | 'texto' STRING ';'
+              | 'secao' STRING '{' elementos '}'
+
+tipo_grafico  → 'linha' | 'barra' | 'coluna' | 'area'
+              | 'pizza' | 'rosca' | 'dispersao'
+
+propriedades  → ε
+              | propriedades propriedade
+
+propriedade   → 'dados' ':' ID ';'
+              | 'x' ':' coluna ';'
+              | 'y' ':' lista_series ';'
+              | 'valor' ':' serie ';'
+              | 'filtro' ':' expr ';'
+              | 'ordenar' ':' serie_base direcao ';'
+              | 'limite' ':' NUM ';'
+              | prop_texto ':' STRING ';'
+              | prop_numero ':' NUM ';'
+              | 'empilhado' ':' booleano ';'
+              | 'cores' ':' lista_cores ';'
+
+prop_texto    → 'titulo_x' | 'titulo_y' | 'prefixo' | 'sufixo'
+
+prop_numero   → 'largura' | 'altura' | 'decimais'
+
+booleano      → 'sim' | 'nao'
+
+lista_cores   → STRING
+              | lista_cores ',' STRING
+
+lista_series  → serie
+              | lista_series ',' serie
+
+serie         → serie_base
+              | serie_base 'como' STRING
+
+serie_base    → expr
+              | agregacao '(' expr ')'
+              | 'contagem' '(' expr ')'
+              | 'contagem' '(' ')'
+
+agregacao     → 'soma' | 'media' | 'minimo' | 'maximo'
+
+direcao       → ε | 'asc' | 'desc'
+
+expr          → expr 'ou' expr
+              | expr 'e' expr
+              | 'nao' expr
+              | expr '==' expr
+              | expr '!=' expr
+              | expr '<'  expr
+              | expr '<=' expr
+              | expr '>'  expr
+              | expr '>=' expr
+              | expr '+' expr
+              | expr '-' expr
+              | expr '*' expr
+              | expr '/' expr
+              | '-' expr
+              | '(' expr ')'
+              | NUM
+              | STRING
+              | coluna
+
+coluna        → ID | 'x' | 'y' | palavra
+
+palavra       → 'dashboard' | 'fonte' | 'csv' | 'json' | 'tema' | 'claro'
+              | 'escuro' | 'auto' | 'colunas' | 'grafico' | 'indicador'
+              | 'texto' | 'secao' | 'linha' | 'barra' | 'coluna' | 'area'
+              | 'pizza' | 'rosca' | 'dispersao' | 'dados' | 'valor'
+              | 'filtro' | 'ordenar' | 'limite' | 'titulo_x' | 'titulo_y'
+              | 'prefixo' | 'sufixo' | 'largura' | 'altura' | 'decimais'
+              | 'empilhado' | 'cores'
+
+Observações:
+
+  * O não-terminal `palavra` existe para que palavras reservadas possam ser
+    usadas como nome de coluna dentro de expressões (é comum um CSV ter uma
+    coluna chamada `valor`, `dados` ou `texto`). Não há ambiguidade: uma
+    propriedade sempre começa por palavra-chave seguida de ':', e uma
+    expressão sempre termina em ';', ',', ')', 'como', 'asc' ou 'desc'.
+    Ficam de fora (reservadas estritas): soma, media, minimo, maximo,
+    contagem, como, asc, desc, sim, e, ou, nao.
+
+  * As produções de `expr` são ambíguas como escritas acima. A ambiguidade
+    é resolvida por precedência e associatividade (declaradas no bison com
+    %left / %right / %nonassoc), da MENOR para a MAIOR precedência:
+
+        1.  ou                          associativo à esquerda
+        2.  e                           associativo à esquerda
+        3.  nao                         unário, à direita
+        4.  ==  !=  <  <=  >  >=        não associativos (a < b < c é erro)
+        5.  +  -                        associativos à esquerda
+        6.  *  /                        associativos à esquerda
+        7.  - (unário)                  à direita
+
+    Uma gramática equivalente e NÃO ambígua, com a precedência codificada
+    nas próprias produções, é:
+
+        expr     → expr 'ou' conj            | conj
+        conj     → conj 'e' neg              | neg
+        neg      → 'nao' neg                 | comp
+        comp     → soma op_rel soma          | soma
+        op_rel   → '==' | '!=' | '<' | '<=' | '>' | '>='
+        soma     → soma '+' termo | soma '-' termo | termo
+        termo    → termo '*' fator | termo '/' fator | fator
+        fator    → '-' fator | primario
+        primario → '(' expr ')' | NUM | STRING | coluna
+
+
+------------------------------------------------------------------------------
+ 2. TERMINAIS (definição léxica, por expressões regulares)
+------------------------------------------------------------------------------
+
+  NUM      = [0-9]+ ( '.' [0-9]+ )?
+               ex.: 10   3.14
+
+  STRING   = '"' ( [^"\\\n] | '\\' . )* '"'
+               ex.: "Vendas 2025"   "aspas: \"x\""   "linha 1\nlinha 2"
+             Escapes: \"  \\  \n  \t
+
+  ID       = LETRA ( LETRA | [0-9] )*          LETRA = [A-Za-z_] ou byte UTF-8
+           | '[' [^\]\n]+ ']'                   (identificador entre colchetes)
+               ex.: receita   região   [Receita Total]   [e]
+             A forma entre colchetes permite nomes de coluna com espaços ou
+             iguais a palavras reservadas estritas.
+
+  Palavras reservadas (algumas aceitam a grafia acentuada):
+      dashboard fonte csv json tema claro escuro auto colunas
+      grafico (gráfico) indicador texto secao (seção)
+      linha barra coluna area (área) pizza rosca dispersao (dispersão)
+      dados x y valor filtro ordenar limite titulo_x titulo_y prefixo sufixo
+      largura altura decimais empilhado cores
+      soma media (média) minimo (mínimo) maximo (máximo) contagem
+      como asc desc sim
+      e (&&)   ou (||)   nao (não, !)
+
+  Símbolos:
+      {  }  (  )  :  ;  ,  =  +  -  *  /  <  >  <=  >=  ==  !=
+
+  Ignorados:
+      espaços, tabulações e quebras de linha
+      comentários:   # até o fim da linha
+                     // até o fim da linha
+                     /* bloco */
+
+
+------------------------------------------------------------------------------
+ 3. RESTRIÇÕES SEMÂNTICAS (não expressas pela GLC; verificadas em semantico.c)
+------------------------------------------------------------------------------
+
+  * Toda fonte usada em `dados` deve estar declarada (ou ser informada na
+    linha de comando como nome=arquivo); nomes de fonte não se repetem.
+  * Toda coluna citada deve existir na fonte do elemento.
+  * Uma mesma propriedade não pode aparecer duas vezes no mesmo elemento.
+  * grafico exige `dados`, `x` e `y`; indicador exige `dados` e `valor`.
+  * `valor` só vale em indicador e deve usar uma agregação.
+  * x, y, ordenar, limite, titulo_x, titulo_y, largura, altura, empilhado e
+    cores só valem em grafico.
+  * Em `y`, ou todas as séries usam agregação ou nenhuma usa.
+  * pizza e rosca aceitam exatamente uma série.
+  * Em gráfico agregado, `ordenar` aceita a coluna de `x` ou uma agregação;
+    em gráfico não agregado, `ordenar` não aceita agregação.
+  * Faixas: colunas 1..6, largura 1..6, altura 120..2000, decimais 0..6,
+    limite >= 1 (todos inteiros).
+  * Cores: "#rgb", "#rrggbb" ou um nome CSS (apenas letras).
+
+
+------------------------------------------------------------------------------
+ 4. EXEMPLO DE SENTENÇA DA LINGUAGEM
+------------------------------------------------------------------------------
+
+  dashboard "Vendas" {
+      tema: claro;
+      colunas: 2;
+      fonte vendas = csv("dados/vendas.csv");
+
+      indicador "Receita total" {
+          dados: vendas;
+          valor: soma(receita);
+          prefixo: "R$ ";
+      }
+
+      secao "Por região" {
+          grafico barra "Lucro por região" {
+              dados: vendas;
+              x: regiao;
+              y: soma(receita - custo) como "Lucro";
+              filtro: mes != "Jan" e receita > 1000;
+              ordenar: soma(receita - custo) desc;
+              limite: 5;
+          }
+      }
+  }

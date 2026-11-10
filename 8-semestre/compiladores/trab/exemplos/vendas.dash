@@ -1,0 +1,89 @@
+# Exemplo: painel de vendas a partir de um CSV
+dashboard "Painel de Vendas 2025" {
+    tema: auto;
+    colunas: 2;
+
+    fonte vendas = csv("dados/vendas.csv");
+
+    texto "Resumo das vendas de 2025 por mês, região e produto. Dados fictícios.";
+
+    indicador "Receita total" {
+        dados: vendas;
+        valor: soma(receita);
+        prefixo: "R$ ";
+        decimais: 0;
+    }
+    indicador "Lucro bruto" {
+        dados: vendas;
+        valor: soma(receita - custo);
+        prefixo: "R$ ";
+        decimais: 0;
+    }
+    indicador "Unidades vendidas" {
+        dados: vendas;
+        valor: soma(unidades);
+    }
+    indicador "Ticket médio por venda" {
+        dados: vendas;
+        valor: media(receita);
+        prefixo: "R$ ";
+    }
+
+    grafico linha "Receita e custo por mês" {
+        dados: vendas;
+        x: mes;
+        y: soma(receita) como "Receita", soma(custo) como "Custo";
+        titulo_y: "R$";
+        prefixo: "R$ ";
+        decimais: 0;
+        largura: 2;
+    }
+
+    secao "Regiões" {
+        grafico barra "Receita por região" {
+            dados: vendas;
+            x: regiao;
+            y: soma(receita) como "Receita";
+            ordenar: soma(receita) desc;
+            prefixo: "R$ ";
+            decimais: 0;
+        }
+        grafico rosca "Participação das regiões nas unidades" {
+            dados: vendas;
+            x: regiao;
+            y: soma(unidades) como "Unidades";
+            ordenar: soma(unidades) desc;
+        }
+    }
+
+    secao "Produtos" {
+        grafico coluna "Lucro por produto no 2º semestre (Sul e Sudeste)" {
+            dados: vendas;
+            x: produto;
+            y: soma(receita - custo) como "Lucro";
+            filtro: (regiao == "Sul" ou regiao == "Sudeste")
+                    e nao (mes == "Jan" ou mes == "Fev" ou mes == "Mar"
+                           ou mes == "Abr" ou mes == "Mai" ou mes == "Jun");
+            prefixo: "R$ ";
+            decimais: 0;
+        }
+        grafico dispersao "Unidades x receita (vendas acima de R$ 20 mil)" {
+            dados: vendas;
+            x: unidades;
+            y: receita como "Venda";
+            filtro: receita > 20000;
+            titulo_x: "Unidades";
+            titulo_y: "Receita (R$)";
+        }
+        grafico coluna "Composição da receita por mês: custo e margem" {
+            dados: vendas;
+            x: mes;
+            y: soma(custo) como "Custo", soma(receita - custo) como "Margem";
+            empilhado: sim;
+            prefixo: "R$ ";
+            decimais: 0;
+            largura: 2;
+            altura: 360;
+        }
+    }
+}

@@ -1,0 +1,47 @@
+/* Exemplo: fontes JSON com caminho até o array de registros */
+dashboard "Clima em Santa Catarina" {
+    tema: escuro;
+    colunas: 2;
+
+    fonte estacoes = json("dados/clima.json", "estacoes");
+    fonte mensal   = json("dados/clima.json", "blumenau.mensal");
+
+    indicador "Estações" { dados: estacoes; valor: contagem(); }
+    indicador "Temperatura média" {
+        dados: estacoes; valor: media(temp_media); sufixo: " °C"; decimais: 1;
+    }
+    indicador "Maior altitude" { dados: estacoes; valor: maximo(altitude); sufixo: " m"; }
+    indicador "Estações no litoral" {
+        dados: estacoes; valor: contagem(); filtro: litoral == "true";
+    }
+
+    grafico area "Blumenau: temperaturas mínima e máxima" {
+        dados: mensal;
+        x: mes;
+        y: temp_max como "Máxima", temp_min como "Mínima";
+        sufixo: " °C";
+        titulo_y: "°C";
+    }
+    grafico coluna "Blumenau: chuva mensal" {
+        dados: mensal;
+        x: mes;
+        y: chuva como "Chuva";
+        sufixo: " mm";
+        cores: "#3987e5";
+    }
+    grafico dispersao "Altitude x temperatura média" {
+        dados: estacoes;
+        x: altitude;
+        y: temp_media como "Estação";
+        titulo_x: "Altitude (m)";
+        titulo_y: "Temperatura média (°C)";
+    }
+    grafico barra "As 5 cidades mais chuvosas" {
+        dados: estacoes;
+        x: cidade;
+        y: chuva_anual como "Chuva anual";
+        ordenar: chuva_anual desc;
+        limite: 5;
+        sufixo: " mm";
+    }
+}
